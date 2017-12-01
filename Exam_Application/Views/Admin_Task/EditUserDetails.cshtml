@@ -1,0 +1,68 @@
+﻿@model Exam_Application.Models.DAL.tbl_User_Profiless
+@{
+
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="panel panel-default mrg">
+                <div class="panel-heading"><div class="widget-modal"><h4 class="widget-modal-title">Add <span>Users</span><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></h4></div></div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("EditUserDetails", "Admin_Task", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.HiddenFor(x => x.pkid)
+                        @Html.HiddenFor(x => x.User_fkid)
+                        @Html.HiddenFor(x => x.RoleName)
+                        @Html.HiddenFor(x => x.UserName)
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary()
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Full Name</small></label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control Rajstring", placeholder = "Enter Full Name", @required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Email Id</small></label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.EmailAddress, new { @class = "form-control Rajstring", placeholder = "Enter Email Address" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Mobile Number</small></label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.MobileNumber, new { @class = "form-control Rajnumber", placeholder = "Enter Mobile Number" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Address Line1</small></label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.AddressLine1, new { @class = "form-control Rajstring" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Address Line2</small></label>
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(x => x.AddressLine2, new { @class = "form-control Rajstring" })
+                            </div>
+                        </div>
+
+                        <div class="form-group text-left">
+                            <div class="col-sm-offset-3 col-sm-10">
+                                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Save</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>

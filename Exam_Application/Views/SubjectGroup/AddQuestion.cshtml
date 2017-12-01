@@ -1,0 +1,168 @@
+﻿@model Exam_Application.Models.DAL.tbl_QuestionMasterss
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .form-horizontal .form-group {
+        margin:0 !important;
+    }
+   .mce-container-body {
+        background-color:#E7E7E7;
+    }
+</style>
+<script src="~/scripts/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+
+    tinyMCE.init({"selector":"textarea","theme":"modern","plugins":"advlist,autolink,lists,link,image,charmap,print,preview,hr,anchor,pagebreak,\r\n                            searchreplace,wordcount,visualblocks,visualchars,code,fullscreen,\r\n                            insertdatetime,media,nonbreaking,save,table,contextmenu,directionality,\r\n                            emoticons,template,paste,textcolor,colorpicker","relative_urls":false,"browser_spellcheck":true,"toolbar1":"insertfile, undo, redo, |, styleselect, fontselect, |, fontsizeselect, |, bold, italic, |, alignleft, aligncenter, alignright, alignjustify, |, bullist, numlist, outdent, indent","toolbar2":"link, image, media,  emoticons, |, colorpicker, forecolor, backcolor, |, preview, print, code","image_advtab":true,file_browser_callback : elFinderBrowser,"language":"en","mode":"exact","elements":"question"});$(".tinybtn").hide();function elFinderBrowser (field_name, url, type, win) {tinyMCE.activeEditor.windowManager.open({file: "#",title: "File Manager",width: 900,  height: 500,resizable: "yes"}, {setUrl: function (url) {win.document.getElementById(field_name).value = url;}});return false;}
+</script>
+<div id="page-content">
+    <div class="container mrg">
+
+        @using (Html.BeginForm("AddQuestion", "SubjectGroup", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="widget">
+                                <h4 class="widget-title">Add <span>Questions</span></h4>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <h5><strong>Subject Type</strong></h5>
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id1" value="1"><label for="qtype_id1" class="radio-inline">Objective Questions</label></div>
+                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id2" value="2"><label for="qtype_id2" class="radio-inline">True / False</label></div>
+                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id3" value="3"><label for="qtype_id3" class="radio-inline">Fill in the blanks</label></div>
+                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id4" value="4"><label for="qtype_id4" class="radio-inline">Subjective</label></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ul class="nav nav-tabs" id="myquestiontab">
+                                <li class="active"><a href="http://eduexpression.com/envato/admin/Questions/add#Question" data-toggle="tab">Question</a></li>
+                                <li><a href="http://eduexpression.com/envato/admin/Questions/add#Answer1" data-toggle="tab">Answer1</a></li>
+                                <li><a href="http://eduexpression.com/envato/admin/Questions/add#Answer2" data-toggle="tab">Answer2</a></li>
+                                <li><a href="http://eduexpression.com/envato/admin/Questions/add#Answer3" data-toggle="tab">Answer3</a></li>
+                                <li><a href="http://eduexpression.com/envato/admin/Questions/add#Answer4" data-toggle="tab">Answer4</a></li>
+                                <li><a href="http://eduexpression.com/envato/admin/Questions/add#Answer5" data-toggle="tab">Answer5</a></li>
+                                <li><a href="http://eduexpression.com/envato/admin/Questions/add#Answer6" data-toggle="tab">Answer6</a></li>
+                                <li><a href="http://eduexpression.com/envato/admin/Questions/add#CorrectAnswer" data-toggle="tab">Correct Answers</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="Question">
+                                    <h4>Question</h4><hr>
+                                    <textarea name="data[Question][question]" class="form-control" placeholder="Question" cols="30" rows="6" id="QuestionQuestion"></textarea><br>
+                                 
+                                </div>
+                                <div class="tab-pane" id="Answer1">
+                                    <h4>Answer1</h4><hr>
+                                    <textarea name="data[Question][option1]" class="form-control" placeholder="Answer1" cols="30" rows="6" id="QuestionOption1"></textarea><br>
+                                </div>
+                                <div class="tab-pane" id="Answer2">
+                                    <h4>Answer2</h4><hr>
+                                    <textarea name="data[Question][option2]" class="form-control" placeholder="Answer2" cols="30" rows="6" id="QuestionOption2"></textarea><br>
+                                </div>
+                                <div class="tab-pane" id="Answer3">
+                                    <h4>Answer3</h4><hr>
+                                    <textarea name="data[Question][option3]" class="form-control" placeholder="Answer3" cols="30" rows="6" id="QuestionOption3"></textarea><br>
+                                </div>
+                                <div class="tab-pane" id="Answer4">
+                                    <h4>Answer4</h4><hr>
+                                    <textarea name="data[Question][option4]" class="form-control" placeholder="Answer4" cols="30" rows="6" id="QuestionOption4"></textarea><br>
+                                </div>
+                                <div class="tab-pane" id="Answer5">
+                                    <h4>Answer5</h4><hr>
+                                    <textarea name="data[Question][option5]" class="form-control" placeholder="Answer5" cols="30" rows="6" id="QuestionOption5"></textarea><br>
+                                </div>
+                                <div class="tab-pane" id="Answer6">
+                                    <h4>Answer6</h4><hr>
+                                    <textarea name="data[Question][option6]" class="form-control" placeholder="Answer6" cols="30" rows="6" id="QuestionOption6"></textarea><br>
+                                </div>
+                                <div class="tab-pane" id="CorrectAnswer">
+                                    <div class="input select">
+                                        <label for="QuestionAnswer">Answer</label><input type="hidden" name="data[Question][answer]" value="" id="QuestionAnswer">
+                                        <div class="checkbox"><input type="checkbox" name="data[Question][answer][]" value="1" id="QuestionAnswer1"><label for="QuestionAnswer1">Answer1</label></div>
+                                        <div class="checkbox"><input type="checkbox" name="data[Question][answer][]" value="2" id="QuestionAnswer2"><label for="QuestionAnswer2">Answer2</label></div>
+                                        <div class="checkbox"><input type="checkbox" name="data[Question][answer][]" value="3" id="QuestionAnswer3"><label for="QuestionAnswer3">Answer3</label></div>
+                                        <div class="checkbox"><input type="checkbox" name="data[Question][answer][]" value="4" id="QuestionAnswer4"><label for="QuestionAnswer4">Answer4</label></div>
+                                        <div class="checkbox"><input type="checkbox" name="data[Question][answer][]" value="5" id="QuestionAnswer5"><label for="QuestionAnswer5">Answer5</label></div>
+                                        <div class="checkbox"><input type="checkbox" name="data[Question][answer][]" value="6" id="QuestionAnswer6"><label for="QuestionAnswer6">Answer6</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body" id="tf" style="display: none;">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <h5><strong>True/False</strong></h5>
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="radio-inline">
+                                                    <input type="radio" name="data[Question][true_false]" id="QuestionTrueFalseTrue" value="True"><label for="QuestionTrueFalseTrue" class="radio-inline">True</label>
+                                                </div><div class="radio-inline"><input type="radio" name="data[Question][true_false]" id="QuestionTrueFalseFalse" value="False"><label for="QuestionTrueFalseFalse" class="radio-inline">False</label>                                                        </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="ftb" style="display: none;">
+                                <label for="QuestionFillBlank">Blank Space</label><input name="data[Question][fill_blank]" class="form-control" placeholder="Blank Space" maxlength="100" type="text" id="QuestionFillBlank">
+                            </div>
+                            <div class="form-group">
+                                <label for="QuestionExplanation">Explanation</label><hr>
+                                <textarea name="data[Question][explanation]" class="form-control" placeholder="Explanation" cols="30" rows="6" id="QuestionExplanation"></textarea><br>
+                            </div>
+                            <div class="panel panel-default mrg pull-left">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label for="QuestionSubjectId">Subject</label><div class="QuestionSubjectIdformError parentFormpost_req formError" style="opacity: 0.87; position: absolute; top: 769px; left: 710px; margin-top: -43px;"><div class="formErrorContent">* This field is required<br></div><div class="formErrorArrow"><div class="line10"><!-- --></div><div class="line9"><!-- --></div><div class="line8"><!-- --></div><div class="line7"><!-- --></div><div class="line6"><!-- --></div><div class="line5"><!-- --></div><div class="line4"><!-- --></div><div class="line3"><!-- --></div><div class="line2"><!-- --></div><div class="line1"><!-- --></div></div></div><select name="data[Question][subject_id]" class="form-control validate[required]" id="QuestionSubjectId">
+                                            <option value="">(Please Select)</option>
+                                            <option value="1">Biology</option>
+                                            <option value="5">Chemistry</option>
+                                            <option value="6">Electronics</option>
+                                            <option value="3">Maths</option>
+                                            <option value="2">Physics</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Hint</label><input name="data[Question][hint]" class="form-control" placeholder="Hint" type="text" id="QuestionHint">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="QuestionMarks">Marks</label><input name="data[Question][marks]" class="form-control validate[required,custom[number]]" placeholder="Marks" step="any" type="number" id="QuestionMarks">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Negative Marks</label><input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4" style="margin-bottom: 2%;">
+                                        <div class="form-group">
+                                            <label for="QuestionDiffId">Difficulty Level</label><select name="data[Question][diff_id]" class="form-control validate[required]" id="QuestionDiffId">
+                                                <option value="">(Please Select)</option>
+                                                <option value="1">Easy</option>
+                                                <option value="2">Medium</option>
+                                                <option value="3">Difficult</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Save</button>
+                                    <button type="button" class="btn btn-danger" onclick="window.location=&#39;index&#39;"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>

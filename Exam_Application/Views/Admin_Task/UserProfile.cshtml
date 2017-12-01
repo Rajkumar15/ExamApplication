@@ -1,0 +1,59 @@
+﻿@model Exam_Application.Models.DAL.tbl_User_Profiless
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="page-content">
+    <div class="container mrg">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="widget">
+                            <h4 class="widget-title">My <span>Profile</span></h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td><strong class="text-danger"><small>Full Name</small></strong></td>
+                                        <td><strong><small>@Html.DisplayFor(x => x.FirstName)</small></strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="text-danger"><small>UserName</small></strong></td>
+                                        <td><strong><small>@Html.DisplayFor(x => x.UserName)</small></strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="text-danger"><small>Role Name</small></strong></td>
+                                        <td><strong><small>@Html.DisplayFor(x => x.RoleName)</small></strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="text-danger"><small>Email</small></strong></td>
+                                        <td><strong><small>@Html.DisplayFor(x => x.EmailAddress)</small></strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="text-danger"><small>Mobile Number</small></strong></td>
+                                        <td><strong><small>@Html.DisplayFor(x => x.MobileNumber)</small></strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="text-danger"><small>Address Line 1</small></strong></td>
+                                        <td><strong><small>@Html.DisplayFor(x => x.AddressLine1)</small></strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="text-danger"><small>Address Line 2</small></strong></td>
+                                        <td><strong><small>@Html.DisplayFor(x => x.AddressLine2)</small></strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong class="text-danger"><small>Register Date</small></strong></td>
+                                        <td><strong><small>@Html.DisplayFor(x => x.RegisteredDate.Value.Date)</small></strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

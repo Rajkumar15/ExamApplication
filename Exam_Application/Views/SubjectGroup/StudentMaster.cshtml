@@ -1,0 +1,103 @@
+﻿@model Exam_Application.Models.DAL.tbl_StudentMasterss
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .firstdiv {
+        margin-bottom: 8px;
+    }
+
+    .Seconddiv {
+        margin: 6px 6px 6px 6px;
+    }
+
+    .dataTables_paginate {
+        margin-bottom: 3%;
+    }
+</style>
+<div id="page-content">
+    <div class="container mrg">
+        <div class="row firstdiv">
+            <div class="col-md-12">
+                <div class="btn-group">
+                    <a href="#" name="add" id="add" onclick="check_perform_add('/SubjectGroup/AddStudent');" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add New Student</a>            <a href="http://eduexpression.com/envato/admin/Students#" name="editallfrm" id="editallfrm" onclick="check_perform_edit(&#39;/envato/admin/Students&#39;);" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>            <a href="http://eduexpression.com/envato/admin/Students#" name="deleteallfrm" id="deleteallfrm" onclick="check_perform_delete();" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>     
+                </div>
+            </div>
+        
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="widget">
+                            <h4 class="widget-title"> <span>Students</span></h4>
+                        </div>
+                    </div>
+                    <div class="table-responsive Seconddiv">
+                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th><input type="checkbox" name="selectAll" value="deleteall" id="selectAll"></th>
+                                    <th>Email</th>
+                                    <th>Enrolment Number</th>
+                                    <th>Phone</th>
+                                    <th>Date of Admission</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <div class="modal fade" id="targetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ('@ViewBag.Exception' != "") {
+            alert("@ViewBag.Exception");
+        }
+    })
+    $('.js-basic-example').DataTable({
+        "processing": true, // for show progress bar
+        "serverSide": true, // for process server side
+        "filter": true, // this is for disable filter (search box)
+        "orderMulti": false, // for disable multiple column at once
+
+        "ajax": {
+            "url": "/SubjectGroup/GetStudentList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "columns": [
+                { "data": "pkid", "name": "pkid", "orderable": false, "autoWidth": true },
+                 {
+                     "data": "pkid", "orderable": false, "render": function (data, type, full, meta) {
+                         return '<input type="checkbox" style="margin-left:8px;" value="' + data + '" name="DeleteCheckbox1" id="DeleteCheckbox1" class="chkselect">';
+                     }
+                 },
+                { "data": "email", "Name": "email", "autoWidth": true },
+                   { "data": "env", "Name": "env", "autoWidth": true },
+                      { "data": "phone", "Name": "phone", "autoWidth": true },
+                      { "data": "doa", "Name": "doa", "autoWidth": true },
+                        { "data": "co", "Name": "co", "autoWidth": true },
+                {
+                    "data": "pkid", "orderable": false, "render": function (data, type, full, meta) {
+                        return '<a href="#" name="/SubjectGroup/AddGroup?id=' + data + '" onclick="EditUserTable(this)" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>                            <a href="#" onclick="check_perform_sdelete(' + data + ');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>';
+                    }
+                }
+
+        ],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+            $("td:first", nRow).html(iDisplayIndex + 1);
+            return nRow;
+        }
+    })
+</script>
+

@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Exam_MasterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_GroupMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar(max)" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="adddate" Type="datetime" />
+          <Property Name="lastdatemodified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_QuestionMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subjecttype_fkid" Type="int" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="Explaination" Type="nvarchar(max)" />
+          <Property Name="Subject_fkid" Type="nvarchar(max)" />
+          <Property Name="hint" Type="nvarchar(max)" />
+          <Property Name="Marks" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NegativeMarks" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SelectLevel" Type="int" />
+          <Property Name="Adddate" Type="datetime" />
+          <Property Name="Status" Type="int" />
+          <Property Name="lastModified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_Stude_subjectTypeList">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stud_fkid" Type="int" />
+          <Property Name="subtype_fkid" Type="int" />
+          <Property Name="addate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_StudentMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="mobileno" Type="nvarchar(max)" />
+          <Property Name="GuardianContact" Type="nvarchar(max)" />
+          <Property Name="Enrollnmentno" Type="nvarchar(max)" />
+          <Property Name="status" Type="int" />
+          <Property Name="ProfilePhoto" Type="nvarchar(max)" />
+          <Property Name="Adddate" Type="datetime" />
+          <Property Name="lastmodifieddate" Type="datetime" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="user_fkid" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tbl_Subject_master">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subjectName" Type="nvarchar(max)" />
+          <Property Name="subjectDescription" Type="nvarchar(max)" />
+          <Property Name="adddate" Type="datetime" />
+          <Property Name="lastmodifieddate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_SubjectType_Master">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subjecttype" Type="nvarchar(max)" />
+          <Property Name="adddate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_User_Profile">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_fkid" Type="nvarchar(max)" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="MiddleName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="RoleName" Type="nvarchar(max)" />
+          <Property Name="AddressLine1" Type="nvarchar(max)" />
+          <Property Name="AddressLine2" Type="nvarchar(max)" />
+          <Property Name="MobileNumber" Type="nvarchar(max)" />
+          <Property Name="EmailAddress" Type="nvarchar(max)" />
+          <Property Name="Lid" Type="int" />
+          <Property Name="RegisteredDate" Type="datetime" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+          <Property Name="mid" Type="int" />
+          <Property Name="mdate" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="Exam_MasterModelStoreContainer">
+          <EntitySet Name="tbl_GroupMaster" EntityType="Self.tbl_GroupMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_QuestionMaster" EntityType="Self.tbl_QuestionMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Stude_subjectTypeList" EntityType="Self.tbl_Stude_subjectTypeList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_StudentMaster" EntityType="Self.tbl_StudentMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Subject_master" EntityType="Self.tbl_Subject_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SubjectType_Master" EntityType="Self.tbl_SubjectType_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_User_Profile" EntityType="Self.tbl_User_Profile" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Exam_MasterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_GroupMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="adddate" Type="DateTime" Precision="3" />
+          <Property Name="lastdatemodified" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_QuestionMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subjecttype_fkid" Type="Int32" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Explaination" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Subject_fkid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="hint" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Marks" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NegativeMarks" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SelectLevel" Type="Int32" />
+          <Property Name="Adddate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="lastModified" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_Stude_subjectTypeList">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stud_fkid" Type="Int32" />
+          <Property Name="subtype_fkid" Type="Int32" />
+          <Property Name="addate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_StudentMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="mobileno" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GuardianContact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Enrollnmentno" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="ProfilePhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Adddate" Type="DateTime" Precision="3" />
+          <Property Name="lastmodifieddate" Type="DateTime" Precision="3" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_fkid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_Subject_master">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="subjectDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="adddate" Type="DateTime" Precision="3" />
+          <Property Name="lastmodifieddate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_SubjectType_Master">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subjecttype" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="adddate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_User_Profile">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_fkid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RoleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Lid" Type="Int32" />
+          <Property Name="RegisteredDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="mid" Type="Int32" />
+          <Property Name="mdate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="Exam_MasterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_GroupMaster" EntityType="Self.tbl_GroupMaster" />
+          <EntitySet Name="tbl_QuestionMaster" EntityType="Self.tbl_QuestionMaster" />
+          <EntitySet Name="tbl_Stude_subjectTypeList" EntityType="Self.tbl_Stude_subjectTypeList" />
+          <EntitySet Name="tbl_StudentMaster" EntityType="Self.tbl_StudentMaster" />
+          <EntitySet Name="tbl_Subject_master" EntityType="Self.tbl_Subject_master" />
+          <EntitySet Name="tbl_SubjectType_Master" EntityType="Self.tbl_SubjectType_Master" />
+          <EntitySet Name="tbl_User_Profile" EntityType="Self.tbl_User_Profile" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Exam_MasterModelStoreContainer" CdmEntityContainer="Exam_MasterEntities">
+          <EntitySetMapping Name="tbl_GroupMaster">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_GroupMaster">
+              <MappingFragment StoreEntitySet="tbl_GroupMaster">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="adddate" ColumnName="adddate" />
+                <ScalarProperty Name="lastdatemodified" ColumnName="lastdatemodified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_QuestionMaster">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_QuestionMaster">
+              <MappingFragment StoreEntitySet="tbl_QuestionMaster">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="subjecttype_fkid" ColumnName="subjecttype_fkid" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Explaination" ColumnName="Explaination" />
+                <ScalarProperty Name="Subject_fkid" ColumnName="Subject_fkid" />
+                <ScalarProperty Name="hint" ColumnName="hint" />
+                <ScalarProperty Name="Marks" ColumnName="Marks" />
+                <ScalarProperty Name="NegativeMarks" ColumnName="NegativeMarks" />
+                <ScalarProperty Name="SelectLevel" ColumnName="SelectLevel" />
+                <ScalarProperty Name="Adddate" ColumnName="Adddate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Stude_subjectTypeList">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_Stude_subjectTypeList">
+              <MappingFragment StoreEntitySet="tbl_Stude_subjectTypeList">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="stud_fkid" ColumnName="stud_fkid" />
+                <ScalarProperty Name="subtype_fkid" ColumnName="subtype_fkid" />
+                <ScalarProperty Name="addate" ColumnName="addate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_StudentMaster">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_StudentMaster">
+              <MappingFragment StoreEntitySet="tbl_StudentMaster">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="mobileno" ColumnName="mobileno" />
+                <ScalarProperty Name="GuardianContact" ColumnName="GuardianContact" />
+                <ScalarProperty Name="Enrollnmentno" ColumnName="Enrollnmentno" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
+                <ScalarProperty Name="Adddate" ColumnName="Adddate" />
+                <ScalarProperty Name="lastmodifieddate" ColumnName="lastmodifieddate" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="user_fkid" ColumnName="user_fkid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Subject_master">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_Subject_master">
+              <MappingFragment StoreEntitySet="tbl_Subject_master">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+                <ScalarProperty Name="subjectDescription" ColumnName="subjectDescription" />
+                <ScalarProperty Name="adddate" ColumnName="adddate" />
+                <ScalarProperty Name="lastmodifieddate" ColumnName="lastmodifieddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SubjectType_Master">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_SubjectType_Master">
+              <MappingFragment StoreEntitySet="tbl_SubjectType_Master">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="subjecttype" ColumnName="subjecttype" />
+                <ScalarProperty Name="adddate" ColumnName="adddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_User_Profile">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_User_Profile">
+              <MappingFragment StoreEntitySet="tbl_User_Profile">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="User_fkid" ColumnName="User_fkid" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Lid" ColumnName="Lid" />
+                <ScalarProperty Name="RegisteredDate" ColumnName="RegisteredDate" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="mid" ColumnName="mid" />
+                <ScalarProperty Name="mdate" ColumnName="mdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,102 @@
+﻿@model Exam_Application.Models.RegisterViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .firstdiv {
+        margin-bottom:8px;
+    }
+     .Seconddiv {
+        margin:6px 6px 6px 6px;
+    }
+     .dataTables_paginate{
+         margin-bottom:3%;
+     }
+</style>
+<div id="page-content">
+    <div class="container mrg">
+        <div class="row firstdiv">
+            <div class="col-md-12">
+                <div class="btn-group">
+                    <a href="#" name="add" id="add" onclick="check_perform_add('/Account/Adduser');" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add New User</a>            <a href="#" name="editallfrm" id="editallfrm" onclick="EditTableTop('/Admin_Task/EditUserDetails?id=');" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>            <a href="#" name="deleteallfrm" id="deleteallfrm" onclick="check_perform_delete();" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>            <a href="#" class="btn btn-success" onclick="    check_perform_add('/Account/AddRole');"><span class="glyphicon glyphicon-plus"></span>&nbsp;Create New Role</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="widget">
+                            <h4 class="widget-title"> <span>Users</span></h4>
+                        </div>
+                    </div>
+                    <div class="table-responsive Seconddiv">
+                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th><input type="checkbox" name="selectAll" value="deleteall" id="selectAll"></th>
+                                    <th>User Name</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Mobile</th>
+                                    <th>Role</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="targetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/AdminFiles/RajCustom/common.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ('@ViewBag.Exception' != "") {
+            alert("@ViewBag.Exception");
+        }
+    })
+    $('.js-basic-example').DataTable({
+        "processing": true, // for show progress bar
+        "serverSide": true, // for process server side
+        "filter": true, // this is for disable filter (search box)
+        "orderMulti": false, // for disable multiple column at once
+        "bSort" : false,
+
+        "ajax": {
+            "url": "/Admin_Task/GetUserList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "columns": [
+                { "data": "pkid", "name": "pkid", "orderable": false, "autoWidth": true },
+                 {
+                     "data": "pkid", "orderable": false, "render": function (data, type, full, meta) {
+                         return '<input type="checkbox" style="margin-left:8px;" value="'+data+'" name="DeleteCheckbox1" id="DeleteCheckbox1" class="chkselect">';
+                     }
+                 },
+                { "data": "un", "Name": "un", "autoWidth": true },
+                { "data": "fullname", "Name": "fullname", "autoWidth": true },
+                 { "data": "email", "Name": "email", "autoWidth": true },
+                   { "data": "mob", "Name": "mob", "autoWidth": true },
+                { "data": "role", "Name": "role", "autoWidth": true },
+                {
+                    "data": "pkid", "orderable": false, "render": function (data, type, full, meta) {
+                        return '<a href="#" name="/Admin_Task/EditUserDetails?id=' + data + '" onclick="EditUserTable(this)" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>                            <a href="#" onclick="check_perform_sdelete(' + data + ');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>';
+                    }
+                }
+        ],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+            $("td:first", nRow).html(iDisplayIndex + 1);
+            return nRow;
+        }
+    })
+</script>

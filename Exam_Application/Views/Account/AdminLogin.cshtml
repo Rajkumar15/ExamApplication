@@ -1,0 +1,135 @@
+﻿@using Exam_Application.Models
+@model LoginViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en" class="sb-init">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        Exam_Login
+    </title>
+    <meta name="description" content="Based online exmaination and performance analysis system">
+    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/style.css">
+    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/style(1).css">
+    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/fonts.css">
+    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/plugins.css">
+    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/responsive.css">
+    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/settings.css">
+    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/validationEngine.jquery.css">
+    <script type="text/javascript" src="~/AdminFiles/JS/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="~/AdminFiles/JS/html5shiv.js"></script>
+    <script type="text/javascript" src="~/AdminFiles/JS/respond.min.js"></script>
+    <script type="text/javascript" src="~/AdminFiles/JS/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/AdminFiles/JS/jquery.validationEngine-en.js"></script>
+    <script type="text/javascript" src="~/AdminFiles/JS/jquery.validationEngine.js"></script>
+    <script type="text/javascript" src="~/AdminFiles/JS/superfish.js"></script>
+    <script type="text/javascript" src="~/AdminFiles/JS/sidebar.js"></script>
+    <script type="text/javascript" src="~/AdminFiles/JS/functions.js"></script>
+    <script type="text/javascript" src="~/AdminFiles/JS/plugins.min.js"></script>
+    <script type="text/javascript" src="~/AdminFiles/JS/revolution.min.js"></script>
+    <script type="text/javascript" src="~/AdminFiles/JS/custom.min.js"></script>
+</head>
+<body cz-shortcut-listen="true">
+    <div id="sb-site" style="min-height: 628px;">
+        <div id="wrap">
+            <div class="main-inner-content">
+                <header id="header" class="section cover header-bg" data-bg="/AdminFiles/Images/slider.png" style="background-image: url(&quot;/AdminFiles/Images/slider.png&quot;);">
+                    <div class="container">
+                        <div class="col-md-12 mrg-1 text-center"><h3><strong><i><p align="center"><img src="~/AdminFiles/Images/logo.png" alt="Exam Center" width="200" align="center" class="img-responsive"> </p><p>Exam Control Panel</p></i></strong></h3></div>
+                    </div>
+                </header>
+                <div id="page-content">
+                    <div class="container mrg">
+                        <div class="col-md-5 login">
+                            @using (Html.BeginForm("AdminLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "post-req", role = "form" }))
+                            {
+                                <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="admin_id" class="col-sm-12 control-label">Admin / Teacher ID :</label>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon glyphicon glyphicon-user"></span>
+                                        @*<input name="data[User][username]" class="form-control validate[required]" placeholder="Admin / Teacher ID" maxlength="50" type="text" id="UserUsername">*@
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control",@required="required",@placeholder = "Admin / Teacher ID", @maxlength = "50" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="pass" class="col-sm-12 control-label">Password :</label>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon glyphicon glyphicon-lock"></span>
+                                        @*<input name="data[User][password]" class="form-control validate[required,minSize[4],maxSize[15]]" placeholder="Password" type="password" id="UserPassword">*@
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @required = "required", @placeholder = "Enter Password", })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <p class="help-block"><a href="/Account/ForgotPassword">Forgot Password</a></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                   
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <div class="row">
+                                        <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span>&nbsp;Submit</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer id="footer">
+                <div class="footer-widget">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="widget">
+                                    <h5 class="widget-title">
+                                        Copyright © @DateTime.Now.Year<span> Online Exam Site</span>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <div class="widget">
+                                    <h5 class="widget-title">
+                                        Time <span>@DateTime.Now</span>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-credits">
+                    <div class="container">
+                        <div class="footer-credits-inner">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span>Powered by <a href="#" target="_blank">itechgalaxy.com</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+    <div class="sb-slidebar sb-right">
+        <div class="sb-menu-trigger"></div>
+    </div><a class="back-to-top" style="display: none;"><i class="fa fa-angle-up"></i></a>
+</body>
+</html>
