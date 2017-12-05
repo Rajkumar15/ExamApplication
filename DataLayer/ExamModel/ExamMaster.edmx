@@ -5,6 +5,46 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Exam_MasterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_AnswerMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ques_fkid" Type="int" />
+          <Property Name="Questtype_fkid" Type="int" />
+          <Property Name="QuestSubType_fkid" Type="int" />
+          <Property Name="Answer1" Type="nvarchar(max)" />
+          <Property Name="Answer2" Type="nvarchar(max)" />
+          <Property Name="Answer3" Type="nvarchar(max)" />
+          <Property Name="Answer4" Type="nvarchar(max)" />
+          <Property Name="CorrectAnswer" Type="int" />
+          <Property Name="BlanckSpace" Type="nvarchar(max)" />
+          <Property Name="TrueFalse" Type="bit" Nullable="false" />
+          <Property Name="SubAnswer" Type="nvarchar(max)" />
+          <Property Name="Adddate" Type="datetime" />
+          <Property Name="status" Type="int" />
+          <Property Name="lastmodified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_Exam_Master">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Exam_Name" Type="nvarchar(max)" />
+          <Property Name="Passing_Percentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Instruction" Type="nvarchar(max)" />
+          <Property Name="ExamDuration" Type="time" Precision="7" />
+          <Property Name="AttemptCount" Type="int" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="DeclareResult" Type="bit" />
+          <Property Name="Group_fkid" Type="int" />
+          <Property Name="Negative_Masrking" Type="bit" />
+          <Property Name="RandonQuestion" Type="bit" />
+          <Property Name="ResultAfterFinish" Type="bit" />
+          <Property Name="Adddate" Type="datetime" />
+          <Property Name="LastModifieddate" Type="datetime" />
+        </EntityType>
         <EntityType Name="tbl_GroupMaster">
           <Key>
             <PropertyRef Name="pkid" />
@@ -23,7 +63,7 @@
           <Property Name="subjecttype_fkid" Type="int" />
           <Property Name="Question" Type="nvarchar(max)" />
           <Property Name="Explaination" Type="nvarchar(max)" />
-          <Property Name="Subject_fkid" Type="nvarchar(max)" />
+          <Property Name="Subject_fkid" Type="int" />
           <Property Name="hint" Type="nvarchar(max)" />
           <Property Name="Marks" Type="decimal" Precision="18" Scale="2" />
           <Property Name="NegativeMarks" Type="decimal" Precision="18" Scale="2" />
@@ -32,6 +72,25 @@
           <Property Name="Status" Type="int" />
           <Property Name="lastModified" Type="datetime" />
         </EntityType>
+        <EntityType Name="tbl_QuestionType_Master">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Questiontype" Type="nvarchar(max)" />
+          <Property Name="adddate" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="tbl_RightAnswerSheet">
+          <Property Name="pkid" Type="int" />
+          <Property Name="Quest_fkid" Type="int" />
+          <Property Name="ObjAnswer" Type="int" />
+          <Property Name="TrueFalse" Type="bit" />
+          <Property Name="fillBlanck" Type="nvarchar(max)" />
+          <Property Name="subAnswer" Type="nvarchar(max)" />
+          <Property Name="Adddate" Type="datetime" />
+        </EntityType>-->
         <EntityType Name="tbl_Stude_subjectTypeList">
           <Key>
             <PropertyRef Name="pkid" />
@@ -70,14 +129,6 @@
           <Property Name="adddate" Type="datetime" />
           <Property Name="lastmodifieddate" Type="datetime" />
         </EntityType>
-        <EntityType Name="tbl_SubjectType_Master">
-          <Key>
-            <PropertyRef Name="pkid" />
-          </Key>
-          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="subjecttype" Type="nvarchar(max)" />
-          <Property Name="adddate" Type="datetime" />
-        </EntityType>
         <EntityType Name="tbl_User_Profile">
           <Key>
             <PropertyRef Name="pkid" />
@@ -100,12 +151,14 @@
           <Property Name="mdate" Type="datetime" />
         </EntityType>
         <EntityContainer Name="Exam_MasterModelStoreContainer">
+          <EntitySet Name="tbl_AnswerMaster" EntityType="Self.tbl_AnswerMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Exam_Master" EntityType="Self.tbl_Exam_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_GroupMaster" EntityType="Self.tbl_GroupMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionMaster" EntityType="Self.tbl_QuestionMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_QuestionType_Master" EntityType="Self.tbl_QuestionType_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Stude_subjectTypeList" EntityType="Self.tbl_Stude_subjectTypeList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_StudentMaster" EntityType="Self.tbl_StudentMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Subject_master" EntityType="Self.tbl_Subject_master" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_SubjectType_Master" EntityType="Self.tbl_SubjectType_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_User_Profile" EntityType="Self.tbl_User_Profile" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
@@ -113,6 +166,46 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Exam_MasterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_AnswerMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ques_fkid" Type="Int32" />
+          <Property Name="Questtype_fkid" Type="Int32" />
+          <Property Name="QuestSubType_fkid" Type="Int32" />
+          <Property Name="Answer1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CorrectAnswer" Type="Int32" />
+          <Property Name="BlanckSpace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TrueFalse" Type="Boolean" Nullable="false" />
+          <Property Name="SubAnswer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Adddate" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="lastmodified" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_Exam_Master">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Exam_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Passing_Percentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Instruction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExamDuration" Type="Time" Precision="7" />
+          <Property Name="AttemptCount" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="DeclareResult" Type="Boolean" />
+          <Property Name="Group_fkid" Type="Int32" />
+          <Property Name="Negative_Masrking" Type="Boolean" />
+          <Property Name="RandonQuestion" Type="Boolean" />
+          <Property Name="ResultAfterFinish" Type="Boolean" />
+          <Property Name="Adddate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifieddate" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="tbl_GroupMaster">
           <Key>
             <PropertyRef Name="pkid" />
@@ -131,7 +224,7 @@
           <Property Name="subjecttype_fkid" Type="Int32" />
           <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Explaination" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Subject_fkid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Subject_fkid" Type="Int32" />
           <Property Name="hint" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Marks" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="NegativeMarks" Type="Decimal" Precision="18" Scale="2" />
@@ -139,6 +232,14 @@
           <Property Name="Adddate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Int32" />
           <Property Name="lastModified" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_QuestionType_Master">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Questiontype" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="adddate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tbl_Stude_subjectTypeList">
           <Key>
@@ -178,14 +279,6 @@
           <Property Name="adddate" Type="DateTime" Precision="3" />
           <Property Name="lastmodifieddate" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="tbl_SubjectType_Master">
-          <Key>
-            <PropertyRef Name="pkid" />
-          </Key>
-          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="subjecttype" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="adddate" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="tbl_User_Profile">
           <Key>
             <PropertyRef Name="pkid" />
@@ -208,12 +301,14 @@
           <Property Name="mdate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityContainer Name="Exam_MasterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_AnswerMaster" EntityType="Self.tbl_AnswerMaster" />
+          <EntitySet Name="tbl_Exam_Master" EntityType="Self.tbl_Exam_Master" />
           <EntitySet Name="tbl_GroupMaster" EntityType="Self.tbl_GroupMaster" />
           <EntitySet Name="tbl_QuestionMaster" EntityType="Self.tbl_QuestionMaster" />
+          <EntitySet Name="tbl_QuestionType_Master" EntityType="Self.tbl_QuestionType_Master" />
           <EntitySet Name="tbl_Stude_subjectTypeList" EntityType="Self.tbl_Stude_subjectTypeList" />
           <EntitySet Name="tbl_StudentMaster" EntityType="Self.tbl_StudentMaster" />
           <EntitySet Name="tbl_Subject_master" EntityType="Self.tbl_Subject_master" />
-          <EntitySet Name="tbl_SubjectType_Master" EntityType="Self.tbl_SubjectType_Master" />
           <EntitySet Name="tbl_User_Profile" EntityType="Self.tbl_User_Profile" />
         </EntityContainer>
       </Schema>
@@ -222,6 +317,48 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Exam_MasterModelStoreContainer" CdmEntityContainer="Exam_MasterEntities">
+          <EntitySetMapping Name="tbl_AnswerMaster">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_AnswerMaster">
+              <MappingFragment StoreEntitySet="tbl_AnswerMaster">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="Ques_fkid" ColumnName="Ques_fkid" />
+                <ScalarProperty Name="Questtype_fkid" ColumnName="Questtype_fkid" />
+                <ScalarProperty Name="QuestSubType_fkid" ColumnName="QuestSubType_fkid" />
+                <ScalarProperty Name="Answer1" ColumnName="Answer1" />
+                <ScalarProperty Name="Answer2" ColumnName="Answer2" />
+                <ScalarProperty Name="Answer3" ColumnName="Answer3" />
+                <ScalarProperty Name="Answer4" ColumnName="Answer4" />
+                <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
+                <ScalarProperty Name="BlanckSpace" ColumnName="BlanckSpace" />
+                <ScalarProperty Name="TrueFalse" ColumnName="TrueFalse" />
+                <ScalarProperty Name="SubAnswer" ColumnName="SubAnswer" />
+                <ScalarProperty Name="Adddate" ColumnName="Adddate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="lastmodified" ColumnName="lastmodified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Exam_Master">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_Exam_Master">
+              <MappingFragment StoreEntitySet="tbl_Exam_Master">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="Exam_Name" ColumnName="Exam_Name" />
+                <ScalarProperty Name="Passing_Percentage" ColumnName="Passing_Percentage" />
+                <ScalarProperty Name="Instruction" ColumnName="Instruction" />
+                <ScalarProperty Name="ExamDuration" ColumnName="ExamDuration" />
+                <ScalarProperty Name="AttemptCount" ColumnName="AttemptCount" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="DeclareResult" ColumnName="DeclareResult" />
+                <ScalarProperty Name="Group_fkid" ColumnName="Group_fkid" />
+                <ScalarProperty Name="Negative_Masrking" ColumnName="Negative_Masrking" />
+                <ScalarProperty Name="RandonQuestion" ColumnName="RandonQuestion" />
+                <ScalarProperty Name="ResultAfterFinish" ColumnName="ResultAfterFinish" />
+                <ScalarProperty Name="Adddate" ColumnName="Adddate" />
+                <ScalarProperty Name="LastModifieddate" ColumnName="LastModifieddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_GroupMaster">
             <EntityTypeMapping TypeName="Exam_MasterModel.tbl_GroupMaster">
               <MappingFragment StoreEntitySet="tbl_GroupMaster">
@@ -248,6 +385,15 @@
                 <ScalarProperty Name="Adddate" ColumnName="Adddate" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_QuestionType_Master">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_QuestionType_Master">
+              <MappingFragment StoreEntitySet="tbl_QuestionType_Master">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="Questiontype" ColumnName="Questiontype" />
+                <ScalarProperty Name="adddate" ColumnName="adddate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -289,15 +435,6 @@
                 <ScalarProperty Name="subjectDescription" ColumnName="subjectDescription" />
                 <ScalarProperty Name="adddate" ColumnName="adddate" />
                 <ScalarProperty Name="lastmodifieddate" ColumnName="lastmodifieddate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_SubjectType_Master">
-            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_SubjectType_Master">
-              <MappingFragment StoreEntitySet="tbl_SubjectType_Master">
-                <ScalarProperty Name="pkid" ColumnName="pkid" />
-                <ScalarProperty Name="subjecttype" ColumnName="subjecttype" />
-                <ScalarProperty Name="adddate" ColumnName="adddate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

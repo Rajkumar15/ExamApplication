@@ -58,6 +58,7 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript">
     $(document).ready(function () {
         if ('@ViewBag.Exception' != "") {
@@ -69,7 +70,7 @@
         "serverSide": true, // for process server side
         "filter": true, // this is for disable filter (search box)
         "orderMulti": false, // for disable multiple column at once
-
+        "bSort": false,
         "ajax": {
             "url": "/SubjectGroup/GetSubjectList",
             "type": "POST",

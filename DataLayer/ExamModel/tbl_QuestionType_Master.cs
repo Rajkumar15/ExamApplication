@@ -12,10 +12,10 @@ namespace DataLayer.ExamModel
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_SubjectType_Master
+    public partial class tbl_QuestionType_Master
     {
         public int pkid { get; set; }
-        public string subjecttype { get; set; }
+        public string Questiontype { get; set; }
         public Nullable<System.DateTime> adddate { get; set; }
     }
 }

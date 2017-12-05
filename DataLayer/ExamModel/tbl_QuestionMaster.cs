@@ -18,7 +18,7 @@ namespace DataLayer.ExamModel
         public Nullable<int> subjecttype_fkid { get; set; }
         public string Question { get; set; }
         public string Explaination { get; set; }
-        public string Subject_fkid { get; set; }
+        public Nullable<int> Subject_fkid { get; set; }
         public string hint { get; set; }
         public Nullable<decimal> Marks { get; set; }
         public Nullable<decimal> NegativeMarks { get; set; }

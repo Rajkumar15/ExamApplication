@@ -1,0 +1,61 @@
+﻿@model Exam_Application.Models.DAL.QuestionMaster
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    .mce-container-body {
+        background-color: #E7E7E7;
+    }
+</style>
+<div id="page-content">
+    <div class="container mrg">
+
+        @using (Html.BeginForm("UploadExcel", "SubjectGroup", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="widget">
+                                <h4 class="widget-title">
+                                    Upload <span>Questions</span>
+                                    <a href="/SubjectGroup/QuestionList" class="btn btn-success" style="float:right;"><span class="glyphicon glyphicon-list-alt" style="color: #fff;"></span>&nbsp;View Question</a>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    @Html.HiddenFor(x => x.pkid)                              
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary()
+                                    <span style="float:right;"><a href="" style="color: #EF4A43 !important;font-weight:bold;">Download Format</a></span>
+                                    <h5><strong>Excel File </strong></h5>                                    
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <input type="file" name="File" id="FileUpload" class="form-control input-sm" />
+                                                <button type="submit" class="btn btn-success" style="margin-top:1%;"><span class="glyphicon glyphicon-plus-sign"></span> Save</button>
+                                                <button type="button" class="btn btn-danger" onclick="window.location=&#39;index&#39;" style="margin-top:1%;"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                                            </div>
+
+                                        </div>
+</div>
+                            </div>
+                          
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    if ('@ViewBag.Exception' != "") {
+        alert("@ViewBag.Exception");
+    }
+</script>

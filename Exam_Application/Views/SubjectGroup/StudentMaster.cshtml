@@ -20,7 +20,7 @@
         <div class="row firstdiv">
             <div class="col-md-12">
                 <div class="btn-group">
-                    <a href="#" name="add" id="add" onclick="check_perform_add('/SubjectGroup/AddStudent');" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add New Student</a>            <a href="http://eduexpression.com/envato/admin/Students#" name="editallfrm" id="editallfrm" onclick="check_perform_edit(&#39;/envato/admin/Students&#39;);" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>            <a href="http://eduexpression.com/envato/admin/Students#" name="deleteallfrm" id="deleteallfrm" onclick="check_perform_delete();" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>     
+                    <a href="#" name="add" id="add" onclick="check_perform_add('/SubjectGroup/AddStudent');" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add New Student</a>            <a href="#" name="editallfrm" id="editallfrm" onclick="EditTableTop('/SubjectGroup/AddStudent?id=');" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>            <a href="#" name="deleteallfrm" id="deleteallfrm" onclick="check_perform_delete();" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>     
                 </div>
             </div>
         
@@ -89,7 +89,7 @@
                         { "data": "co", "Name": "co", "autoWidth": true },
                 {
                     "data": "pkid", "orderable": false, "render": function (data, type, full, meta) {
-                        return '<a href="#" name="/SubjectGroup/AddGroup?id=' + data + '" onclick="EditUserTable(this)" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>                            <a href="#" onclick="check_perform_sdelete(' + data + ');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>';
+                        return '<a href="#" name="/SubjectGroup/AddStudent?id=' + data + '" onclick="EditUserTable(this)" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>                            <a href="#" onclick="check_perform_sdelete(' + data + ');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>';
                     }
                 }
 

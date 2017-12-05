@@ -2,6 +2,7 @@
 @{
 
 }
+<script src="~/AdminFiles/RajCustom/common.js"></script>
 <div class="container">
     <div class="row">
 
@@ -9,17 +10,16 @@
             <div class="panel panel-default mrg">
                 <div class="panel-heading"><div class="widget-modal"><h4 class="widget-modal-title">Add <span>Student</span><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></h4></div></div>
                 <div class="panel-body">
-                    @using (Html.BeginForm("AddStudent", "SubjectGroup", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    @using (Html.BeginForm("AddStudent", "SubjectGroup", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
                     {
                         @Html.HiddenFor(x => x.pkid)
-                        @Html.HiddenFor(x=>x.UserName)
-                        @Html.HiddenFor(x=>x.user_fkid)
+                        @Html.HiddenFor(x => x.user_fkid)
                         @Html.ValidationSummary()
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="group_name" class="col-sm-3 control-label"><small>Email</small></label>
                                 <div class="col-sm-9">
-                                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control input-sm", placeholder = "Enter Email Name" })
+                                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control input-sm Rajstring", placeholder = "Enter Email Name" })
                                 </div>
                             </div>
                         </div>
@@ -27,16 +27,25 @@
                             <div class="form-group">
                                 <label for="group_name" class="col-sm-3 control-label"><small>Mobile Number</small></label>
                                 <div class="col-sm-9">
-                                    @Html.TextBoxFor(x => x.mobileno, new { @class = "form-control input-sm", placeholder = "Enter Mobile Number" })
+                                    @Html.TextBoxFor(x => x.mobileno, new { @class = "form-control input-sm Rajnumber", placeholder = "Enter Mobile Number" })
                                 </div>
                             </div>
                         </div>
-                       
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-3 control-label"><small>UserName</small></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control input-sm", placeholder = "Enter UserName" })
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="group_name" class="col-sm-3 control-label"><small>Password</small></label>
                                 <div class="col-sm-9">
-                                    @Html.PasswordFor(x => x.Password, new { @class = "form-control input-sm", placeholder = "Enter Password",@required="required" })
+                                    @Html.PasswordFor(x => x.Password, new { @class = "form-control input-sm", placeholder = "Enter Password", @required = "required" })
                                 </div>
                             </div>
                         </div>
@@ -44,7 +53,7 @@
                             <div class="form-group">
                                 <label for="group_name" class="col-sm-3 control-label"><small>Student Name</small></label>
                                 <div class="col-sm-9">
-                                    @Html.TextBoxFor(x => x.Name , new { @class = "form-control input-sm", placeholder = "Enter Student phone", @required = "required" })
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control input-sm Rajstring", placeholder = "Enter Student Name", @required = "required" })
                                 </div>
                             </div>
                         </div>
@@ -52,7 +61,7 @@
                             <div class="form-group">
                                 <label for="group_name" class="col-sm-3 control-label"><small>Guardian phone</small></label>
                                 <div class="col-sm-9">
-                                    @Html.TextBoxFor(x => x.GuardianContact, new { @class = "form-control input-sm", placeholder = "Enter Guardian phone", @required = "required" })
+                                    @Html.TextBoxFor(x => x.GuardianContact, new { @class = "form-control input-sm Rajnumber", placeholder = "Enter Guardian phone", @required = "required" })
                                 </div>
                             </div>
                         </div>
@@ -68,10 +77,11 @@
                             <div class="form-group">
                                 <label for="group_name" class="col-sm-3 control-label"><small>Upload Profile</small></label>
                                 <div class="col-sm-9">
-                                  <input type="file" name="ppic" multiple="multiple" class="form-control input-sm" />
+                                    <input type="file" name="ppic" id="ppic" multiple="multiple" class="form-control input-sm" />
                                 </div>
                             </div>
                         </div>
+                                                
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="group_name" class="col-sm-3 control-label"><small>Address</small></label>
@@ -95,49 +105,49 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#GuardianContact,#Address,#Enrollnmentno,#Name").click(function () {
-            debugger;
-            if ($("#user_fkid").val() == "")
-            {
-                var email = ""; var pass = "";
-                if ($("#mobileno").val() != "") {
-                    email = $("#mobileno").val();
-                }
-                if ($("#Email").val() != "")
-                {
-                    email = "";
-                    email = $("#Email").val();
-                    var result = validateEmailRaj(email);
-                    if (result == false)
-                    {
-                        alert("Enter Valid Email");
-                        $("#Email").val('');
-                    }
-                }               
-                if ($("#Password").val() != "") {
-                    pass = $("#Password").val();
-                }
-                if (email == "" || pass == "") {
-                    alert("Enter First Email Or Mobile And Password");
-                }
-                else {
-                    $.getJSON("/Account/CreateStudent?email=" + email + "&pass=" + pass, function (data) {
-                        debugger;  
-                        if (data == "") {
-                            alert("Something Wrong Enter Valid Information");
-                        }   
-                        else {
-                            if (data.substr(0, 4) == "fail") {
-                                alert(data);                              
-                            }
-                            else {
-                                $("#user_fkid").val(data)
-                            }
-                        }
-                    })
-                }
-            }
-        })
+        //$("#GuardianContact,#Address,#Enrollnmentno,#Name").click(function () {
+        //    debugger;
+        //    if ($("#user_fkid").val() == "")
+        //    {
+        //        var email = ""; var pass = "";
+        //        if ($("#mobileno").val() != "") {
+        //            email = $("#mobileno").val();
+        //        }
+        //        if ($("#Email").val() != "")
+        //        {
+        //            email = "";
+        //            email = $("#Email").val();
+        //            var result = validateEmailRaj(email);
+        //            if (result == false)
+        //            {
+        //                alert("Enter Valid Email");
+        //                $("#Email").val('');
+        //            }
+        //        }
+        //        if ($("#Password").val() != "") {
+        //            pass = $("#Password").val();
+        //        }
+        //        if (email == "" || pass == "") {
+        //            alert("Enter First Email Or Mobile And Password");
+        //        }
+        //        else {
+        //            $.getJSON("/Account/CreateStudent?email=" + email + "&pass=" + pass, function (data) {
+        //                debugger;
+        //                if (data == "") {
+        //                    alert("Something Wrong Enter Valid Information");
+        //                }
+        //                else {
+        //                    if (data.substr(0, 4) == "fail") {
+        //                        alert(data);
+        //                    }
+        //                    else {
+        //                        $("#user_fkid").val(data)
+        //                    }
+        //                }
+        //            })
+        //        }
+        //    }
+        //})
     })
 </script>
 

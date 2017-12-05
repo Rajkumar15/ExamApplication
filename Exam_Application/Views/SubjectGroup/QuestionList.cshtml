@@ -19,7 +19,7 @@
         <div class="row firstdiv">
             <div class="col-md-12">
                 <div class="btn-group">
-                    <a href="/SubjectGroup/AddQuestion" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add New Question</a>            <a href="#" name="deleteallfrm" id="deleteallfrm" onclick="check_perform_delete();" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>
+                    <a href="/SubjectGroup/AddQuestion" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add New Question</a>            <a href="/SubjectGroup/UploadExcel" class="btn btn-success" style="background-color:#EF4A43;border-color:#EF4A43;"><span class="glyphicon glyphicon-plus"></span>&nbsp;Upload Question Excel</a>          <a href="#" style="display:none;" name="deleteallfrm" id="deleteallfrm" onclick="check_perform_delete();" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>
                 </div>
             </div>         
         </div>
@@ -82,7 +82,7 @@
                 { "data": "subject", "Name": "subject", "autoWidth": true },
                 {
                     "data": "pkid", "orderable": false, "render": function (data, type, full, meta) {
-                        return '<a href="#" name="/SubjectGroup/AddQuestion?id=' + data + '" onclick="EditUserTable(this)" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>                            <a href="#" onclick="check_perform_sdelete(' + data + ');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>';
+                        return '<a href="/SubjectGroup/AddQuestion?id=' + data + '" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>                            <a href="#" name="/SubjectGroup/DeleteQuestion?id=' + data + '" onclick="DeleteRow(this)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>';
                     }
                 }
         ],
@@ -91,4 +91,15 @@
             return nRow;
         }
     })
+
+    function DeleteRow(cname)
+    {
+        debugger;
+        var path = cname.name;
+        if (confirm("Do you want to delete record")) 
+        $.post(path, function (data) {
+            alert(data);
+            window.location.reload();
+        })
+    }
 </script>

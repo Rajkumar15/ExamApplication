@@ -25,12 +25,14 @@ namespace DataLayer.ExamModel
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<tbl_AnswerMaster> tbl_AnswerMaster { get; set; }
+        public virtual DbSet<tbl_Exam_Master> tbl_Exam_Master { get; set; }
         public virtual DbSet<tbl_GroupMaster> tbl_GroupMaster { get; set; }
         public virtual DbSet<tbl_QuestionMaster> tbl_QuestionMaster { get; set; }
+        public virtual DbSet<tbl_QuestionType_Master> tbl_QuestionType_Master { get; set; }
         public virtual DbSet<tbl_Stude_subjectTypeList> tbl_Stude_subjectTypeList { get; set; }
         public virtual DbSet<tbl_StudentMaster> tbl_StudentMaster { get; set; }
         public virtual DbSet<tbl_Subject_master> tbl_Subject_master { get; set; }
-        public virtual DbSet<tbl_SubjectType_Master> tbl_SubjectType_Master { get; set; }
         public virtual DbSet<tbl_User_Profile> tbl_User_Profile { get; set; }
     }
 }

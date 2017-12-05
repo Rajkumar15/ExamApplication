@@ -65,19 +65,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExamMaster.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ExamModel\tbl_AnswerMaster.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExamModel\tbl_Exam_Master.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExamModel\tbl_GroupMaster.cs">
       <DependentUpon>ExamMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="ExamModel\tbl_QuestionMaster.cs">
       <DependentUpon>ExamMaster.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExamModel\tbl_QuestionType_Master.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExamModel\tbl_StudentMaster.cs">
       <DependentUpon>ExamMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="ExamModel\tbl_Stude_subjectTypeList.cs">
-      <DependentUpon>ExamMaster.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ExamModel\tbl_SubjectType_Master.cs">
       <DependentUpon>ExamMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="ExamModel\tbl_Subject_master.cs">
@@ -91,17 +97,18 @@
     <Compile Include="Repository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="ExamModel\ExamMaster.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ExamMaster.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="ExamModel\ExamMaster.edmx.diagram">
       <DependentUpon>ExamMaster.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ExamModel\ExamMaster.Context.tt">
@@ -114,9 +121,6 @@
       <DependentUpon>ExamMaster.edmx</DependentUpon>
       <LastGenOutput>ExamMaster.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

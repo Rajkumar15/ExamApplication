@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Exam_Application.Models.DAL
 {
@@ -46,6 +47,41 @@ namespace Exam_Application.Models.DAL
         public Nullable<decimal> Marks { get; set; }
         public Nullable<decimal> NegativeMarks { get; set; }
         public Nullable<int> SelectLevel { get; set; }
+        public Nullable<System.DateTime> Adddate { get; set; }
+        public Nullable<int> Status { get; set; }
+        public Nullable<System.DateTime> lastModified { get; set; }
+    }
+
+    public partial class QuestionMaster
+    {
+        public int pkid { get; set; }
+        public Nullable<int> subjecttype_fkid { get; set; }
+        [AllowHtml]
+        public string Question { get; set; }
+        [AllowHtml]
+        public string Explaination { get; set; }
+        public Nullable<int> Subject_fkid { get; set; }
+        public string hint { get; set; }
+        public Nullable<decimal> Marks { get; set; }
+        public Nullable<decimal> NegativeMarks { get; set; }
+        public Nullable<int> SelectLevel { get; set; }
+      
+        public Nullable<int> Ques_fkid { get; set; }
+        public Nullable<int> Questtype_fkid { get; set; }
+        public Nullable<int> QuestSubType_fkid { get; set; }
+        [AllowHtml]
+        public string Answer1 { get; set; }
+        [AllowHtml]
+        public string Answer2 { get; set; }
+        [AllowHtml]
+        public string Answer3 { get; set; }
+        [AllowHtml]
+        public string Answer4 { get; set; }
+        public string BlanckSpace { get; set; }
+        public bool TrueFalse { get; set; }
+        [AllowHtml]
+        public string SubAnswer { get; set; }
+        public Nullable<int> CorrectAnswerDD { get; set; }
         public Nullable<System.DateTime> Adddate { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<System.DateTime> lastModified { get; set; }
