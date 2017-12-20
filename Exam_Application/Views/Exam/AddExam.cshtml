@@ -1,0 +1,132 @@
+﻿@model Exam_Application.Models.DAL.tbl_Exam_Masterss
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/scripts/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinyMCE.init({
+        "selector": "textarea", "theme": "modern", "plugins": "advlist,autolink,lists,link,image,charmap,print," +
+            "preview,hr,anchor,pagebreak,\r\n searchreplace,wordcount,visualblocks,visualchars,code,fullscreen,\r\n " +
+            "insertdatetime,media,nonbreaking,save,table,contextmenu,directionality,\r\n  emoticons,template,paste," +
+            "textcolor,colorpicker", "relative_urls": false, "browser_spellcheck": true, "toolbar1": "insertfile, undo, redo," +
+                "|, styleselect, fontselect, |, fontsizeselect, |, bold, italic, |, alignleft, aligncenter, alignright," +
+                "alignjustify, |, bullist, numlist, outdent, indent", "toolbar2": "link, image, media,  emoticons, |," +
+                    "colorpicker, forecolor, backcolor, |, preview, print, code",
+        "image_advtab": true, file_browser_callback: elFinderBrowser, "language": "en", "mode": "exact",
+        "elements": "question"
+    }); $(".tinybtn").hide(); function elFinderBrowser(field_name, url, type, win) { tinyMCE.activeEditor.windowManager.open({ file: "#", title: "File Manager", width: 900, height: 500, resizable: "yes" }, { setUrl: function (url) { win.document.getElementById(field_name).value = url; } }); return false; }
+</script>
+<div id="page-content">
+    <div class="container mrg">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="widget">
+                            <h4 class="widget-title">Add <span>Exams</span></h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        @using (Html.BeginForm("AddExam", "Exam", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.HiddenFor(x => x.pkid)
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Exam Name</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.Exam_Name, new { @class = "form-control", @placeholder = "Enter Exam Name" })
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>Total Marks</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.Total_Marks, new { @class = "form-control Rajdecimal", @placeholder = "Enter Total Marks" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Passing Marks</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.PassingMarks, new { @class = "form-control Rajdecimal", @placeholder = "Enter Passing Marks" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Exam Instruction</small></label>
+                                <div class="col-sm-10">
+                                    @Html.TextAreaFor(x => x.Instruction, new { @class = "form-control", @placeholder = "Enter Exam Instruction" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Exam Duration (Min.)</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.ExamDuration, new { @class = "form-control Rajdecimal", @placeholder = "Enter Exam Duration Eg.(2.30)" })
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>Attempt Count</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.AttemptCount, new { @class = "form-control Rajnumber", @placeholder = "Enter Attempt Count" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Start Date</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.StartDate, new { @class = "form-control" })
+
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>End Date</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.EndDate, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Declare Result</small></label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(m => m.DeclareResult, new List<SelectListItem> { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "NO", Value = "false" } }, "Select Status", new { @class = "form-control" })
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>Negative Marking</small></label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(m => m.Negative_Masrking, new List<SelectListItem> { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "NO", Value = "false" } }, "Select Status", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Course Name</small></label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(m => m.Course_fkid, (IEnumerable<SelectListItem>)@ViewBag.CourseList, "Select Course", new { @class = "form-control" })
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>Division Name</small></label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(m => m.Division_fkid, (IEnumerable<SelectListItem>)@ViewBag.DivisionList, "Select Division", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Result After Finish</small></label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(m => m.ResultAfterFinish, new List<SelectListItem> { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "NO", Value = "false" } }, "Select Status", new { @class = "form-control" })
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>Random Question</small></label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(m => m.RandonQuestion, new List<SelectListItem> { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "NO", Value = "false" } }, "Select Status", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group text-left">
+                                <div class="col-sm-offset-3 col-sm-10">
+                                    <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Save</button>
+                                    <button type="button" class="btn btn-danger" onclick="window.location=&#39;ExamMaster&#39;"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="~/AdminFiles/RajCustom/datepicker.css" rel="stylesheet" />
+<script src="~/AdminFiles/RajCustom/datepicker.js"></script>
+<script src="~/AdminFiles/RajCustom/common.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#StartDate').datepicker(); $('#EndDate').datepicker();
+        $("#ExamDuration").timepicker();
+    })
+</script>

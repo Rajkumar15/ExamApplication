@@ -1,0 +1,213 @@
+﻿@model Exam_Application.Models.DAL.tbl_Exam_Masterss
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://eduexpression.com/envato/ -->
+<html lang="en" class="sb-init">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-translate-customization" content="839d71f7ff6044d0-328a2dc5159d6aa2-gd17de6447c9ba810-f">
+    <title>
+        Student Exam
+    </title>  
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    <link href="~/AdminFiles/CSS/jquery.countdown.css" rel="stylesheet" />
+    <script src="~/AdminFiles/JS/jquery.countdown.min.js"></script>  
+</head>
+<body cz-shortcut-listen="true">
+
+    <div id="sb-site" style="min-height: 1137px;">
+        <div id="wrap">
+            <div class="main-inner-content">
+                <header id="header" class="section cover header-bg" data-bg="#">
+                    <div class="header-fixed affix">
+                        <div class="logo-header">
+                            <div class="container" style="display:none">
+                                <div class="logo-container pull-left clearfix">
+                                    <div class="logo">
+                                        <h1 class="site-title"></h1><h1>Edu Expressio Demo Site</h1>
+
+                                        <p class="site-desc">Edu Expressio Demo Site</p>
+                                    </div>
+                                </div>
+                                <div class="menu-container pull-right">
+                                    <div class="site-menu">
+                                        <div class="site-menu-inner clearfix">
+                                            <div class="site-menu-container pull-left">
+                                                <nav class="hidden-xs hidden-sm">
+                                                    <ul class="sf-menu clearfix list-unstyled sf-js-enabled sf-arrows">
+                                                        <li class="current-menu-item"><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;Exam</a></li>    
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="visible-xs visible-sm mobile-menu-action pull-right sb-toggle-right navbar-right"><i class="fa fa-bars"></i></div>
+                        </div>
+                    </div>
+                    <div class="logo-header">
+                        <div class="container">
+                            <div class="logo-container clearfix">
+                                <div class="logo pull-left">
+                                    <h1 class="site-title"></h1><h1>Edu Expressio Demo Site</h1>
+
+                                    <p class="site-desc">Edu Expressio Demo Site</p>
+                                </div>
+                                <div class="social-info pull-right hidden-xs hidden-sm">
+                                    <div class="col-md-4 text-center">
+                                        <div class="btn-group user-login">
+                                            <div class="btn dropdown-toggle" style="background: none;border: 0px;box-shadow: none;" data-toggle="dropdown">
+                                                <span class="glyphicon glyphicon-user btn btn-success btn-sm"></span>&nbsp;Welcome ! @try
+                                                {@Request.Cookies["search"].Values["Stud"]}
+                                                catch { } &nbsp;<span class="caret"></span>
+                                            </div>
+                                            <div class="dropdown-menu" role="menu">
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive">
+                                                        <table class="table" style="margin-bottom:0px">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td colspan="2"><a href="#" class="btn btn-primary btn-xs btn-block"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;My Profile</a></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><a href="#" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-cog"></span>&nbsp;Change Password</a>											</td>
+                                                                    <td><a href="/StudentExam/StudentLogout" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-off"></span>&nbsp;Signout</a>											</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <strong><small><div id="clock"></div></small></strong>
+                                    </div>
+                                </div>
+                                <div class="social-info pull-right hidden-xs hidden-sm" style="display:none;">
+                                    <ul class="social textcolor list-unstyled">
+                                        <li class="phone active"><a href="#"><i class="fa fa-phone"></i><span>0000-0000</span></a></li>
+                                        <li class="mail"><a href="#"><i class="fa fa-envelope"></i><span>info@eduexpression.com</span></a></li>
+                                        <li class="facebook"><a href="http://facebook.com/" target="_blank"><i class="fa fa-facebook"></i><span>follow on facebook</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="visible-xs visible-sm mobile-menu-action pull-right sb-toggle-right navbar-right"><i class="fa fa-bars"></i></div>
+                    </div>
+                    <div class="site-menu">
+                        <div class="container">
+                            <div class="site-menu-inner clearfix">
+                                <div class="site-menu-container pull-left">
+                                    <nav class="hidden-xs hidden-sm">
+                                        <ul class="sf-menu clearfix list-unstyled sf-js-enabled sf-arrows">
+                                            <li class="current-menu-item"><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;Exam</a></li>                                           
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </header>
+                <div id="page-content">
+                    <div class="container mrg">
+                        <div class="row">
+
+                            <div class="col-md-9">
+                              
+                                <div id="page-content">
+                                    <div class="container mrg">
+                                        <div class="row">
+                                            @using (Html.BeginForm("StudentDashboard", "StudentExam", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                            {
+                                                <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
+                                                	<div class="col-md-12">
+                                                        @Html.HiddenFor(x => x.pkid)
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading"><strong>Instruction</strong></div>
+                                                        <div class="panel-body">                                                          
+                                                                  @Html.Raw(Server.HtmlDecode(Model.Instruction))                                          
+                                                        </div>
+
+                                                        <div class="panel-body">
+                                                            <div class="row">
+                                                                <div class="col-md-3"></div>                                                               
+                                                                <div class="col-md-3">
+                                                                    <a href="/StudentExam/StudentLogin" class="btn btn-danger btn-sm btn-block"><span class="glyphicon glyphicon-ban-circle"></span>&nbsp;REJECT EXAM </a>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <a href="#" onclick="callUserAnswerSaveNext();" class="btn btn-success btn-sm btn-block"><span class="glyphicon glyphicon-log-out"></span>&nbsp;ACCEPT &amp; START EXAM</a>
+                                                                </div>
+                                                                <div class="col-md-3"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="saveNext" value="" id="ExamSave">
+                                            }                                         
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><footer id="footer">
+            <div class="footer-widget">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="widget">
+                                <h5 class="widget-title">
+                                    Copyright © 2017<span> Edu Expressio Demo Site</span>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <div class="widget">
+                                <h5 class="widget-title">
+                                    Time <span>13-12-2017 05:07:04 PM</span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-credits">
+                <div class="container">
+                    <div class="footer-credits-inner">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <span>Powered by <a href="#" target="_blank">Eduexpression.com</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+
+    <div class="sb-slidebar sb-right">
+        <div class="sb-menu-trigger"></div><ul class="mobile-menu">
+                                               <li class="current-menu-item"><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;Exam</a></li>    
+        </ul>
+    </div><a class="back-to-top" style="display: block;"><i class="fa fa-angle-up"></i></a>
+</body>
+</html>
+
+<script type="text/javascript">
+    function callUserAnswerSaveNext()
+    {      
+        window.location.href = "/StudentExam/StudentDashboard?Examid=" + $("#pkid").val();
+    }
+</script>

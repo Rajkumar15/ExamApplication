@@ -1,0 +1,82 @@
+﻿@model Exam_Application.Models.DAL.tbl_Student_Qualification_Masterss
+@{
+
+}
+<style type="text/css">
+    .form-control {
+        margin-bottom: 15px !important;
+    }
+</style>
+<link href="~/AdminFiles/RajCustom/datepicker.css" rel="stylesheet" />
+<script src="~/AdminFiles/RajCustom/datepicker.js"></script>
+<script src="~/AdminFiles/RajCustom/common.js"></script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="panel panel-default mrg">
+                <div class="panel-heading"><div class="widget-modal"><h4 class="widget-modal-title">Add <span>Qualification</span><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></h4></div></div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("AddQualification", "Student", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.HiddenFor(x => x.pkid)
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary()
+                        @Html.HiddenFor(x => x.Student_fkid)
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Certificate Of Education</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.CertificateEducation, new { @class = "form-control", @placeholder = "Enter Certificate Name" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Subject</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.Subject, new { @class = "form-control Rajstring", @placeholder = "Enter Subject Name", @required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Division</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.Division, new { @class = "form-control Rajstring", @placeholder = "Enter Division" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Year Of Passed</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.YearofPasswed, new { @class = "form-control Rajnumber", @placeholder = "Select Date" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Colleage</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.Colleage, new { @class = "form-control", @placeholder = "Enter Colleage Name" })
+                            </div>
+                        </div>
+
+                        <div class="form-group text-left">
+                            <div class="col-sm-offset-3 col-sm-10">
+                                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Save</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#YearofPasswed').val('@DateTime.Now.ToShortDateString()');
+    $('#YearofPasswed').datepicker();
+    if ('@ViewBag.sid' != "") {
+        $("#Student_fkid").val('@ViewBag.sid');
+    }
+
+</script>

@@ -12,11 +12,13 @@ namespace DataLayer.ExamModel
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_Stude_subjectTypeList
+    public partial class tbl_MatchContentQuestionMaster
     {
         public int pkid { get; set; }
-        public Nullable<int> stud_fkid { get; set; }
-        public Nullable<int> subtype_fkid { get; set; }
-        public Nullable<System.DateTime> addate { get; set; }
+        public Nullable<int> Ques_fkid { get; set; }
+        public string FirstColoumn { get; set; }
+        public string OppositeColoumn { get; set; }
+        public string AnsweColoumn { get; set; }
+        public Nullable<System.DateTime> LastDatetime { get; set; }
     }
 }

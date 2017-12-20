@@ -1,0 +1,89 @@
+﻿@model Exam_Application.Models.DAL.tbl_Student_NCCCertificateMasterss
+@{
+
+}
+<style type="text/css">
+    .form-control {
+        margin-bottom: 15px !important;
+    }
+</style>
+
+<script src="~/AdminFiles/RajCustom/common.js"></script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="panel panel-default mrg">
+                <div class="panel-heading"><div class="widget-modal"><h4 class="widget-modal-title">Add <span>Certificate</span><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></h4></div></div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("AddnCCCertificate", "Student", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.HiddenFor(x => x.pkid)
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary()
+    @Html.HiddenFor(x => x.Student_fkid)
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Institution</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.Institution, new { @class = "form-control Rajstring", placeholder = "Enter Institude Name", @required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Year</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.Year, new { @class = "form-control", placeholder = "Enter Year" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Certificate Obtained</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.Certificate_Obtained, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Type Camps</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.Type_campus, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Attened Year</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.AttendedYear, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Appointed Year</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.AppointedYear, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group text-left">
+                            <div class="col-sm-offset-3 col-sm-10">
+                                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Save</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<link href="~/AdminFiles/RajCustom/datepicker.css" rel="stylesheet" />
+<script src="~/AdminFiles/RajCustom/datepicker.js"></script>
+<script type="text/javascript">
+    $("#Year").datepicker(); $("#AttendedYear").datepicker(); $("#AppointedYear").datepicker();
+    if ('@ViewBag.sid' != "") {
+        $("#Student_fkid").val('@ViewBag.sid');
+    }
+</script>

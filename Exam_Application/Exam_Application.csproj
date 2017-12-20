@@ -194,8 +194,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin_TaskController.cs" />
+    <Compile Include="Controllers\ExamController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudentExamController.cs" />
     <Compile Include="Controllers\SubjectGroupController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -209,8 +212,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdminFiles\CSS\bootstrap-datetimepicker.min.css" />
     <Content Include="AdminFiles\CSS\bootstrap.min.css" />
     <Content Include="AdminFiles\CSS\fonts.css" />
+    <Content Include="AdminFiles\CSS\jquery.countdown.css" />
     <Content Include="AdminFiles\CSS\plugins.css" />
     <Content Include="AdminFiles\CSS\responsive.css" />
     <Content Include="AdminFiles\CSS\settings.css" />
@@ -222,18 +227,23 @@
     <Content Include="AdminFiles\Images\logo-website.fw.png" />
     <Content Include="AdminFiles\Images\logo.png" />
     <Content Include="AdminFiles\Images\slider.png" />
+    <Content Include="AdminFiles\JS\bootstrap-datetimepicker.min.js" />
     <Content Include="AdminFiles\JS\bootstrap.min.js" />
     <Content Include="AdminFiles\JS\custom.min.js" />
     <Content Include="AdminFiles\JS\functions.js" />
     <Content Include="AdminFiles\JS\highcharts.js" />
     <Content Include="AdminFiles\JS\html5shiv.js" />
     <Content Include="AdminFiles\JS\jquery-1.8.2.min.js" />
+    <Content Include="AdminFiles\JS\jquery.countdown.min.js" />
+    <Content Include="AdminFiles\JS\jquery.freeow.js" />
     <Content Include="AdminFiles\JS\jquery.validationEngine-en.js" />
     <Content Include="AdminFiles\JS\jquery.validationEngine.js" />
+    <Content Include="AdminFiles\JS\moment.js" />
     <Content Include="AdminFiles\JS\plugins.min.js" />
     <Content Include="AdminFiles\JS\RajAddQuestion.js" />
     <Content Include="AdminFiles\JS\respond.min.js" />
     <Content Include="AdminFiles\JS\revolution.min.js" />
+    <Content Include="AdminFiles\JS\ShowMessage.js" />
     <Content Include="AdminFiles\JS\sidebar.js" />
     <Content Include="AdminFiles\JS\superfish.js" />
     <Content Include="AdminFiles\JS\themes\modern\tinymce.min.js" />
@@ -241,10 +251,21 @@
     <Content Include="AdminFiles\RajCustom\common.js" />
     <Content Include="AdminFiles\RajCustom\DataTable\jquery.dataTables.js" />
     <Content Include="AdminFiles\RajCustom\DataTable\jquery.dataTables.min.css" />
+    <Content Include="AdminFiles\RajCustom\datepicker.css" />
+    <Content Include="AdminFiles\RajCustom\datepicker.js" />
     <Content Include="AdminFiles\RajCustom\images\sort_asc.png" />
     <Content Include="AdminFiles\RajCustom\images\sort_both.png" />
+    <Content Include="AdminFiles\RajCustom\MainExam.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\style\freeow\freeow.css" />
+    <Content Include="Content\style\freeow\images\close.png" />
+    <Content Include="Content\style\freeow\images\error.png" />
+    <Content Include="Content\style\freeow\images\notice.png" />
+    <Content Include="Content\style\freeow\images\osx\background.png" />
+    <Content Include="Content\style\freeow\images\osx\close.png" />
+    <Content Include="Content\style\freeow\images\pushpin.png" />
+    <Content Include="Content\style\freeow\images\slide.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -255,6 +276,8 @@
     <Content Include="AdminFiles\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\style\freeow\images\osx\Thumbs.db" />
+    <Content Include="Content\style\freeow\images\Thumbs.db" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -451,19 +474,40 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\SubjectGroup\AddGroup.cshtml" />
     <Content Include="Views\SubjectGroup\AddQuestion.cshtml" />
-    <Content Include="Views\SubjectGroup\AddStudent.cshtml" />
     <Content Include="Views\SubjectGroup\AddSubject.cshtml" />
     <Content Include="Views\SubjectGroup\GroupMaster.cshtml" />
     <Content Include="Views\SubjectGroup\QuestionList.cshtml" />
-    <Content Include="Views\SubjectGroup\StudentMaster.cshtml" />
     <Content Include="Views\SubjectGroup\SubjectMaster.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\SubjectGroup\UploadExcel.cshtml" />
+    <Content Include="Views\Student\StudentMaster.cshtml" />
+    <Content Include="Views\Student\AddStudent.cshtml" />
+    <Content Include="Views\Student\AddQualification.cshtml" />
+    <Content Include="Views\Student\AddNCCCourse.cshtml" />
+    <Content Include="Views\Student\AddNCCCertificate.cshtml" />
+    <Content Include="Views\Student\AddNCCLanguage.cshtml" />
+    <Content Include="Views\Exam\ExamMaster.cshtml" />
+    <Content Include="Views\Exam\AddExam.cshtml" />
+    <Content Include="Views\Exam\AddQuestionExam.cshtml" />
+    <Content Include="Views\Exam\ShowQuestion.cshtml" />
+    <Content Include="Views\StudentExam\StudentLogin.cshtml" />
+    <Content Include="Views\StudentExam\ForgetStudentLogin.cshtml" />
+    <Content Include="Views\StudentExam\StudentDashboard.cshtml" />
+    <Content Include="Views\StudentExam\ReadInstruction.cshtml" />
+    <Content Include="Views\StudentExam\AttemptExam.cshtml" />
+    <Content Include="Views\StudentExam\ObjectiveQuestion.cshtml" />
+    <Content Include="Views\StudentExam\TrueFalseQuestion.cshtml" />
+    <Content Include="Views\StudentExam\FillInBlanckQuestion.cshtml" />
+    <Content Include="Views\StudentExam\MatchContentQuestion.cshtml" />
+    <Content Include="Views\StudentExam\IdentifySignQuestion.cshtml" />
+    <Content Include="Views\StudentExam\FullFormQuestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="UploadFiles\ImportExcel\" />
+    <Folder Include="UploadFiles\QuestionImage\" />
+    <Folder Include="UploadFiles\StudentData\" />
     <Folder Include="UploadFiles\UserPIC\" />
   </ItemGroup>
   <ItemGroup>

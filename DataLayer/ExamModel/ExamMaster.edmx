@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Exam_MasterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Exam_MasterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbl_AnswerMaster">
           <Key>
             <PropertyRef Name="pkid" />
@@ -25,15 +25,37 @@
           <Property Name="status" Type="int" />
           <Property Name="lastmodified" Type="datetime" />
         </EntityType>
+        <EntityType Name="tbl_CourseMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar(max)" />
+          <Property Name="CourseDescription" Type="nvarchar(max)" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_DivisionMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DivisioName" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="tbl_Exam_Master">
           <Key>
             <PropertyRef Name="pkid" />
           </Key>
           <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Course_fkid" Type="int" />
+          <Property Name="Force_fkid" Type="int" />
+          <Property Name="Division_fkid" Type="int" />
           <Property Name="Exam_Name" Type="nvarchar(max)" />
+          <Property Name="Total_Marks" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PassingMarks" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Passing_Percentage" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Instruction" Type="nvarchar(max)" />
-          <Property Name="ExamDuration" Type="time" Precision="7" />
+          <Property Name="ExamDuration" Type="nvarchar(max)" />
           <Property Name="AttemptCount" Type="int" />
           <Property Name="StartDate" Type="datetime" />
           <Property Name="EndDate" Type="datetime" />
@@ -45,6 +67,24 @@
           <Property Name="Adddate" Type="datetime" />
           <Property Name="LastModifieddate" Type="datetime" />
         </EntityType>
+        <EntityType Name="tbl_Exam_QuestionsMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Exam_fkid" Type="int" />
+          <Property Name="Question_fkid" Type="int" />
+          <Property Name="AddedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_ForceMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ForceName" Type="nvarchar(max)" />
+          <Property Name="ForceDescription" Type="nvarchar(max)" />
+          <Property Name="LastmodifiedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="tbl_GroupMaster">
           <Key>
             <PropertyRef Name="pkid" />
@@ -55,6 +95,17 @@
           <Property Name="adddate" Type="datetime" />
           <Property Name="lastdatemodified" Type="datetime" />
         </EntityType>
+        <EntityType Name="tbl_MatchContentQuestionMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ques_fkid" Type="int" />
+          <Property Name="FirstColoumn" Type="nvarchar(max)" />
+          <Property Name="OppositeColoumn" Type="nvarchar(max)" />
+          <Property Name="AnsweColoumn" Type="nvarchar(max)" />
+          <Property Name="LastDatetime" Type="datetime" />
+        </EntityType>
         <EntityType Name="tbl_QuestionMaster">
           <Key>
             <PropertyRef Name="pkid" />
@@ -64,6 +115,7 @@
           <Property Name="Question" Type="nvarchar(max)" />
           <Property Name="Explaination" Type="nvarchar(max)" />
           <Property Name="Subject_fkid" Type="int" />
+          <Property Name="Division_fkid" Type="int" />
           <Property Name="hint" Type="nvarchar(max)" />
           <Property Name="Marks" Type="decimal" Precision="18" Scale="2" />
           <Property Name="NegativeMarks" Type="decimal" Precision="18" Scale="2" />
@@ -80,44 +132,144 @@
           <Property Name="Questiontype" Type="nvarchar(max)" />
           <Property Name="adddate" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="tbl_RightAnswerSheet">
-          <Property Name="pkid" Type="int" />
-          <Property Name="Quest_fkid" Type="int" />
-          <Property Name="ObjAnswer" Type="int" />
-          <Property Name="TrueFalse" Type="bit" />
-          <Property Name="fillBlanck" Type="nvarchar(max)" />
-          <Property Name="subAnswer" Type="nvarchar(max)" />
-          <Property Name="Adddate" Type="datetime" />
-        </EntityType>-->
-        <EntityType Name="tbl_Stude_subjectTypeList">
+        <EntityType Name="tbl_Student_AnswerSheet">
           <Key>
             <PropertyRef Name="pkid" />
           </Key>
           <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="stud_fkid" Type="int" />
-          <Property Name="subtype_fkid" Type="int" />
-          <Property Name="addate" Type="datetime" />
+          <Property Name="Student_fkid" Type="int" />
+          <Property Name="Exam_fkid" Type="int" />
+          <Property Name="Question_fkid" Type="int" />
+          <Property Name="Answer_fkid" Type="int" />
+          <Property Name="TotalMarks" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="GainMarks" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Datetime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_Student_Language_Master">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Student_fkid" Type="int" />
+          <Property Name="Language" Type="nvarchar(max)" />
+          <Property Name="ReadL" Type="nvarchar(max)" />
+          <Property Name="Write" Type="nvarchar(max)" />
+          <Property Name="Speak" Type="nvarchar(max)" />
+          <Property Name="Upderstand" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tbl_Student_NCC_CourseMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Student_fkid" Type="int" />
+          <Property Name="CourseName" Type="nvarchar(max)" />
+          <Property Name="TrainingInstitution" Type="nvarchar(max)" />
+          <Property Name="TotalDuration" Type="nvarchar(max)" />
+          <Property Name="DurationFromDate" Type="datetime" />
+          <Property Name="DurationToDate" Type="datetime" />
+          <Property Name="Grading" Type="nvarchar(max)" />
+          <Property Name="CheckRTU" Type="bit" />
+          <Property Name="RTUReason" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tbl_Student_NCCCertificateMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Student_fkid" Type="int" />
+          <Property Name="Institution" Type="nvarchar(max)" />
+          <Property Name="Year" Type="datetime" />
+          <Property Name="Certificate_Obtained" Type="nvarchar(max)" />
+          <Property Name="Type_campus" Type="nvarchar(max)" />
+          <Property Name="AttendedYear" Type="datetime" />
+          <Property Name="AppointedYear" Type="datetime" />
+          <Property Name="LastModifieddate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_Student_Qualification_Master">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Student_fkid" Type="int" />
+          <Property Name="CertificateEducation" Type="nvarchar(max)" />
+          <Property Name="Subject" Type="nvarchar(max)" />
+          <Property Name="Division" Type="nvarchar(max)" />
+          <Property Name="YearofPasswed" Type="datetime" />
+          <Property Name="Colleage" Type="nvarchar(max)" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="mid" Type="int" />
+          <Property Name="mdate" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_StudentMaster">
           <Key>
             <PropertyRef Name="pkid" />
           </Key>
           <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Email" Type="nvarchar(max)" />
-          <Property Name="Name" Type="nvarchar(max)" />
-          <Property Name="Address" Type="nvarchar(max)" />
-          <Property Name="mobileno" Type="nvarchar(max)" />
-          <Property Name="GuardianContact" Type="nvarchar(max)" />
-          <Property Name="Enrollnmentno" Type="nvarchar(max)" />
-          <Property Name="status" Type="int" />
-          <Property Name="ProfilePhoto" Type="nvarchar(max)" />
-          <Property Name="Adddate" Type="datetime" />
-          <Property Name="lastmodifieddate" Type="datetime" />
           <Property Name="UserName" Type="nvarchar(max)" />
           <Property Name="Password" Type="nvarchar(max)" />
-          <Property Name="user_fkid" Type="nvarchar(max)" />
+          <Property Name="ConfirmedPassword" Type="nvarchar(max)" />
+          <Property Name="Course_fkid" Type="int" />
+          <Property Name="Division_fkid" Type="int" />
+          <Property Name="Force_fkid" Type="int" />
+          <Property Name="CommisionNo" Type="nvarchar(max)" />
+          <Property Name="DateComm" Type="datetime" />
+          <Property Name="Rank" Type="nvarchar(max)" />
+          <Property Name="FullName" Type="nvarchar(max)" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="PlaceOfBirth" Type="nvarchar(max)" />
+          <Property Name="IdentificationMarks" Type="nvarchar(max)" />
+          <Property Name="Height" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Weight" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ColorOfEye" Type="nvarchar(max)" />
+          <Property Name="ColorOfHair" Type="nvarchar(max)" />
+          <Property Name="Religion" Type="nvarchar(max)" />
+          <Property Name="Caste" Type="nvarchar(max)" />
+          <Property Name="Nationality" Type="nvarchar(max)" />
+          <Property Name="UnitAndLocation" Type="nvarchar(max)" />
+          <Property Name="HQGroup" Type="nvarchar(max)" />
+          <Property Name="Directorate" Type="nvarchar(max)" />
+          <Property Name="State" Type="nvarchar(max)" />
+          <Property Name="CourseSeries" Type="nvarchar(max)" />
+          <Property Name="ChestNo" Type="nvarchar(max)" />
+          <Property Name="DUCFrom" Type="datetime" />
+          <Property Name="DUCTo" Type="datetime" />
+          <Property Name="ArrivalInNCCOTA" Type="datetime" />
+          <Property Name="MotherToughe" Type="nvarchar(max)" />
+          <Property Name="PresentAddress" Type="nvarchar(max)" />
+          <Property Name="ParmanentAddress" Type="nvarchar(max)" />
+          <Property Name="MaritalStatus" Type="nvarchar(max)" />
+          <Property Name="NOKFullName" Type="nvarchar(max)" />
+          <Property Name="NOKRelation" Type="nvarchar(max)" />
+          <Property Name="NOKAddress" Type="nvarchar(max)" />
+          <Property Name="TeachingInstitideName" Type="nvarchar(max)" />
+          <Property Name="TeachingSubject" Type="nvarchar(max)" />
+          <Property Name="TeachingDateOfEmplyment" Type="datetime" />
+          <Property Name="TeachingEmpStatus" Type="nvarchar(max)" />
+          <Property Name="NCCorOTUMember" Type="bit" />
+          <Property Name="WhichDivision" Type="int" />
+          <Property Name="WhichForce" Type="int" />
+          <Property Name="TrainingPeriod" Type="nvarchar(max)" />
+          <Property Name="RankofNCC" Type="nvarchar(max)" />
+          <Property Name="MedicallyExamined" Type="bit" />
+          <Property Name="MedicalCertificate" Type="nvarchar(max)" />
+          <Property Name="AlimentName" Type="nvarchar(max)" />
+          <Property Name="MovementOrderNo" Type="nvarchar(max)" />
+          <Property Name="MovementDate" Type="datetime" />
+          <Property Name="Movement_copy" Type="nvarchar(max)" />
+          <Property Name="Games" Type="nvarchar(max)" />
+          <Property Name="OtherQualification" Type="nvarchar(max)" />
+          <Property Name="ReadNCCActRules" Type="bit" />
+          <Property Name="ReadNCCorDG" Type="bit" />
+          <Property Name="ReadSyllabus" Type="bit" />
+          <Property Name="ReadHandbook" Type="bit" />
+          <Property Name="ReadNCCCompPlanning" Type="bit" />
+          <Property Name="ReadNCCCompInstruction" Type="bit" />
+          <Property Name="DateOfPreCourseTraining" Type="datetime" />
+          <Property Name="BIODataForm" Type="nvarchar(max)" />
+          <Property Name="Place" Type="nvarchar(max)" />
+          <Property Name="AddedDate" Type="datetime" />
+          <Property Name="LastModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_Subject_master">
           <Key>
@@ -152,17 +304,25 @@ warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not hav
         </EntityType>
         <EntityContainer Name="Exam_MasterModelStoreContainer">
           <EntitySet Name="tbl_AnswerMaster" EntityType="Self.tbl_AnswerMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_CourseMaster" EntityType="Self.tbl_CourseMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_DivisionMaster" EntityType="Self.tbl_DivisionMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Exam_Master" EntityType="Self.tbl_Exam_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Exam_QuestionsMaster" EntityType="Self.tbl_Exam_QuestionsMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ForceMaster" EntityType="Self.tbl_ForceMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_GroupMaster" EntityType="Self.tbl_GroupMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_MatchContentQuestionMaster" EntityType="Self.tbl_MatchContentQuestionMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionMaster" EntityType="Self.tbl_QuestionMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_QuestionType_Master" EntityType="Self.tbl_QuestionType_Master" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbl_Stude_subjectTypeList" EntityType="Self.tbl_Stude_subjectTypeList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Student_AnswerSheet" EntityType="Self.tbl_Student_AnswerSheet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Student_Language_Master" EntityType="Self.tbl_Student_Language_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Student_NCC_CourseMaster" EntityType="Self.tbl_Student_NCC_CourseMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Student_NCCCertificateMaster" EntityType="Self.tbl_Student_NCCCertificateMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Student_Qualification_Master" EntityType="Self.tbl_Student_Qualification_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_StudentMaster" EntityType="Self.tbl_StudentMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Subject_master" EntityType="Self.tbl_Subject_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_User_Profile" EntityType="Self.tbl_User_Profile" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Exam_MasterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -186,15 +346,37 @@ warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not hav
           <Property Name="status" Type="Int32" />
           <Property Name="lastmodified" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="tbl_CourseMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CourseDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_DivisionMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DivisioName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="tbl_Exam_Master">
           <Key>
             <PropertyRef Name="pkid" />
           </Key>
           <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Course_fkid" Type="Int32" />
+          <Property Name="Force_fkid" Type="Int32" />
+          <Property Name="Division_fkid" Type="Int32" />
           <Property Name="Exam_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Total_Marks" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PassingMarks" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Passing_Percentage" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Instruction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ExamDuration" Type="Time" Precision="7" />
+          <Property Name="ExamDuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AttemptCount" Type="Int32" />
           <Property Name="StartDate" Type="DateTime" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Precision="3" />
@@ -206,6 +388,24 @@ warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not hav
           <Property Name="Adddate" Type="DateTime" Precision="3" />
           <Property Name="LastModifieddate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="tbl_Exam_QuestionsMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Exam_fkid" Type="Int32" />
+          <Property Name="Question_fkid" Type="Int32" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_ForceMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ForceName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ForceDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastmodifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="tbl_GroupMaster">
           <Key>
             <PropertyRef Name="pkid" />
@@ -216,6 +416,17 @@ warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not hav
           <Property Name="adddate" Type="DateTime" Precision="3" />
           <Property Name="lastdatemodified" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="tbl_MatchContentQuestionMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ques_fkid" Type="Int32" />
+          <Property Name="FirstColoumn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OppositeColoumn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AnsweColoumn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastDatetime" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="tbl_QuestionMaster">
           <Key>
             <PropertyRef Name="pkid" />
@@ -225,6 +436,7 @@ warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not hav
           <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Explaination" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Subject_fkid" Type="Int32" />
+          <Property Name="Division_fkid" Type="Int32" />
           <Property Name="hint" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Marks" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="NegativeMarks" Type="Decimal" Precision="18" Scale="2" />
@@ -241,33 +453,144 @@ warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not hav
           <Property Name="Questiontype" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="adddate" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="tbl_Stude_subjectTypeList">
+        <EntityType Name="tbl_Student_AnswerSheet">
           <Key>
             <PropertyRef Name="pkid" />
           </Key>
           <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="stud_fkid" Type="Int32" />
-          <Property Name="subtype_fkid" Type="Int32" />
-          <Property Name="addate" Type="DateTime" Precision="3" />
+          <Property Name="Student_fkid" Type="Int32" />
+          <Property Name="Exam_fkid" Type="Int32" />
+          <Property Name="Question_fkid" Type="Int32" />
+          <Property Name="Answer_fkid" Type="Int32" />
+          <Property Name="TotalMarks" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="GainMarks" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Datetime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_Student_Language_Master">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Student_fkid" Type="Int32" />
+          <Property Name="Language" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReadL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Write" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Speak" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Upderstand" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_Student_NCC_CourseMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Student_fkid" Type="Int32" />
+          <Property Name="CourseName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TrainingInstitution" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TotalDuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DurationFromDate" Type="DateTime" Precision="3" />
+          <Property Name="DurationToDate" Type="DateTime" Precision="3" />
+          <Property Name="Grading" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CheckRTU" Type="Boolean" />
+          <Property Name="RTUReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_Student_NCCCertificateMaster">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Student_fkid" Type="Int32" />
+          <Property Name="Institution" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="DateTime" Precision="3" />
+          <Property Name="Certificate_Obtained" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type_campus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AttendedYear" Type="DateTime" Precision="3" />
+          <Property Name="AppointedYear" Type="DateTime" Precision="3" />
+          <Property Name="LastModifieddate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_Student_Qualification_Master">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Student_fkid" Type="Int32" />
+          <Property Name="CertificateEducation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Division" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="YearofPasswed" Type="DateTime" Precision="3" />
+          <Property Name="Colleage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="mid" Type="Int32" />
+          <Property Name="mdate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tbl_StudentMaster">
           <Key>
             <PropertyRef Name="pkid" />
           </Key>
           <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="mobileno" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="GuardianContact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Enrollnmentno" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="status" Type="Int32" />
-          <Property Name="ProfilePhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Adddate" Type="DateTime" Precision="3" />
-          <Property Name="lastmodifieddate" Type="DateTime" Precision="3" />
+          <Property Name="Course_fkid" Type="Int32" />
+          <Property Name="Division_fkid" Type="Int32" />
+          <Property Name="Force_fkid" Type="Int32" />
+          <Property Name="CommisionNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateComm" Type="DateTime" Precision="3" />
+          <Property Name="Rank" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="PlaceOfBirth" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdentificationMarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Height" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Weight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ColorOfEye" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ColorOfHair" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Religion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Caste" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Nationality" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UnitAndLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HQGroup" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Directorate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CourseSeries" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChestNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DUCFrom" Type="DateTime" Precision="3" />
+          <Property Name="DUCTo" Type="DateTime" Precision="3" />
+          <Property Name="ArrivalInNCCOTA" Type="DateTime" Precision="3" />
+          <Property Name="MotherToughe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PresentAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParmanentAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NOKFullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NOKRelation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NOKAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TeachingInstitideName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TeachingSubject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TeachingDateOfEmplyment" Type="DateTime" Precision="3" />
+          <Property Name="TeachingEmpStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NCCorOTUMember" Type="Boolean" />
+          <Property Name="WhichDivision" Type="Int32" />
+          <Property Name="WhichForce" Type="Int32" />
+          <Property Name="TrainingPeriod" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RankofNCC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MedicallyExamined" Type="Boolean" />
+          <Property Name="MedicalCertificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AlimentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MovementOrderNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MovementDate" Type="DateTime" Precision="3" />
+          <Property Name="Movement_copy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Games" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OtherQualification" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReadNCCActRules" Type="Boolean" />
+          <Property Name="ReadNCCorDG" Type="Boolean" />
+          <Property Name="ReadSyllabus" Type="Boolean" />
+          <Property Name="ReadHandbook" Type="Boolean" />
+          <Property Name="ReadNCCCompPlanning" Type="Boolean" />
+          <Property Name="ReadNCCCompInstruction" Type="Boolean" />
+          <Property Name="DateOfPreCourseTraining" Type="DateTime" Precision="3" />
+          <Property Name="BIODataForm" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Place" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="user_fkid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmedPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tbl_Subject_master">
           <Key>
@@ -302,11 +625,20 @@ warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not hav
         </EntityType>
         <EntityContainer Name="Exam_MasterEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tbl_AnswerMaster" EntityType="Self.tbl_AnswerMaster" />
+          <EntitySet Name="tbl_CourseMaster" EntityType="Self.tbl_CourseMaster" />
+          <EntitySet Name="tbl_DivisionMaster" EntityType="Self.tbl_DivisionMaster" />
           <EntitySet Name="tbl_Exam_Master" EntityType="Self.tbl_Exam_Master" />
+          <EntitySet Name="tbl_Exam_QuestionsMaster" EntityType="Self.tbl_Exam_QuestionsMaster" />
+          <EntitySet Name="tbl_ForceMaster" EntityType="Self.tbl_ForceMaster" />
           <EntitySet Name="tbl_GroupMaster" EntityType="Self.tbl_GroupMaster" />
+          <EntitySet Name="tbl_MatchContentQuestionMaster" EntityType="Self.tbl_MatchContentQuestionMaster" />
           <EntitySet Name="tbl_QuestionMaster" EntityType="Self.tbl_QuestionMaster" />
           <EntitySet Name="tbl_QuestionType_Master" EntityType="Self.tbl_QuestionType_Master" />
-          <EntitySet Name="tbl_Stude_subjectTypeList" EntityType="Self.tbl_Stude_subjectTypeList" />
+          <EntitySet Name="tbl_Student_AnswerSheet" EntityType="Self.tbl_Student_AnswerSheet" />
+          <EntitySet Name="tbl_Student_Language_Master" EntityType="Self.tbl_Student_Language_Master" />
+          <EntitySet Name="tbl_Student_NCC_CourseMaster" EntityType="Self.tbl_Student_NCC_CourseMaster" />
+          <EntitySet Name="tbl_Student_NCCCertificateMaster" EntityType="Self.tbl_Student_NCCCertificateMaster" />
+          <EntitySet Name="tbl_Student_Qualification_Master" EntityType="Self.tbl_Student_Qualification_Master" />
           <EntitySet Name="tbl_StudentMaster" EntityType="Self.tbl_StudentMaster" />
           <EntitySet Name="tbl_Subject_master" EntityType="Self.tbl_Subject_master" />
           <EntitySet Name="tbl_User_Profile" EntityType="Self.tbl_User_Profile" />
@@ -338,11 +670,35 @@ warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tbl_CourseMaster">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_CourseMaster">
+              <MappingFragment StoreEntitySet="tbl_CourseMaster">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_DivisionMaster">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_DivisionMaster">
+              <MappingFragment StoreEntitySet="tbl_DivisionMaster">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="DivisioName" ColumnName="DivisioName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Exam_Master">
             <EntityTypeMapping TypeName="Exam_MasterModel.tbl_Exam_Master">
               <MappingFragment StoreEntitySet="tbl_Exam_Master">
                 <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="Course_fkid" ColumnName="Course_fkid" />
+                <ScalarProperty Name="Force_fkid" ColumnName="Force_fkid" />
+                <ScalarProperty Name="Division_fkid" ColumnName="Division_fkid" />
                 <ScalarProperty Name="Exam_Name" ColumnName="Exam_Name" />
+                <ScalarProperty Name="Total_Marks" ColumnName="Total_Marks" />
+                <ScalarProperty Name="PassingMarks" ColumnName="PassingMarks" />
                 <ScalarProperty Name="Passing_Percentage" ColumnName="Passing_Percentage" />
                 <ScalarProperty Name="Instruction" ColumnName="Instruction" />
                 <ScalarProperty Name="ExamDuration" ColumnName="ExamDuration" />
@@ -359,6 +715,26 @@ warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Exam_QuestionsMaster">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_Exam_QuestionsMaster">
+              <MappingFragment StoreEntitySet="tbl_Exam_QuestionsMaster">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="Exam_fkid" ColumnName="Exam_fkid" />
+                <ScalarProperty Name="Question_fkid" ColumnName="Question_fkid" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ForceMaster">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_ForceMaster">
+              <MappingFragment StoreEntitySet="tbl_ForceMaster">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="ForceName" ColumnName="ForceName" />
+                <ScalarProperty Name="ForceDescription" ColumnName="ForceDescription" />
+                <ScalarProperty Name="LastmodifiedDate" ColumnName="LastmodifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_GroupMaster">
             <EntityTypeMapping TypeName="Exam_MasterModel.tbl_GroupMaster">
               <MappingFragment StoreEntitySet="tbl_GroupMaster">
@@ -370,6 +746,18 @@ warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tbl_MatchContentQuestionMaster">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_MatchContentQuestionMaster">
+              <MappingFragment StoreEntitySet="tbl_MatchContentQuestionMaster">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="Ques_fkid" ColumnName="Ques_fkid" />
+                <ScalarProperty Name="FirstColoumn" ColumnName="FirstColoumn" />
+                <ScalarProperty Name="OppositeColoumn" ColumnName="OppositeColoumn" />
+                <ScalarProperty Name="AnsweColoumn" ColumnName="AnsweColoumn" />
+                <ScalarProperty Name="LastDatetime" ColumnName="LastDatetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_QuestionMaster">
             <EntityTypeMapping TypeName="Exam_MasterModel.tbl_QuestionMaster">
               <MappingFragment StoreEntitySet="tbl_QuestionMaster">
@@ -378,6 +766,7 @@ warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not hav
                 <ScalarProperty Name="Question" ColumnName="Question" />
                 <ScalarProperty Name="Explaination" ColumnName="Explaination" />
                 <ScalarProperty Name="Subject_fkid" ColumnName="Subject_fkid" />
+                <ScalarProperty Name="Division_fkid" ColumnName="Division_fkid" />
                 <ScalarProperty Name="hint" ColumnName="hint" />
                 <ScalarProperty Name="Marks" ColumnName="Marks" />
                 <ScalarProperty Name="NegativeMarks" ColumnName="NegativeMarks" />
@@ -397,33 +786,148 @@ warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Stude_subjectTypeList">
-            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_Stude_subjectTypeList">
-              <MappingFragment StoreEntitySet="tbl_Stude_subjectTypeList">
+          <EntitySetMapping Name="tbl_Student_AnswerSheet">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_Student_AnswerSheet">
+              <MappingFragment StoreEntitySet="tbl_Student_AnswerSheet">
                 <ScalarProperty Name="pkid" ColumnName="pkid" />
-                <ScalarProperty Name="stud_fkid" ColumnName="stud_fkid" />
-                <ScalarProperty Name="subtype_fkid" ColumnName="subtype_fkid" />
-                <ScalarProperty Name="addate" ColumnName="addate" />
+                <ScalarProperty Name="Student_fkid" ColumnName="Student_fkid" />
+                <ScalarProperty Name="Exam_fkid" ColumnName="Exam_fkid" />
+                <ScalarProperty Name="Question_fkid" ColumnName="Question_fkid" />
+                <ScalarProperty Name="Answer_fkid" ColumnName="Answer_fkid" />
+                <ScalarProperty Name="TotalMarks" ColumnName="TotalMarks" />
+                <ScalarProperty Name="GainMarks" ColumnName="GainMarks" />
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Student_Language_Master">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_Student_Language_Master">
+              <MappingFragment StoreEntitySet="tbl_Student_Language_Master">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="Student_fkid" ColumnName="Student_fkid" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="ReadL" ColumnName="ReadL" />
+                <ScalarProperty Name="Write" ColumnName="Write" />
+                <ScalarProperty Name="Speak" ColumnName="Speak" />
+                <ScalarProperty Name="Upderstand" ColumnName="Upderstand" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Student_NCC_CourseMaster">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_Student_NCC_CourseMaster">
+              <MappingFragment StoreEntitySet="tbl_Student_NCC_CourseMaster">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="Student_fkid" ColumnName="Student_fkid" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="TrainingInstitution" ColumnName="TrainingInstitution" />
+                <ScalarProperty Name="TotalDuration" ColumnName="TotalDuration" />
+                <ScalarProperty Name="DurationFromDate" ColumnName="DurationFromDate" />
+                <ScalarProperty Name="DurationToDate" ColumnName="DurationToDate" />
+                <ScalarProperty Name="Grading" ColumnName="Grading" />
+                <ScalarProperty Name="CheckRTU" ColumnName="CheckRTU" />
+                <ScalarProperty Name="RTUReason" ColumnName="RTUReason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Student_NCCCertificateMaster">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_Student_NCCCertificateMaster">
+              <MappingFragment StoreEntitySet="tbl_Student_NCCCertificateMaster">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="Student_fkid" ColumnName="Student_fkid" />
+                <ScalarProperty Name="Institution" ColumnName="Institution" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Certificate_Obtained" ColumnName="Certificate_Obtained" />
+                <ScalarProperty Name="Type_campus" ColumnName="Type_campus" />
+                <ScalarProperty Name="AttendedYear" ColumnName="AttendedYear" />
+                <ScalarProperty Name="AppointedYear" ColumnName="AppointedYear" />
+                <ScalarProperty Name="LastModifieddate" ColumnName="LastModifieddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Student_Qualification_Master">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_Student_Qualification_Master">
+              <MappingFragment StoreEntitySet="tbl_Student_Qualification_Master">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="Student_fkid" ColumnName="Student_fkid" />
+                <ScalarProperty Name="CertificateEducation" ColumnName="CertificateEducation" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Division" ColumnName="Division" />
+                <ScalarProperty Name="YearofPasswed" ColumnName="YearofPasswed" />
+                <ScalarProperty Name="Colleage" ColumnName="Colleage" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="mid" ColumnName="mid" />
+                <ScalarProperty Name="mdate" ColumnName="mdate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_StudentMaster">
             <EntityTypeMapping TypeName="Exam_MasterModel.tbl_StudentMaster">
               <MappingFragment StoreEntitySet="tbl_StudentMaster">
-                <ScalarProperty Name="pkid" ColumnName="pkid" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="mobileno" ColumnName="mobileno" />
-                <ScalarProperty Name="GuardianContact" ColumnName="GuardianContact" />
-                <ScalarProperty Name="Enrollnmentno" ColumnName="Enrollnmentno" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
-                <ScalarProperty Name="Adddate" ColumnName="Adddate" />
-                <ScalarProperty Name="lastmodifieddate" ColumnName="lastmodifieddate" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ConfirmedPassword" ColumnName="ConfirmedPassword" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="user_fkid" ColumnName="user_fkid" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="Course_fkid" ColumnName="Course_fkid" />
+                <ScalarProperty Name="Division_fkid" ColumnName="Division_fkid" />
+                <ScalarProperty Name="Force_fkid" ColumnName="Force_fkid" />
+                <ScalarProperty Name="CommisionNo" ColumnName="CommisionNo" />
+                <ScalarProperty Name="DateComm" ColumnName="DateComm" />
+                <ScalarProperty Name="Rank" ColumnName="Rank" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="PlaceOfBirth" ColumnName="PlaceOfBirth" />
+                <ScalarProperty Name="IdentificationMarks" ColumnName="IdentificationMarks" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="ColorOfEye" ColumnName="ColorOfEye" />
+                <ScalarProperty Name="ColorOfHair" ColumnName="ColorOfHair" />
+                <ScalarProperty Name="Religion" ColumnName="Religion" />
+                <ScalarProperty Name="Caste" ColumnName="Caste" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="UnitAndLocation" ColumnName="UnitAndLocation" />
+                <ScalarProperty Name="HQGroup" ColumnName="HQGroup" />
+                <ScalarProperty Name="Directorate" ColumnName="Directorate" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="CourseSeries" ColumnName="CourseSeries" />
+                <ScalarProperty Name="ChestNo" ColumnName="ChestNo" />
+                <ScalarProperty Name="DUCFrom" ColumnName="DUCFrom" />
+                <ScalarProperty Name="DUCTo" ColumnName="DUCTo" />
+                <ScalarProperty Name="ArrivalInNCCOTA" ColumnName="ArrivalInNCCOTA" />
+                <ScalarProperty Name="MotherToughe" ColumnName="MotherToughe" />
+                <ScalarProperty Name="PresentAddress" ColumnName="PresentAddress" />
+                <ScalarProperty Name="ParmanentAddress" ColumnName="ParmanentAddress" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="NOKFullName" ColumnName="NOKFullName" />
+                <ScalarProperty Name="NOKRelation" ColumnName="NOKRelation" />
+                <ScalarProperty Name="NOKAddress" ColumnName="NOKAddress" />
+                <ScalarProperty Name="TeachingInstitideName" ColumnName="TeachingInstitideName" />
+                <ScalarProperty Name="TeachingSubject" ColumnName="TeachingSubject" />
+                <ScalarProperty Name="TeachingDateOfEmplyment" ColumnName="TeachingDateOfEmplyment" />
+                <ScalarProperty Name="TeachingEmpStatus" ColumnName="TeachingEmpStatus" />
+                <ScalarProperty Name="NCCorOTUMember" ColumnName="NCCorOTUMember" />
+                <ScalarProperty Name="WhichDivision" ColumnName="WhichDivision" />
+                <ScalarProperty Name="WhichForce" ColumnName="WhichForce" />
+                <ScalarProperty Name="TrainingPeriod" ColumnName="TrainingPeriod" />
+                <ScalarProperty Name="RankofNCC" ColumnName="RankofNCC" />
+                <ScalarProperty Name="MedicallyExamined" ColumnName="MedicallyExamined" />
+                <ScalarProperty Name="MedicalCertificate" ColumnName="MedicalCertificate" />
+                <ScalarProperty Name="AlimentName" ColumnName="AlimentName" />
+                <ScalarProperty Name="MovementOrderNo" ColumnName="MovementOrderNo" />
+                <ScalarProperty Name="MovementDate" ColumnName="MovementDate" />
+                <ScalarProperty Name="Movement_copy" ColumnName="Movement_copy" />
+                <ScalarProperty Name="Games" ColumnName="Games" />
+                <ScalarProperty Name="OtherQualification" ColumnName="OtherQualification" />
+                <ScalarProperty Name="ReadNCCActRules" ColumnName="ReadNCCActRules" />
+                <ScalarProperty Name="ReadNCCorDG" ColumnName="ReadNCCorDG" />
+                <ScalarProperty Name="ReadSyllabus" ColumnName="ReadSyllabus" />
+                <ScalarProperty Name="ReadHandbook" ColumnName="ReadHandbook" />
+                <ScalarProperty Name="ReadNCCCompPlanning" ColumnName="ReadNCCCompPlanning" />
+                <ScalarProperty Name="ReadNCCCompInstruction" ColumnName="ReadNCCCompInstruction" />
+                <ScalarProperty Name="DateOfPreCourseTraining" ColumnName="DateOfPreCourseTraining" />
+                <ScalarProperty Name="BIODataForm" ColumnName="BIODataForm" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -20,17 +20,17 @@
         <div class="row firstdiv">
             <div class="col-md-12">
                 <div class="btn-group">
-                    <a href="#" name="add" id="add" onclick="check_perform_add('/SubjectGroup/AddStudent');" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add New Student</a>            <a href="#" name="editallfrm" id="editallfrm" onclick="EditTableTop('/SubjectGroup/AddStudent?id=');" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>            <a href="#" name="deleteallfrm" id="deleteallfrm" onclick="check_perform_delete();" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>     
+                    <a href="/Exam/AddExam" name="add" id="add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add New Exam</a>            <a href="#" name="editallfrm" id="editallfrm" onclick="EditTableTopMM('/Exam/AddExam?id=');" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>            <a href="#" name="deleteallfrm" id="deleteallfrm" onclick="    check_perform_delete();" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>
                 </div>
             </div>
-        
+
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="widget">
-                            <h4 class="widget-title"> <span>Students</span></h4>
+                            <h4 class="widget-title"> <span>Exams</span></h4>
                         </div>
                     </div>
                     <div class="table-responsive Seconddiv">
@@ -39,11 +39,9 @@
                                 <tr>
                                     <th>S.No</th>
                                     <th><input type="checkbox" name="selectAll" value="deleteall" id="selectAll"></th>
-                                    <th>Email</th>
-                                    <th>Enrolment Number</th>
-                                    <th>Phone</th>
-                                    <th>Date of Admission</th>
-                                    <th>Status</th>
+                                    <th>Exam Name</th>
+                                    <th>Total Marks</th>
+                                    <th>Exam Duration</th>                                
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -53,7 +51,7 @@
                 </div>
             </div>
         </div>
-       
+
         <div class="modal fade" id="targetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         </div>
     </div>
@@ -71,7 +69,7 @@
         "orderMulti": false, // for disable multiple column at once
 
         "ajax": {
-            "url": "/SubjectGroup/GetStudentList",
+            "url": "/Exam/GetExamList",
             "type": "POST",
             "datatype": "json"
         },
@@ -82,14 +80,12 @@
                          return '<input type="checkbox" style="margin-left:8px;" value="' + data + '" name="DeleteCheckbox1" id="DeleteCheckbox1" class="chkselect">';
                      }
                  },
-                { "data": "email", "Name": "email", "autoWidth": true },
-                   { "data": "env", "Name": "env", "autoWidth": true },
-                      { "data": "phone", "Name": "phone", "autoWidth": true },
-                      { "data": "doa", "Name": "doa", "autoWidth": true },
-                        { "data": "co", "Name": "co", "autoWidth": true },
+                { "data": "fullname", "Name": "fullname", "autoWidth": true },
+                   { "data": "passper", "Name": "passper", "autoWidth": true },
+                      { "data": "examduration", "Name": "examduration", "autoWidth": true },
                 {
                     "data": "pkid", "orderable": false, "render": function (data, type, full, meta) {
-                        return '<a href="#" name="/SubjectGroup/AddStudent?id=' + data + '" onclick="EditUserTable(this)" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>                            <a href="#" onclick="check_perform_sdelete(' + data + ');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>';
+                        return '<a href="/Exam/AddExam?id=' + data + '" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>                            <a href="#" onclick="check_perform_sdelete(' + data + ');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>';
                     }
                 }
 
@@ -99,5 +95,24 @@
             return nRow;
         }
     })
+    function EditTableTopMM(path) {
+        var numberOfChecked = $('.chkselect:checked').length;
+        var SelectedItem = "0";
+        if (numberOfChecked == 0)
+            alert("Please Checked Any Record");
+        else {
+            if (numberOfChecked == 1) {
+                $('.chkselect:checked').each(function () {
+                    if ($('.chkselect').is(':checked'))
+                        SelectedItem = $(this).val();
+                });
+                var target = path + SelectedItem;
+                window.location.href = target;
+            }
+            else {
+                alert("Check Only One Row For Edit.")
+            }
+        }
+    }
 </script>
 

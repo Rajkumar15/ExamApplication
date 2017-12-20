@@ -68,10 +68,25 @@
     <Compile Include="ExamModel\tbl_AnswerMaster.cs">
       <DependentUpon>ExamMaster.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExamModel\tbl_CourseMaster.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExamModel\tbl_DivisionMaster.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExamModel\tbl_Exam_Master.cs">
       <DependentUpon>ExamMaster.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExamModel\tbl_Exam_QuestionsMaster.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExamModel\tbl_ForceMaster.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExamModel\tbl_GroupMaster.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExamModel\tbl_MatchContentQuestionMaster.cs">
       <DependentUpon>ExamMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="ExamModel\tbl_QuestionMaster.cs">
@@ -83,7 +98,19 @@
     <Compile Include="ExamModel\tbl_StudentMaster.cs">
       <DependentUpon>ExamMaster.tt</DependentUpon>
     </Compile>
-    <Compile Include="ExamModel\tbl_Stude_subjectTypeList.cs">
+    <Compile Include="ExamModel\tbl_Student_AnswerSheet.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExamModel\tbl_Student_Language_Master.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExamModel\tbl_Student_NCCCertificateMaster.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExamModel\tbl_Student_NCC_CourseMaster.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExamModel\tbl_Student_Qualification_Master.cs">
       <DependentUpon>ExamMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="ExamModel\tbl_Subject_master.cs">

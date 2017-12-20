@@ -30,25 +30,34 @@
                         <div class="panel-body">
                             <div class="col-md-12">
                                 <div class="row">
-                                    @Html.HiddenFor(x => x.pkid)                              
-                                    @Html.AntiForgeryToken()
-                                    @Html.ValidationSummary()
-                                    <span style="float:right;"><a href="" style="color: #EF4A43 !important;font-weight:bold;">Download Format</a></span>
-                                    <h5><strong>Excel File </strong></h5>                                    
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
-                                                <input type="file" name="File" id="FileUpload" class="form-control input-sm" />
-                                                <button type="submit" class="btn btn-success" style="margin-top:1%;"><span class="glyphicon glyphicon-plus-sign"></span> Save</button>
-                                                <button type="button" class="btn btn-danger" onclick="window.location=&#39;index&#39;" style="margin-top:1%;"><span class="glyphicon glyphicon-remove"></span> Close</button>
-                                            </div>
-
+                                    @Html.HiddenFor(x => x.pkid)
+                                    @Html.AntiForgeryToken()                                
+                                    <span style="float:right;"><a href="#" onclick="GetFileDocument()" style="color: #EF4A43 !important;font-weight:bold;">Download Format</a></span>
+                                    <h5><strong>Select Filters</strong></h5>
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="col-sm-4">
+                                                <label>Select Question Type</label>
+                                                @Html.DropDownListFor(m => m.Questtype_fkid, (IEnumerable<SelectListItem>)@ViewBag.QueTypeList, "Select Question Type", new { @class = "form-control", @required="required" })
+                                            </div>                                         
+                                            <div class="col-sm-4">
+                                                <label>Select Course Type</label>
+                                                @Html.DropDownListFor(m => m.Subject_fkid, (IEnumerable<SelectListItem>)@ViewBag.CourseList, "Select Course", new { @class = "form-control" })
+                                            </div>                                           
                                         </div>
-</div>
+                                    </div>
+                                    <h5><strong>Excel File </strong></h5>
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <input type="file" name="File" id="FileUpload" class="form-control input-sm" required="required"/>
+                                            <button type="submit" class="btn btn-success" style="margin-top:1%;"><span class="glyphicon glyphicon-plus-sign"></span> Save</button>
+                                            <button type="button" class="btn btn-danger" onclick="window.location=&#39;UploadExcel&#39;" style="margin-top:1%;"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          
                         </div>
                     </div>
-
                 </div>
             </div>
         }
@@ -56,6 +65,27 @@
 </div>
 <script type="text/javascript">
     if ('@ViewBag.Exception' != "") {
-        alert("@ViewBag.Exception");
+        PranavAlert("Success","@ViewBag.Exception");
+    }
+    function GetFileDocument(){
+        if($("#Questtype_fkid").val() == "")
+        {
+            alert("Please Select Question Type.");
+        }
+        else
+        {
+            if($("#Questtype_fkid").val() == 5)
+            {
+                window.location.href = "/UploadFiles/SampleFiles/Match_Content5.xlsx";
+            }
+            else if($("#Questtype_fkid").val() == 7)
+            {
+                window.location.href = "/UploadFiles/SampleFiles/Full_Form7.xlsx";
+            }
+            else
+            {
+                window.location.href = "/UploadFiles/SampleFiles/QuestionAnswer.xlsx";
+            }
+        }
     }
 </script>

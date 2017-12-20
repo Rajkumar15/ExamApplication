@@ -36,7 +36,14 @@ namespace Exam_Application.Models.BAL
                             path = Path.Combine(HttpContext.Current.Server.MapPath("/UploadFiles/UserPIC/"), dates + filepost.FileName);
                             var filename = HttpContext.Current.Server.MapPath("/UploadFiles/UserPIC/" + dates + filepost.FileName);
                             filepost.SaveAs(path);
-                        }                      
+                        }
+                        if (numb == 2)
+                        {
+                            returnpath = "/UploadFiles/StudentData/" + dates + filepost.FileName;
+                            path = Path.Combine(HttpContext.Current.Server.MapPath("/UploadFiles/StudentData/"), dates + filepost.FileName);
+                            var filename = HttpContext.Current.Server.MapPath("/UploadFiles/StudentData/" + dates + filepost.FileName);
+                            filepost.SaveAs(path);
+                        }
                         return returnpath;
                     }
                     else
@@ -58,7 +65,8 @@ namespace Exam_Application.Models.BAL
         {
             try
             {
-                string fullPath = HttpContext.Current.Server.MapPath(file);
+              //  file = "" + file.Substring(3, (file.Length - 7)) + "";
+                string fullPath = "" + file.Substring(3, (file.Length - 7)) + "";
                 if (System.IO.File.Exists(fullPath))
                 {
                     System.IO.File.Delete(fullPath);

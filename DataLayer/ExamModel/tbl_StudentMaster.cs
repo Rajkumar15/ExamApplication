@@ -15,18 +15,69 @@ namespace DataLayer.ExamModel
     public partial class tbl_StudentMaster
     {
         public int pkid { get; set; }
-        public string Email { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string mobileno { get; set; }
-        public string GuardianContact { get; set; }
-        public string Enrollnmentno { get; set; }
-        public Nullable<int> status { get; set; }
-        public string ProfilePhoto { get; set; }
-        public Nullable<System.DateTime> Adddate { get; set; }
-        public Nullable<System.DateTime> lastmodifieddate { get; set; }
+        public Nullable<int> Course_fkid { get; set; }
+        public Nullable<int> Division_fkid { get; set; }
+        public Nullable<int> Force_fkid { get; set; }
+        public string CommisionNo { get; set; }
+        public Nullable<System.DateTime> DateComm { get; set; }
+        public string Rank { get; set; }
+        public string FullName { get; set; }
+        public Nullable<System.DateTime> DateOfBirth { get; set; }
+        public string PlaceOfBirth { get; set; }
+        public string IdentificationMarks { get; set; }
+        public Nullable<decimal> Height { get; set; }
+        public Nullable<decimal> Weight { get; set; }
+        public string ColorOfEye { get; set; }
+        public string ColorOfHair { get; set; }
+        public string Religion { get; set; }
+        public string Caste { get; set; }
+        public string Nationality { get; set; }
+        public string UnitAndLocation { get; set; }
+        public string HQGroup { get; set; }
+        public string Directorate { get; set; }
+        public string State { get; set; }
+        public string CourseSeries { get; set; }
+        public string ChestNo { get; set; }
+        public Nullable<System.DateTime> DUCFrom { get; set; }
+        public Nullable<System.DateTime> DUCTo { get; set; }
+        public Nullable<System.DateTime> ArrivalInNCCOTA { get; set; }
+        public string MotherToughe { get; set; }
+        public string PresentAddress { get; set; }
+        public string ParmanentAddress { get; set; }
+        public string MaritalStatus { get; set; }
+        public string NOKFullName { get; set; }
+        public string NOKRelation { get; set; }
+        public string NOKAddress { get; set; }
+        public string TeachingInstitideName { get; set; }
+        public string TeachingSubject { get; set; }
+        public Nullable<System.DateTime> TeachingDateOfEmplyment { get; set; }
+        public string TeachingEmpStatus { get; set; }
+        public Nullable<bool> NCCorOTUMember { get; set; }
+        public Nullable<int> WhichDivision { get; set; }
+        public Nullable<int> WhichForce { get; set; }
+        public string TrainingPeriod { get; set; }
+        public string RankofNCC { get; set; }
+        public Nullable<bool> MedicallyExamined { get; set; }
+        public string MedicalCertificate { get; set; }
+        public string AlimentName { get; set; }
+        public string MovementOrderNo { get; set; }
+        public Nullable<System.DateTime> MovementDate { get; set; }
+        public string Movement_copy { get; set; }
+        public string Games { get; set; }
+        public string OtherQualification { get; set; }
+        public Nullable<bool> ReadNCCActRules { get; set; }
+        public Nullable<bool> ReadNCCorDG { get; set; }
+        public Nullable<bool> ReadSyllabus { get; set; }
+        public Nullable<bool> ReadHandbook { get; set; }
+        public Nullable<bool> ReadNCCCompPlanning { get; set; }
+        public Nullable<bool> ReadNCCCompInstruction { get; set; }
+        public Nullable<System.DateTime> DateOfPreCourseTraining { get; set; }
+        public string BIODataForm { get; set; }
+        public string Place { get; set; }
+        public Nullable<System.DateTime> AddedDate { get; set; }
+        public Nullable<System.DateTime> LastModifiedDate { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public string user_fkid { get; set; }
+        public string ConfirmedPassword { get; set; }
     }
 }

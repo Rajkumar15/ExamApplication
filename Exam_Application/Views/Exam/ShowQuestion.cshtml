@@ -1,0 +1,166 @@
+﻿@model Exam_Application.Models.DAL.QuestionMaster
+@{
+
+}
+<style type="text/css">
+    img {
+        width: 18%;
+        border: 1px solid #dcdcdc;
+        margin-bottom: 2%;
+    }
+
+    table, tr, th, td {
+        border: 1px solid #dcc8c8;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="panel panel-default mrg">
+                <div class="panel-heading"><div class="widget-modal"><h4 class="widget-modal-title">Show <span>Question</span><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></h4></div></div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("ShowQuestion", "Exam", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        <div class="form-group">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-8">
+                                @if (Model.subjecttype_fkid == 1)
+                                {<b>Objectives Question</b>}
+                                else if (Model.subjecttype_fkid == 2)
+                                {<b>True False</b>}
+                                else if (Model.subjecttype_fkid == 3)
+                                { <b>Fill In Blanck</b>}
+                                else if (Model.subjecttype_fkid == 4)
+                                { <b>Fill In Blanck</b>}
+                                else if (Model.subjecttype_fkid == 5)
+                                { <b>Match Content</b>}
+                                else if (Model.subjecttype_fkid == 6)
+                                { <b>Identify Sign</b>}
+                                else if (Model.subjecttype_fkid == 7)
+                                { <b>Full Form</b>}
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-8">
+                                <b>Question :</b> @Html.Raw(Server.HtmlDecode(Model.Question))
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                        if (Model.subjecttype_fkid == 1)
+                        {
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8">
+                                    <b>Option :</b><br />
+                                    <span>  @Html.Raw(Server.HtmlDecode(Model.Answer1)) </span>
+                                    <span>  @Html.Raw(Server.HtmlDecode(Model.Answer2)) </span>
+                                    <span>  @Html.Raw(Server.HtmlDecode(Model.Answer3)) </span>
+                                    <span>  @Html.Raw(Server.HtmlDecode(Model.Answer4)) </span>
+                                    <b>Correct Answer :</b><br />
+                                    <span>  @Html.DisplayFor(x => x.CorrectAnswerDD) </span>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                        }
+                        else if (Model.subjecttype_fkid == 2)
+                        {
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8">
+                                    <b>Answer :</b><br />
+                                    <span> @Model.TrueFalse </span>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                        }
+                        else if (Model.subjecttype_fkid == 3)
+                        {
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8">
+                                    <b>Answer :</b><br />
+                                    <span>  @Html.DisplayFor(x => x.BlanckSpace) </span>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                        }
+                        else if (Model.subjecttype_fkid == 4)
+                        { <b>Fill In Blanck</b>}
+                        else if (Model.subjecttype_fkid == 5)
+                        {
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8 table-responsive">
+                                    <b>Details :</b><br />
+                                    <table style="margin-left:17%;" class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                        <tr>
+                                            <th>First Column</th>
+                                            <th>Opposite Column</th>
+                                            <th>Answer Column</th>
+                                        </tr>
+                                        @foreach (var item in Model.MATContent)
+                                        {
+
+                                            <tr>
+                                                <td>@item.FirstColoumn</td>
+                                                <td>@item.OppositeColoumn</td>
+                                                <td>@item.AnsweColoumn</td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                        }
+                        else if (Model.subjecttype_fkid == 6)
+                        {
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8">
+                                    <b>Option :</b><br />
+                                    <span> <img src="@Model.Answer1" /> </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span><img src="@Model.Answer2" /></span><br />
+                                    <span> <img src="@Model.Answer3" /></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span> <img src="@Model.Answer4" /> </span><br />
+                                    <b>Correct Answer :</b>
+                                    <span>  @Html.DisplayFor(x => x.CorrectAnswerDD) </span>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                        }
+                        else if (Model.subjecttype_fkid == 7)
+                        {
+                            <div class="form-group">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8 table-responsive">
+                                    <b>Details :</b><br />
+                                    <table style="margin-left:17%;" class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                        <tr>
+                                            <th>Short Form</th>
+                                            <th>Full Form</th>
+                                        </tr>
+                                        @foreach (var item in Model.FULLF)
+                                        {
+                                            <tr>
+                                                <td>@item.FirstColoumn</td>
+                                                <td>@item.AnsweColoumn</td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                        }
+                    }
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>

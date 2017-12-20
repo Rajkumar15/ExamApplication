@@ -10,9 +10,20 @@
     .mce-container-body {
         background-color: #E7E7E7;
     }
+
+    .Matchfield {
+        margin-bottom: 1%;
+        font-weight: normal !important;
+    }
+
+    .fullfo {
+        margin-bottom: 1%;
+        font-weight: normal !important;
+    }
 </style>
 <script src="~/scripts/tinymce/tinymce.min.js"></script>
 <script src="~/AdminFiles/JS/RajAddQuestion.js"></script>
+
 <script type="text/javascript">
     tinyMCE.init({"selector":"textarea","theme":"modern","plugins":"advlist,autolink,lists,link,image,charmap,print,"+
         "preview,hr,anchor,pagebreak,\r\n searchreplace,wordcount,visualblocks,visualchars,code,fullscreen,\r\n "+
@@ -46,7 +57,7 @@
                                 <div class="row">
                                     @Html.HiddenFor(x => x.pkid)
                                     @Html.HiddenFor(x => x.Questtype_fkid)
-                                    @Html.HiddenFor(x=>x.Adddate)
+                                    @Html.HiddenFor(x => x.Adddate)
                                     @Html.HiddenFor(x => x.Status)
                                     @Html.AntiForgeryToken()
                                     @Html.ValidationSummary()
@@ -61,7 +72,10 @@
                                             </div>
                                             <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id2" value="2"><label for="qtype_id2" class="radio-inline">True / False</label></div>
                                             <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id3" value="3"><label for="qtype_id3" class="radio-inline">Fill in the blanks</label></div>
-                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id4" value="4"><label for="qtype_id4" class="radio-inline">Subjective</label></div>
+                                            <div class="radio-inline" style="display:none;"><input type="radio" name="data[Question][qtype_id]" id="qtype_id4" value="4"><label for="qtype_id4" class="radio-inline">Subjective</label></div>
+                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id5" value="5"><label for="qtype_id4" class="radio-inline">Match Content</label></div>
+                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id6" value="6"><label for="qtype_id4" class="radio-inline">Identify Sign</label></div>
+                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id7" value="7"><label for="qtype_id7" class="radio-inline">Full Form</label></div>
                                         </div>
                                     </div>
                                 </div>
@@ -138,6 +152,98 @@
                                 @Html.TextAreaFor(x => x.SubAnswer, new { @class = "form-control", @placeholder = "Subjective Answer", @cols = "30", @rows = "6" })
                             </div>
 
+                            <div class="form-group" id="RAJMATCH" style="display: none;font-weight:700;">
+                                <div class="col-sm-12"><label><p style="color:#EF4A43">(NOTE:- Fill Complete Row Data Otherwise it will not Save.)</p></label></div>
+                                <div class="col-sm-4">
+                                    Item Column
+                                    @Html.HiddenFor(x => x.MATContent[0].pkid)  @Html.TextBoxFor(x => x.MATContent[0].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                    @Html.HiddenFor(x => x.MATContent[1].pkid) @Html.TextBoxFor(x => x.MATContent[1].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                    @Html.HiddenFor(x => x.MATContent[2].pkid) @Html.TextBoxFor(x => x.MATContent[2].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                    @Html.HiddenFor(x => x.MATContent[3].pkid) @Html.TextBoxFor(x => x.MATContent[3].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                    @Html.HiddenFor(x => x.MATContent[4].pkid) @Html.TextBoxFor(x => x.MATContent[4].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                    @Html.HiddenFor(x => x.MATContent[5].pkid) @Html.TextBoxFor(x => x.MATContent[5].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                    @Html.HiddenFor(x => x.MATContent[6].pkid) @Html.TextBoxFor(x => x.MATContent[6].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                    @Html.HiddenFor(x => x.MATContent[7].pkid) @Html.TextBoxFor(x => x.MATContent[7].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                    @Html.HiddenFor(x => x.MATContent[8].pkid) @Html.TextBoxFor(x => x.MATContent[8].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                    @Html.HiddenFor(x => x.MATContent[9].pkid) @Html.TextBoxFor(x => x.MATContent[9].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+
+                                </div>
+                                <div class="col-sm-4">
+                                    Option Column
+                                    @Html.TextBoxFor(x => x.MATContent[0].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                    @Html.TextBoxFor(x => x.MATContent[1].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                    @Html.TextBoxFor(x => x.MATContent[2].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                    @Html.TextBoxFor(x => x.MATContent[3].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                    @Html.TextBoxFor(x => x.MATContent[4].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                    @Html.TextBoxFor(x => x.MATContent[5].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                    @Html.TextBoxFor(x => x.MATContent[6].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                    @Html.TextBoxFor(x => x.MATContent[7].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                    @Html.TextBoxFor(x => x.MATContent[8].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                    @Html.TextBoxFor(x => x.MATContent[9].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+
+
+                                </div>
+                                <div class="col-sm-4">
+                                    Result Column
+                                    @Html.TextBoxFor(x => x.MATContent[0].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength="2" })
+                                    @Html.TextBoxFor(x => x.MATContent[1].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                    @Html.TextBoxFor(x => x.MATContent[2].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                    @Html.TextBoxFor(x => x.MATContent[3].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                    @Html.TextBoxFor(x => x.MATContent[4].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                    @Html.TextBoxFor(x => x.MATContent[5].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                    @Html.TextBoxFor(x => x.MATContent[6].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                    @Html.TextBoxFor(x => x.MATContent[7].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                    @Html.TextBoxFor(x => x.MATContent[8].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                    @Html.TextBoxFor(x => x.MATContent[9].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="RAJFORM" style="display: none;font-weight:700;">
+                                <div class="col-sm-12"><label><p style="color:#EF4A43">(NOTE:- Fill Complete Row Data Otherwise it will not Save.)</p></label></div>
+                                <div class="col-sm-4">
+                                    Short Form
+                                    @Html.HiddenFor(x => x.FULLF[0].pkid) @Html.TextBoxFor(x => x.FULLF[0].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                    @Html.HiddenFor(x => x.FULLF[1].pkid) @Html.TextBoxFor(x => x.FULLF[1].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                    @Html.HiddenFor(x => x.FULLF[2].pkid) @Html.TextBoxFor(x => x.FULLF[2].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                    @Html.HiddenFor(x => x.FULLF[3].pkid) @Html.TextBoxFor(x => x.FULLF[3].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                    @Html.HiddenFor(x => x.FULLF[4].pkid) @Html.TextBoxFor(x => x.FULLF[4].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                    @Html.HiddenFor(x => x.FULLF[5].pkid) @Html.TextBoxFor(x => x.FULLF[5].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                    @Html.HiddenFor(x => x.FULLF[6].pkid) @Html.TextBoxFor(x => x.FULLF[6].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                    @Html.HiddenFor(x => x.FULLF[7].pkid) @Html.TextBoxFor(x => x.FULLF[7].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                    @Html.HiddenFor(x => x.FULLF[8].pkid) @Html.TextBoxFor(x => x.FULLF[8].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                    @Html.HiddenFor(x => x.FULLF[9].pkid) @Html.TextBoxFor(x => x.FULLF[9].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+
+                                </div>
+                                <div class="col-sm-4">
+
+                                    Full Form
+                                    @Html.TextBoxFor(x => x.FULLF[0].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
+                                    @Html.TextBoxFor(x => x.FULLF[1].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
+                                    @Html.TextBoxFor(x => x.FULLF[2].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
+                                    @Html.TextBoxFor(x => x.FULLF[3].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
+                                    @Html.TextBoxFor(x => x.FULLF[4].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
+                                    @Html.TextBoxFor(x => x.FULLF[5].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
+                                    @Html.TextBoxFor(x => x.FULLF[6].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
+                                    @Html.TextBoxFor(x => x.FULLF[7].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
+                                    @Html.TextBoxFor(x => x.FULLF[8].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
+                                    @Html.TextBoxFor(x => x.FULLF[9].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="myidentifytab" style="display: none;">
+                                <label for="QuestionFillBlank">Select File </label><p style="color:#EF4A43">(NOTE:- Select Four Files at a time)</p>@*<input name="data[Question][fill_blank]" class="form-control" placeholder="Blank Space" maxlength="100" type="text" id="QuestionFillBlank">*@
+                                <input type="file" name="files" id="files" multiple="multiple" class="form-control" />
+                                <div class="input select">
+                                    <label for="QuestionAnswer">Answer</label>
+                                    <div class="checkbox"><input type="checkbox" name="data[Question][answer][]" value="1" id="FQuestionAnswer1"><label for="QuestionAnswer1">File1</label></div>
+                                    <div class="checkbox"><input type="checkbox" name="data[Question][answer][]" value="2" id="FQuestionAnswer2"><label for="QuestionAnswer2">File2</label></div>
+                                    <div class="checkbox"><input type="checkbox" name="data[Question][answer][]" value="3" id="FQuestionAnswer3"><label for="QuestionAnswer3">File3</label></div>
+                                    <div class="checkbox"><input type="checkbox" name="data[Question][answer][]" value="4" id="FQuestionAnswer4"><label for="QuestionAnswer4">File4</label></div>
+                                </div>
+                            </div>
+
+
+
                             <div class="form-group">
                                 <label for="QuestionExplanation" style="margin-top:2%;">Explanation</label><hr>
                                 @*<textarea name="data[Question][explanation]" class="form-control" placeholder="Explanation" cols="30" rows="6" id="QuestionExplanation"></textarea><br>*@
@@ -148,9 +254,13 @@
                             <div class="panel panel-default mrg pull-left">
                                 <div class="panel-body">
                                     <div class="form-group">
-                                        <label for="QuestionHint">Subject</label>
-                                        @Html.DropDownListFor(m => m.Subject_fkid, (IEnumerable<SelectListItem>)@ViewBag.SubjectList, "Select Subject", new { @class = "form-control" })
+                                        <label for="QuestionHint">Course Type</label>
+                                        @Html.DropDownListFor(m => m.Subject_fkid, (IEnumerable<SelectListItem>)@ViewBag.CourseList, "Select Course", new { @class = "form-control" })
+                                    </div>
 
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Divsion Type</label>
+                                        @Html.DropDownListFor(m => m.Division_fkid, (IEnumerable<SelectListItem>)@ViewBag.DivisionList, "Select Division", new { @class = "form-control" })
                                     </div>
 
                                     <div class="form-group">
@@ -161,41 +271,25 @@
                                         <div class="row">
                                             <div class="form-group">
                                                 <label for="QuestionMarks">Marks</label>@*<input name="data[Question][marks]" class="form-control validate[required,custom[number]]" placeholder="Marks" step="any" type="number" id="QuestionMarks">*@
-                                                @Html.TextBoxFor(x => x.Marks, new { @class = "form-control", @placeholder = "Marks" })
+                                                @Html.TextBoxFor(x => x.Marks, new { @class = "form-control Rajdecimal", @placeholder = "Marks" })
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="QuestionNegativeMarks">Negative Marks</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
-                                            @Html.TextBoxFor(x => x.NegativeMarks, new { @class = "form-control", @placeholder = "Negative Marks" })
+                                            @Html.TextBoxFor(x => x.NegativeMarks, new { @class = "form-control Rajdecimal", @placeholder = "Negative Marks" })
                                         </div>
                                     </div>
 
                                     <div class="col-md-4" style="margin-bottom: 2%;">
                                         <div class="form-group">
-
                                             <label for="QuestionDiffId">Difficulty Level</label>
-                                            @Html.DropDownListFor(m => m.Subject_fkid,new List<SelectListItem>{new SelectListItem { Text = "Easy", Value = "1"},new SelectListItem { Text = "Medium", Value = "2"},new SelectListItem { Text = "Difficult", Value = "3"}}, "Select Level", new { @class = "form-control",@required="required" })
-                                            @*<select name="data[Question][diff_id]" class="form-control" id="QuestionDiffId">
-                                                <option value="">(Please Select)</option>
-                                                <option value="1">Easy</option>
-                                                <option value="2">Medium</option>
-                                                <option value="3">Difficult</option>
-                                            </select>*@
-
+                                            @Html.DropDownListFor(m => m.SelectLevel, new List<SelectListItem> { new SelectListItem { Text = "Easy", Value = "1" }, new SelectListItem { Text = "Medium", Value = "2" }, new SelectListItem { Text = "Difficult", Value = "3" } }, "Select Level", new { @class = "form-control", @required = "required" })
                                         </div>
                                     </div>
-
-                                  
-                                        <div class="form-group">
-                                            <label for="QuestionNegativeMarks">Images</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
-                                            <input type="file" name="File" id="ppic" multiple="multiple" class="form-control input-sm" />
-                                        </div>
-                             
-
                                     <button type="submit" class="btn btn-success" style="margin-top:1%;"><span class="glyphicon glyphicon-plus-sign"></span> Save</button>
-                                    <button type="button" class="btn btn-danger" onclick="window.location=&#39;index&#39;" style="margin-top:1%;"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                                    <button type="button" class="btn btn-danger" onclick="window.location=&#39;QuestionList&#39;" style="margin-top:1%;"><span class="glyphicon glyphicon-remove"></span> Close</button>
                                 </div>
                             </div>
                         </div>
@@ -206,8 +300,15 @@
         }
     </div>
 </div>
+<script src="~/AdminFiles/RajCustom/common.js"></script>
 <script type="text/javascript">
     if ('@ViewBag.Exception' != "") {
-        alert("@ViewBag.Exception");
+        PranavAlert("Success","@ViewBag.Exception");
+    }
+    function MATChange()
+    {
+        debugger;
+        alert($(this).val())
+
     }
 </script>

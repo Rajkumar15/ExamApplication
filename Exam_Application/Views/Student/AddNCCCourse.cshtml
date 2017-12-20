@@ -1,0 +1,104 @@
+﻿@model Exam_Application.Models.DAL.tbl_Student_NCC_CourseMasterss
+@{
+
+}
+<style type="text/css">
+    .form-control {
+        margin-bottom: 15px !important;
+    }
+</style>
+
+<script src="~/AdminFiles/RajCustom/common.js"></script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="panel panel-default mrg">
+                <div class="panel-heading"><div class="widget-modal"><h4 class="widget-modal-title">Add <span>Course</span><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></h4></div></div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("AddNCCCourse", "Student", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.HiddenFor(x => x.pkid)
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary()
+                    @Html.HiddenFor(x=>x.Student_fkid)
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Course Name</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.CourseName, new { @class = "form-control Rajstring", placeholder = "Enter Course Name", @required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Training Institude</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.TrainingInstitution, new { @class = "form-control Rajstring", placeholder = "Enter Institude Name" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Total Duration</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.TotalDuration, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Duration From Date</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.DurationFromDate, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Duration To Date</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.DurationToDate, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Grading</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.Grading, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Check RTU</small></label>
+                            <div class="col-sm-6">
+                                @Html.DropDownListFor(m => m.CheckRTU, new List<SelectListItem> { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "NO", Value = "false" } }, "Select Status", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="group_name" class="col-sm-3 control-label"><small>Reason RTU</small></label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(x => x.RTUReason, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group text-left">
+                            <div class="col-sm-offset-3 col-sm-10">
+                                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Save</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<link href="~/AdminFiles/RajCustom/datepicker.css" rel="stylesheet" />
+<script src="~/AdminFiles/RajCustom/datepicker.js"></script>
+<script type="text/javascript">
+    $('#DurationFromDate').datepicker();
+    $('#DurationToDate').datepicker();
+    if ('@ViewBag.sid' != "") {
+        $("#Student_fkid").val('@ViewBag.sid');
+    }
+</script>

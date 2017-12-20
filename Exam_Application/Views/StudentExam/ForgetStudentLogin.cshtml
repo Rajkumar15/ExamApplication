@@ -1,0 +1,197 @@
+﻿@model Exam_Application.Models.DAL.tbl_StudentMasterss
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://eduexpression.com/envato/ -->
+<html lang="en" class="sb-init">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-translate-customization" content="839d71f7ff6044d0-328a2dc5159d6aa2-gd17de6447c9ba810-f">
+    <title>
+        Student Login
+    </title>
+    <meta name="description" content="Best CakePHP Based online exmaination and performance analysis system">
+    @*<link href="http://eduexpression.com/envato/favicon.ico" type="image/x-icon" rel="icon">
+        <link href="http://eduexpression.com/envato/favicon.ico" type="image/x-icon" rel="shortcut icon">
+        <link rel="stylesheet" type="text/css" href="./PHP MYSQL Online Examination System_files/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="./PHP MYSQL Online Examination System_files/style.css">
+        <link rel="stylesheet" type="text/css" href="./PHP MYSQL Online Examination System_files/style(1).css">
+        <link rel="stylesheet" type="text/css" href="./PHP MYSQL Online Examination System_files/fonts.css">
+        <link rel="stylesheet" type="text/css" href="./PHP MYSQL Online Examination System_files/plugins.css">
+        <link rel="stylesheet" type="text/css" href="./PHP MYSQL Online Examination System_files/responsive.css">
+        <link rel="stylesheet" type="text/css" href="./PHP MYSQL Online Examination System_files/settings.css">
+        <link rel="stylesheet" type="text/css" href="./PHP MYSQL Online Examination System_files/validationEngine.jquery.css">
+
+
+
+        <script type="text/javascript" src="./PHP MYSQL Online Examination System_files/jquery-1.8.2.min.js.download"></script>
+        <script type="text/javascript" src="./PHP MYSQL Online Examination System_files/html5shiv.js.download"></script>
+        <script type="text/javascript" src="./PHP MYSQL Online Examination System_files/respond.min.js.download"></script>
+        <script type="text/javascript" src="./PHP MYSQL Online Examination System_files/bootstrap.min.js.download"></script>
+        <script type="text/javascript" src="./PHP MYSQL Online Examination System_files/jquery.validationEngine-en.js.download"></script>
+        <script type="text/javascript" src="./PHP MYSQL Online Examination System_files/jquery.validationEngine.js.download"></script>
+        <script type="text/javascript" src="./PHP MYSQL Online Examination System_files/superfish.js.download"></script>
+        <script type="text/javascript" src="./PHP MYSQL Online Examination System_files/sidebar.js.download"></script>
+        <script type="text/javascript" src="./PHP MYSQL Online Examination System_files/functions.js.download"></script>
+        <script type="text/javascript" src="./PHP MYSQL Online Examination System_files/plugins.min.js.download"></script>
+        <script type="text/javascript" src="./PHP MYSQL Online Examination System_files/revolution.min.js.download"></script>
+        <script type="text/javascript" src="./PHP MYSQL Online Examination System_files/custom.min.js.download"></script>*@
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body cz-shortcut-listen="true">
+
+    <div id="sb-site" style="min-height: 1137px;">
+        <div id="wrap">
+            <div class="main-inner-content">
+                <header id="header" class="section cover header-bg" data-bg="/envato//img//design200/slider.png" style="background-image: url(&quot;/envato//img//design200/slider.png&quot;);">
+                    <div class="header-fixed affix">
+                        <div class="logo-header">
+                            <div class="container">
+                                <div class="logo-container pull-left clearfix">
+                                    <div class="logo">
+                                        <h1 class="site-title"></h1><h1>Edu Expressio Demo Site</h1>
+
+                                        <p class="site-desc">Edu Expressio Demo Site</p>
+                                    </div>
+                                </div>
+                                <div class="menu-container pull-right">
+                                    <div class="site-menu">
+                                        <div class="site-menu-inner clearfix">
+                                            <div class="site-menu-container pull-left">
+                                                <nav class="hidden-xs hidden-sm">
+                                                    <ul class="sf-menu clearfix list-unstyled sf-js-enabled sf-arrows">
+                                                        <li class="current-menu-item"><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a></li>
+                                                        <li
+                                                        <li ="" class=""><a href="#"><span class="glyphicon glyphicon-lock"></span>&nbsp;Sign In</a></li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="visible-xs visible-sm mobile-menu-action pull-right sb-toggle-right navbar-right"><i class="fa fa-bars"></i></div>
+                        </div>
+                    </div>
+                    <div class="logo-header">
+                        <div class="container">
+                            <div class="logo-container clearfix">
+                                <div class="logo pull-left">
+                                    <h1 class="site-title"></h1><h1>Edu Expressio Demo Site</h1>
+
+                                    <p class="site-desc">Edu Expressio Demo Site</p>
+                                </div>
+                                <div class="social-info pull-right hidden-xs hidden-sm" style="display:none;">
+                                    <ul class="social textcolor list-unstyled">
+                                        <li class="phone active"><a href="#"><i class="fa fa-phone"></i><span>0000-0000</span></a></li>
+                                        <li class="mail"><a href="#"><i class="fa fa-envelope"></i><span>info@eduexpression.com</span></a></li>
+                                        <li class="facebook"><a href="http://facebook.com/" target="_blank"><i class="fa fa-facebook"></i><span>follow on facebook</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="visible-xs visible-sm mobile-menu-action pull-right sb-toggle-right navbar-right"><i class="fa fa-bars"></i></div>
+                    </div>
+                    <div class="site-menu">
+                        <div class="container">
+                            <div class="site-menu-inner clearfix">
+                                <div class="site-menu-container pull-left">
+                                    <nav class="hidden-xs hidden-sm">
+                                        <ul class="sf-menu clearfix list-unstyled sf-js-enabled sf-arrows">
+                                            <li class="current-menu-item"><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a></li>
+                                            <li
+                                            <li ="" class=""><a href="/StudentExam/StudentLogin"><span class="glyphicon glyphicon-lock"></span>&nbsp;Sign In</a></li>
+
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </header>
+                <div id="page-content">
+                    <div class="container mrg">
+                        <div class="row">
+
+                            <div class="col-md-9">
+                                <div class="page-heading">
+                                    <div class="widget">
+                                        <h2 class="widget-title">Forgot <span>Password</span></h2>
+                                    </div>
+                                </div>
+                                @using (Html.BeginForm("ForgetStudentLogin", "StudentExam", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                {
+                                    <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>        <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-3 control-label">Email :</label>
+                                        <div class="col-sm-9">
+                                            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "Enter User Name", @required = "required" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group text-center">
+                                        <div class="col-sm-offset-3 col-sm-2">
+                                            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-log-in"></span> Submit</button>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><footer id="footer">
+            <div class="footer-widget">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="widget">
+                                <h5 class="widget-title">
+                                    Copyright © 2017<span> Edu Expressio Demo Site</span>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <div class="widget">
+                                <h5 class="widget-title">
+                                    Time <span>13-12-2017 05:07:04 PM</span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-credits">
+                <div class="container">
+                    <div class="footer-credits-inner">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <span>Powered by <a href="#" target="_blank">Eduexpression.com</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+
+    <div class="sb-slidebar sb-right">
+        <div class="sb-menu-trigger"></div><ul class="mobile-menu">
+            <li class="current-menu-item"><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a></li>
+            <li
+            <li =""><a href="#"><span class="glyphicon glyphicon-lock"></span>&nbsp;Sign In</a></li>
+        </ul>
+    </div><a class="back-to-top" style="display: block;"><i class="fa fa-angle-up"></i></a>
+</body>
+</html>
+<script type="text/javascript">
+    if ('@ViewBag.Exception' != "") {
+        alert("@ViewBag.Exception");
+    }
+</script>

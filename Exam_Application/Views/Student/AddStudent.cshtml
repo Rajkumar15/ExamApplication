@@ -1,0 +1,596 @@
+﻿@model Exam_Application.Models.DAL.tbl_StudentMasterss
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .form-horizontal .form-group {
+        margin: 0 !important;
+    }
+
+    .mce-container-body {
+        background-color: #E7E7E7;
+    }
+
+    .headcolor {
+        background-color: #EF4A43;
+        border-color: #EF4A43;
+    }
+
+     .headcolorth {
+        background-color: #f0ad4e;
+        border-color: #f0ad4e;
+    }
+
+    .Matchfield {
+        margin-bottom: 1%;
+        font-weight: normal !important;
+    }
+
+    .fullfo {
+        margin-bottom: 1%;
+        font-weight: normal !important;
+    }
+</style>
+
+<div id="page-content">
+    <div class="container mrg">
+
+        @using (Html.BeginForm("AddStudent", "Student", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="widget">
+                                <h4 class="widget-title">
+                                    Add <span>STUDENT</span>
+                                    <a href="/Student/StudentMaster" class="btn btn-success" style="float:right;"><span class="glyphicon glyphicon-list-alt" style="color: #fff;"></span>&nbsp;View Students</a>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            @Html.HiddenFor(x => x.pkid)                        
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+                            
+
+                            <div class="panel panel-default mrg pull-left col-sm-12">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Enter Master Details</label><br />
+                                        <a href="#" onclick="check_perform_addStudent('/Student/AddQualification');" name="add" id="add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add Student Qualification</a>
+
+                                        <a href="#" onclick="check_perform_addStudent('/Student/AddNCCCourse');" name="add" id="add" class="btn btn-success headcolor"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add Student NCC Course</a>
+
+                                        <a href="#" onclick="check_perform_addStudent('/Student/AddNCCCertificate');" name="add" id="add" class="btn btn-success headcolorth"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add Student NCC Certificate</a>
+
+                                        <a href="#" onclick="check_perform_addStudent('/Student/AddNCCLanguage');" name="add" id="add" class="btn btn-success headcolor"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add Student Languages</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12"><label><p style="color:#EF4A43">(NOTE:- Enter First Full Name.)</p></label></div>
+                            <div class="panel panel-default mrg pull-left col-sm-6">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Full Name</label>
+                                        @Html.TextBoxFor(x => x.FullName, new { @class = "form-control", @placeholder = "Enter Full Name", @required = "required" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">UserName</label>
+                                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "Enter UserName",@required="required"})
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Password</label>
+                                        @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Enter Password", @required = "required" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Confirmed Password</label>
+                                        @Html.PasswordFor(x => x.ConfirmedPassword, new { @class = "form-control", @placeholder = "Enter Confirmed Password", @required = "required" })
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="QuestionMarks">Course Type</label>@*<input name="data[Question][marks]" class="form-control validate[required,custom[number]]" placeholder="Marks" step="any" type="number" id="QuestionMarks">*@
+                                                @Html.DropDownListFor(m => m.Course_fkid, (IEnumerable<SelectListItem>)@ViewBag.CourseList, "Select Course", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Divsion Type</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.DropDownListFor(m => m.Division_fkid, (IEnumerable<SelectListItem>)@ViewBag.DivisionList, "Select Division", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4" style="margin-bottom: 2%;">
+                                        <div class="form-group">
+                                            <label for="QuestionDiffId">Force Type</label>
+                                            @Html.DropDownListFor(m => m.Force_fkid, (IEnumerable<SelectListItem>)@ViewBag.ForceList, "Select Force", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="QuestionNegativeMarks">Commission No</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                                @Html.TextBoxFor(x => x.CommisionNo, new { @class = "form-control", @placeholder = "Commiss No" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Commissin Date</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.DateComm, new { @class = "form-control", @placeholder = "Commiss Date" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Rank</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.Rank, new { @class = "form-control", @placeholder = "Enter Rank" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Identification Mark</label>
+                                        @Html.TextBoxFor(x => x.IdentificationMarks, new { @class = "form-control Rajstring", @placeholder = "Enter Identification Mark" })
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="QuestionNegativeMarks">Date Of Birth</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                                @Html.TextBoxFor(x => x.DateOfBirth, new { @class = "form-control", @placeholder = "DOB" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Place of Birth</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.PlaceOfBirth, new { @class = "form-control", @placeholder = "Enter Place" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Caste</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.Caste, new { @class = "form-control", @placeholder = "Enter Caste" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="QuestionNegativeMarks">Height</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                                @Html.TextBoxFor(x => x.Height, new { @class = "form-control Rajdecimal", @placeholder = "Enter Height" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Weight</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.Weight, new { @class = "form-control Rajdecimal", @placeholder = "Enter Weight" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Color Of EYE</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.ColorOfEye, new { @class = "form-control", @placeholder = "Enter Eye Color" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="QuestionNegativeMarks">Color Of Hair</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                                @Html.TextBoxFor(x => x.ColorOfHair, new { @class = "form-control", @placeholder = "Enter Hair Color" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Religion</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.Religion, new { @class = "form-control", @placeholder = "Enter Religion" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Nationality</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.Nationality, new { @class = "form-control", @placeholder = "Enter Nationality" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Unit And Location</label>
+                                        @Html.TextBoxFor(x => x.UnitAndLocation, new { @class = "form-control Rajstring", @placeholder = "Enter Unit And Location" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Group HQ</label>
+                                        @Html.TextBoxFor(x => x.HQGroup, new { @class = "form-control", @placeholder = "Enter unit Head Quaters" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Directorate</label>
+                                        @Html.TextBoxFor(x => x.Directorate, new { @class = "form-control", @placeholder = "Enter Directorate" })
+                                    </div>
+
+
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="QuestionNegativeMarks">State</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                                @Html.TextBoxFor(x => x.State, new { @class = "form-control Rajstring", @placeholder = "Enter State" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Course Series</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.CourseSeries, new { @class = "form-control", @placeholder = "Enter Course Series" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Chest No</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.ChestNo, new { @class = "form-control", @placeholder = "Enter Chest No" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="QuestionNegativeMarks">Duration From Date</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                                @Html.TextBoxFor(x => x.DUCFrom, new { @class = "form-control", @placeholder = "Select Date" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Duration To Date</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.DUCTo, new { @class = "form-control", @placeholder = "Select Date" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4" style="opacity:0;">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Chest No</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBox("xv", new { @class = "form-control", @placeholder = "Enter Chest No" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Arrival Date in NCC/OTA</label>
+                                        @Html.TextBoxFor(x => x.ArrivalInNCCOTA, new { @class = "form-control", @placeholder = "Enter Arrival Date" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Mother Tongue</label>
+                                        @Html.TextBoxFor(x => x.MotherToughe, new { @class = "form-control", @placeholder = "Enter Mother Tongue" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Present Address</label>
+                                        @Html.TextAreaFor(x => x.PresentAddress, new { @class = "form-control", @placeholder = "Enter Present Address" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Permanent Address</label>
+                                        @Html.TextAreaFor(x => x.ParmanentAddress, new { @class = "form-control",  @placeholder = "Enter Parmanent Address" })
+                                    </div>
+
+                                    <button type="submit" class="btn btn-success" style="margin-top:1%;"><span class="glyphicon glyphicon-plus-sign"></span> Save</button>
+                                    <button type="button" class="btn btn-danger" onclick="window.location=&#39;StudentMaster&#39;" style="margin-top:1%;"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                                </div>
+                            </div>
+
+
+                            <div class="panel panel-default mrg pull-left col-sm-6">
+                                <div class="panel-body" style="margin-bottom:25%;">
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Marital Status</label>
+                                        @Html.DropDownListFor(m => m.MaritalStatus, new List<SelectListItem> { new SelectListItem { Text = "Married", Value = "Married" }, new SelectListItem { Text = "Unmarried", Value = "Unmarried" } }, "Select Status", new { @class = "form-control" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">NOK Name</label>
+                                        @Html.TextBoxFor(x => x.NOKFullName, new { @class = "form-control", @placeholder = "Enter Name of kin Name" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">NOK Relation</label>
+                                        @Html.TextBoxFor(x => x.NOKRelation, new { @class = "form-control", @placeholder = "Enter Name of kin Relation" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">NOK Address</label>
+                                        @Html.TextAreaFor(x => x.NOKAddress, new { @class = "form-control", @placeholder = "Enter Name of kin Address" })
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Teaching Inst. Name</label>
+                                        @Html.TextBoxFor(x => x.TeachingInstitideName, new { @class = "form-control", @placeholder = "Enter Institude Name" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Teaching Subject</label>
+                                        @Html.TextBoxFor(x => x.TeachingSubject, new { @class = "form-control", @placeholder = "Enter Teaching Subject" })
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="QuestionNegativeMarks">Teaching Date</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                                @Html.TextBoxFor(x => x.TeachingDateOfEmplyment, new { @class = "form-control Rajstring", @placeholder = "Select Date" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Emplyment Status</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.TeachingEmpStatus, new { @class = "form-control", @placeholder = "Enter Status" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Member NCC/OTA</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.DropDownListFor(m => m.NCCorOTUMember, new List<SelectListItem> { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "NO", Value = "false" } }, "Select Status", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="member">
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label for="QuestionNegativeMarks">Select Division</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                                    @Html.DropDownListFor(m => m.WhichDivision, new List<SelectListItem> { new SelectListItem { Text = "JD", Value = "1" }, new SelectListItem { Text = "SD", Value = "2" } }, "Select Division", new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="QuestionNegativeMarks">Select Force</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                                @Html.DropDownListFor(m => m.WhichForce, new List<SelectListItem> { new SelectListItem { Text = "AF", Value = "1" }, new SelectListItem { Text = "AIR", Value = "2" }, new SelectListItem { Text = "NAVY", Value = "3" } }, "Select Division", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="QuestionNegativeMarks">Training Period</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                                @Html.TextBoxFor(x => x.TrainingPeriod, new { @class = "form-control", @placeholder = "Enter Period." })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label for="QuestionNegativeMarks">Rank</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                                    @Html.TextBoxFor(x => x.RankofNCC, new { @class = "form-control", @placeholder = "Enter Rank." })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">MedicallyExamined</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.DropDownListFor(m => m.MedicallyExamined, new List<SelectListItem> { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "NO", Value = "false" } }, "Select Status", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Any Aliment</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.AlimentName, new { @class = "form-control", @placeholder = "Aliment Name." })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="QuestionNegativeMarks">Movment Order No</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                                @Html.TextBoxFor(x => x.MovementOrderNo, new { @class = "form-control", @placeholder = "Order No." })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Order Date</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.MovementDate, new { @class = "form-control", @placeholder = "Select Date." })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Movement Copy</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            <input type="file" name="Mcopy" class="form-control" multiple="multiple" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Games</label>
+                                        @Html.TextAreaFor(x => x.Games, new { @class = "form-control", @placeholder = "Enter Games" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Special Qualification</label>
+                                        @Html.TextAreaFor(x => x.OtherQualification, new { @class = "form-control", @placeholder = "Enter Other Qualification" })
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="QuestionNegativeMarks">NCC Rules</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                                @Html.DropDownListFor(m => m.ReadNCCActRules, new List<SelectListItem> { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "NO", Value = "false" } }, "Select Status", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Training Syllabus</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.DropDownListFor(m => m.ReadSyllabus, new List<SelectListItem> { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "NO", Value = "false" } }, "Select Status", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Training Directive</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.DropDownListFor(m => m.ReadNCCorDG, new List<SelectListItem> { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "NO", Value = "false" } }, "Select Status", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="QuestionNegativeMarks">Handbook</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                                @Html.DropDownListFor(m => m.ReadHandbook, new List<SelectListItem> { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "NO", Value = "false" } }, "Select Status", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">NCC Camp</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.DropDownListFor(m => m.ReadNCCCompPlanning, new List<SelectListItem> { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "NO", Value = "false" } }, "Select Status", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="QuestionNegativeMarks">Camp Instruction</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.DropDownListFor(m => m.ReadNCCCompInstruction, new List<SelectListItem> { new SelectListItem { Text = "Yes", Value = "true" }, new SelectListItem { Text = "NO", Value = "false" } }, "Select Status", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Details Of Pre-Course Training</label>
+                                        @Html.TextAreaFor(x => x.Place, new { @class = "form-control", @placeholder = "Enter Details" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Select BIOData File</label>
+                                        <input type="file" name="BIODATA" multiple="multiple" class="form-control" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="QuestionHint">Medical Certificate</label>
+                                        <input type="file" name="Medicalcer" multiple="multiple" class="form-control"  />
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="targetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-content">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<link href="~/AdminFiles/RajCustom/datepicker.css" rel="stylesheet" />
+<script src="~/AdminFiles/RajCustom/datepicker.js"></script>
+<script src="~/AdminFiles/RajCustom/common.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#DateComm').datepicker();$('#DateOfBirth').datepicker(); $('#DUCFrom').datepicker();$('#DUCTo').datepicker();
+        $('#ArrivalInNCCOTA').datepicker();$('#TeachingDateOfEmplyment').datepicker(); $('#MovementDate').datepicker();
+        $("#UserName").focusout(function(){           
+            if($("#UserName").val() != "")
+            {
+                $.post("/Student/CheckUserName?Name="+$("#UserName").val(),function(data){
+                    if(data=="yes")
+                    {
+                        $("#UserName").val('');
+                        alert("UserName Already Taken Please choose Another.");
+                        e.preventDefault();
+                    }
+                })
+            }
+            else{ alert("Enter UserName");}
+        })
+        $(".form-horizontal").submit(function (e) {
+           if ($("#Password").val() != $("#ConfirmedPassword").val())
+            {
+                alert("Confirmed Password Not Matched");
+                e.preventDefault();
+            }
+       
+        });
+
+    })
+    if ('@ViewBag.Exception' != "") {
+        PranavAlert("Success","@ViewBag.Exception");
+    }
+    function check_perform_addStudent(target) {
+
+        if($("#pkid").val() == "")
+        {
+            if($("#FullName").val() == "")
+            {
+                alert("Enter First Full Name.")
+            }
+            else
+            {
+                $.getJSON("/Student/SaveStudent?Name="+$("#FullName").val(),function(data){
+
+                    if(data != 0 || data != null)
+                    {
+                        $("#pkid").val(data);
+                        check_perform_addStudent(target);
+
+                    }
+
+                })
+            }
+        }
+        else{
+            target = target+"?stud_id="+$("#pkid").val()+"";
+            show_modal(target);
+        }
+    }
+
+    function isNullOrEmpty(str) {
+        var returnValue = false;
+        if (!str
+            || str == null
+            || str === 'null'
+            || str === ''
+            || str === '{}'
+            || str === 'undefined'
+            || str.length === 0) {
+            returnValue = true;
+        }
+        return returnValue;
+    }
+    
+
+</script>

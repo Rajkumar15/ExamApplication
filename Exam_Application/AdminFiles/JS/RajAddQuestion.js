@@ -2,6 +2,7 @@
 
 $(document).ready(function () {
     debugger;
+    //For Edit
     if ($("#pkid").val() != "") {
         debugger;
         if ($("#Questtype_fkid").val() == 1) {
@@ -9,12 +10,27 @@ $(document).ready(function () {
             $('#myquestiontab').show();
             $("#RAJFTB").hide();
             $('#tf').hide();
+            $("#RAJFORM").hide();
             $('#ftb').hide();
+
+            if ($("#CorrectAnswerDD").val() == 1) {
+                $("#QuestionAnswer1").prop("checked", true);
+            }
+            if ($("#CorrectAnswerDD").val() == 2) {
+                $("#QuestionAnswer2").prop("checked", true);
+            }
+            if ($("#CorrectAnswerDD").val() == 3) {
+                $("#QuestionAnswer3").prop("checked", true);
+            }
+            if ($("#CorrectAnswerDD").val() == 4) {
+                $("#QuestionAnswer4").prop("checked", true);
+            }
         }
         if ($("#Questtype_fkid").val() == 2) {
             $("#qtype_id2").prop("checked", true);
             $('#tf').show();
             $("#RAJFTB").hide();
+            $("#RAJFORM").hide();
             $('#myquestiontab').hide();
             $('#ftb').hide();
         }
@@ -22,13 +38,55 @@ $(document).ready(function () {
             $("#qtype_id3").prop("checked", true);
             $('#ftb').show();
             $("#RAJFTB").hide();
+            $("#RAJFORM").hide();
             $('#myquestiontab').hide();
             $('#tf').hide();
         }
         if ($("#Questtype_fkid").val() == 4) {
             $("#qtype_id4").prop("checked", true);
             $('#ftb').hide();
+            $("#RAJFORM").hide();
             $("#RAJFTB").show();
+            $('#myquestiontab').hide();
+            $('#tf').hide();
+        }
+        if ($("#Questtype_fkid").val() == 5) {
+            $("#qtype_id5").prop("checked", true);
+            $('#ftb').hide();
+            $("#RAJFTB").hide();
+            $("#RAJFORM").hide();
+            $("#RAJMATCH").show();
+            $('#myquestiontab').hide();
+            $('#tf').hide();
+        }
+        if ($("#Questtype_fkid").val() == 6) {
+            $("#qtype_id6").prop("checked", true);
+            $('#ftb').hide();
+            $("#RAJFTB").hide();
+            $("#RAJFORM").hide();
+            $("#myidentifytab").show();
+            $('#myquestiontab').hide();
+            $('#tf').hide();
+
+            if ($("#CorrectAnswerDD").val() == 1) {
+                $("#FQuestionAnswer1").prop("checked", true);
+            }
+            if ($("#CorrectAnswerDD").val() == 2) {
+                $("#FQuestionAnswer2").prop("checked", true);
+            }
+            if ($("#CorrectAnswerDD").val() == 3) {
+                $("#FQuestionAnswer3").prop("checked", true);
+            }
+            if ($("#CorrectAnswerDD").val() == 4) {
+                $("#FQuestionAnswer4").prop("checked", true);
+            }
+        }
+        if ($("#Questtype_fkid").val() == 7) {
+            $("#qtype_id7").prop("checked", true);
+            $('#ftb').hide();
+            $("#RAJFTB").hide();
+            $("#RAJMATCH").hide();
+            $("#RAJFORM").show();
             $('#myquestiontab').hide();
             $('#tf').hide();
         }
@@ -39,31 +97,28 @@ $(document).ready(function () {
         else {
             $("#QuestionTrueFalseFalse").prop("checked", true);
         }
-        if ($("#CorrectAnswerDD").val() == 1) {
-            $("#QuestionAnswer1").prop("checked", true);
-        }
-        if ($("#CorrectAnswerDD").val() == 2) {
-            $("#QuestionAnswer2").prop("checked", true);
-        }
-        if ($("#CorrectAnswerDD").val() == 3) {
-            $("#QuestionAnswer3").prop("checked", true);
-        }
-        if ($("#CorrectAnswerDD").val() == 4) {
-            $("#QuestionAnswer4").prop("checked", true);
-        }
     }
+    //End Edit
+
+
 
     if ($("#pkid").val() == "") {
         $("#Questtype_fkid").val(1);
         $('#qtype_id1').prop('checked', true);
         $('#tf').hide();
         $('#ftb').hide();
+        $("#myidentifytab").hide();
+        $("#RAJFORM").hide();
     }
 
+    // Start Click event
     $('#qtype_id1').click(function () {
         $('#myquestiontab').show();
         $("#RAJFTB").hide();
         $('#tf').hide();
+        $("#RAJMATCH").hide();
+        $("#RAJFORM").hide();
+        $("#myidentifytab").hide();
         $('#ftb').hide();
         $("#Questtype_fkid").val($('#qtype_id1').val())
     });
@@ -71,6 +126,9 @@ $(document).ready(function () {
         $('#tf').show();
         $("#RAJFTB").hide();
         $('#myquestiontab').hide();
+        $("#RAJMATCH").hide();
+        $("#RAJFORM").hide();
+        $("#myidentifytab").hide();
         $('#ftb').hide();
         $("#Questtype_fkid").val($('#qtype_id2').val())
     });
@@ -78,18 +136,56 @@ $(document).ready(function () {
         $('#ftb').show();
         $("#RAJFTB").hide();
         $('#myquestiontab').hide();
+        $("#RAJMATCH").hide();
+        $("#myidentifytab").hide();
+        $("#RAJFORM").hide();
         $('#tf').hide();
         $("#Questtype_fkid").val($('#qtype_id3').val())
     });
     $('#qtype_id4').click(function () {
         $('#ftb').hide();
         $("#RAJFTB").show();
+        $("#RAJMATCH").hide();
+        $("#myidentifytab").hide();
         $('#myquestiontab').hide();
+        $("#RAJFORM").hide();
         $('#tf').hide();
         $("#Questtype_fkid").val($('#qtype_id4').val())
     });
+    $('#qtype_id5').click(function () {
+        $('#ftb').hide();
+        $("#RAJFTB").hide();
+        $('#myquestiontab').hide();
+        $('#tf').hide();
+        $("#RAJFORM").hide();
+        $("#myidentifytab").hide();
+        $("#RAJMATCH").show();
+        $("#Questtype_fkid").val($('#qtype_id5').val())
+    });
+    $('#qtype_id6').click(function () {
+        $('#ftb').hide();
+        $("#RAJFTB").hide();
+        $('#myquestiontab').hide();
+        $("#RAJMATCH").hide();
+        $("#RAJFORM").hide();
+        $('#tf').hide();
+        $("#myidentifytab").show();
+        $("#Questtype_fkid").val($('#qtype_id6').val())
+    });
+    $('#qtype_id7').click(function () {
+        $('#ftb').hide();
+        $("#RAJFTB").hide();
+        $('#myquestiontab').hide();
+        $("#RAJMATCH").hide();
+        $("#RAJFORM").show();
+        $('#tf').hide();
+        $("#myidentifytab").hide();
+        $("#Questtype_fkid").val($('#qtype_id7').val())
+    });
 
+    // End Click Event
 
+    //Question Correcr Answer
     $("#QuestionAnswer1").click(function () {
         $("#CorrectAnswerDD").val($("#QuestionAnswer1").val());
     })
@@ -103,6 +199,8 @@ $(document).ready(function () {
         $("#CorrectAnswerDD").val($("#QuestionAnswer4").val());
     })
 
+
+    //True False
     $("#QuestionTrueFalseTrue").click(function () {
         $("#TrueFalse").val($("#QuestionTrueFalseTrue").val());
     })
@@ -110,11 +208,28 @@ $(document).ready(function () {
         $("#TrueFalse").val($("#QuestionTrueFalseFalse").val());
     })
 
-
+    //Select Level Dropdown
     $("#QuestionDiffId").change(function () {
         $("#SelectLevel").val($("#QuestionDiffId").val());
     })
 
+    // File Matched Correcr Answer
+    $("#FQuestionAnswer1").click(function () {
+        $("#CorrectAnswerDD").val($("#QuestionAnswer1").val());
+    })
+    $("#FQuestionAnswer2").click(function () {
+        $("#CorrectAnswerDD").val($("#QuestionAnswer2").val());
+    })
+    $("#FQuestionAnswer3").click(function () {
+        $("#CorrectAnswerDD").val($("#QuestionAnswer3").val());
+    })
+    $("#FQuestionAnswer4").click(function () {
+        $("#CorrectAnswerDD").val($("#QuestionAnswer4").val());
+    })
+
+
+
+    // After Submit Check 
     $(".form-horizontal").submit(function (e) {
         if (isNullOrEmpty($("#Questtype_fkid").val())) {
             alert("Select Question Type.")
@@ -125,11 +240,15 @@ $(document).ready(function () {
             e.preventDefault();
         }
         else if (isNullOrEmpty($("#Subject_fkid").val())) {
-            alert("Select Subject Type.")
+            alert("Select Course Type.")
             e.preventDefault();
         }
         else if (isNullOrEmpty($("#Marks").val())) {
             alert("Please Enter Marks.")
+            e.preventDefault();
+        }
+        else if (isNullOrEmpty($("#Division_fkid").val())) {
+            alert("Please Select Division.")
             e.preventDefault();
         }
 
@@ -173,9 +292,25 @@ $(document).ready(function () {
                 e.preventDefault();
             }
         }
+        else if ($("#Questtype_fkid").val() == "5") {
+
+        }
+        else if ($("#Questtype_fkid").val() == "6") {
+            if ($("input:file")[0].files.length != 4) {
+                alert("Please Select Four Files.")
+                e.preventDefault();
+            }
+            if (isNullOrEmpty($("#CorrectAnswerDD").val())) {
+                alert("Please Select Correct Answer File.")
+                e.preventDefault();
+            }
+        }
+
+      
 
     });
 
+    // Start Functions
     function isNullOrEmpty(str) {
         var returnValue = false;
         if (!str
@@ -189,5 +324,7 @@ $(document).ready(function () {
         }
         return returnValue;
     }
+
+   
 
 });

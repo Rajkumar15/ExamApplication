@@ -15,10 +15,15 @@ namespace DataLayer.ExamModel
     public partial class tbl_Exam_Master
     {
         public int pkid { get; set; }
+        public Nullable<int> Course_fkid { get; set; }
+        public Nullable<int> Force_fkid { get; set; }
+        public Nullable<int> Division_fkid { get; set; }
         public string Exam_Name { get; set; }
+        public Nullable<decimal> Total_Marks { get; set; }
+        public Nullable<decimal> PassingMarks { get; set; }
         public Nullable<decimal> Passing_Percentage { get; set; }
         public string Instruction { get; set; }
-        public Nullable<System.TimeSpan> ExamDuration { get; set; }
+        public string ExamDuration { get; set; }
         public Nullable<int> AttemptCount { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }

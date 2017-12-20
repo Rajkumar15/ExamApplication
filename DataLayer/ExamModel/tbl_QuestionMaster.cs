@@ -19,6 +19,7 @@ namespace DataLayer.ExamModel
         public string Question { get; set; }
         public string Explaination { get; set; }
         public Nullable<int> Subject_fkid { get; set; }
+        public Nullable<int> Division_fkid { get; set; }
         public string hint { get; set; }
         public Nullable<decimal> Marks { get; set; }
         public Nullable<decimal> NegativeMarks { get; set; }

@@ -38,7 +38,8 @@
                                     <th>S.No</th>
                                     <th><input type="checkbox" name="selectAll" value="deleteall" id="selectAll"></th>                               
                                     <th>Question</th>
-                                    <th>Subject</th>                                  
+                                    <th>Course</th>                                  
+                                    <th>Division</th>                                  
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -57,7 +58,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         if ('@ViewBag.Exception' != "") {
-            alert("@ViewBag.Exception");
+            PranavAlert("Success", "@ViewBag.Exception");
         }
     })
     $('.js-basic-example').DataTable({
@@ -80,6 +81,7 @@
                  },
                 { "data": "name", "Name": "name", "autoWidth": true },
                 { "data": "subject", "Name": "subject", "autoWidth": true },
+                  { "data": "div", "Name": "div", "autoWidth": true },
                 {
                     "data": "pkid", "orderable": false, "render": function (data, type, full, meta) {
                         return '<a href="/SubjectGroup/AddQuestion?id=' + data + '" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>                            <a href="#" name="/SubjectGroup/DeleteQuestion?id=' + data + '" onclick="DeleteRow(this)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>';

@@ -23,7 +23,9 @@ namespace Exam_Application
                 "~/AdminFiles/JS/custom.min.js",
                 "~/AdminFiles/JS/highcharts.js",
                 "~/AdminFiles/RajCustom/common.js",
-                "~/AdminFiles/RajCustom/DataTable/jquery.dataTables.js"));
+                "~/AdminFiles/RajCustom/DataTable/jquery.dataTables.js",
+                "~/AdminFiles/JS/jquery.freeow.js",
+                "~/AdminFiles/JS/ShowMessage.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -44,7 +46,8 @@ namespace Exam_Application
                 "~/AdminFiles/CSS/responsive.css",
                 "~/AdminFiles/CSS/settings.css",
                 "~/AdminFiles/CSS/validationEngine.jquery.css",
-                "~/AdminFiles/RajCustom/DataTable/jquery.dataTables.min.css"));
+                "~/AdminFiles/RajCustom/DataTable/jquery.dataTables.min.css",
+                "~/Content/style/freeow/freeow.css"));
         }
     }
 }

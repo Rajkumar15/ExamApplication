@@ -1,0 +1,180 @@
+﻿@model Exam_Application.Models.DAL.tbl_Exam_QuestionsMasterss
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .firstdiv {
+        margin-bottom: 8px;
+    }
+
+    .Seconddiv {
+        margin: 6px 6px 6px 6px;
+    }
+
+    .dataTables_paginate {
+        margin-bottom: 3%;
+    }
+
+    .spa {
+        color: green;
+        float: right;
+    }
+</style>
+<div id="page-content">
+    <div class="container mrg">
+        <div class="row firstdiv">
+            <div class="col-md-12" style="display:none;">
+                <div class="btn-group">
+                    <a href="#" name="add" id="add" onclick="check_perform_add('/SubjectGroup/AddGroup');" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add New Group</a>            <a href="#" name="editallfrm" id="editallfrm" onclick="EditTableTop('/SubjectGroup/AddGroup?id=');" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>            <a href="#" name="deleteallfrm" id="deleteallfrm" onclick="check_perform_delete()" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @Html.HiddenFor(x => x.Exam_fkid)
+                @Html.HiddenFor(x => x.TotalMarks)
+                @*<div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="widget">
+                                <h4 class="widget-title"> <span>Filters</span></h4>
+                            </div>
+                        </div>
+                        <div class="table-responsive Seconddiv">
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(m => m.Course_fkid, (IEnumerable<SelectListItem>)@ViewBag.CourseList, "Select Course", new { @class = "form-control fil" })
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(m => m.Division_fkid, (IEnumerable<SelectListItem>)@ViewBag.DivisionList, "Select Division", new { @class = "form-control fil" })
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(m => m.SelectLevel, new List<SelectListItem> { new SelectListItem { Text = "Easy", Value = "1" }, new SelectListItem { Text = "Medium", Value = "2" }, new SelectListItem { Text = "Difficult", Value = "3" } }, "Select Level", new { @class = "form-control fil" })
+                            </div>
+                        </div>
+                    </div>*@
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <span class="spa"><b>Total Marks : </b><b id="sta"></b>&nbsp;&nbsp;||&nbsp;&nbsp;<b>Current Marks : </b><b id="sa"></b></span>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="widget">
+                            <h4 class="widget-title"> <span>Question</span></h4>
+                            <p style="color:#EF4A43">(NOTE:- Check Checkbox to Add Question in Exam And click View Button for View Complete Question.)</p>
+                        </div>
+                    </div>
+                    <div class="table-responsive Seconddiv">
+                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Checkbox</th>
+                                    <th>Questions</th>
+                                    <th>Total Marks</th>
+                                    <th>Negative Marks</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="targetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var amt = "";
+    $(document).ready(function () {       
+        if ('@ViewBag.Exception' != "") {
+            PranavAlert("Success","@ViewBag.Exception");
+        }
+        $("#Exam_fkid").val('@ViewBag.Examid');
+        $("#TotalMarks").val('@ViewBag.totalmarks');
+        $("#sta").text($("#TotalMarks").val());
+        $("#sa").text('@ViewBag.getma');
+    })
+
+
+    $('.js-basic-example').DataTable({
+        "processing": true, // for show progress bar
+        "serverSide": true, // for process server side
+        "filter": true, // this is for disable filter (search box)
+        "orderMulti": false, // for disable multiple column at once
+
+        "ajax": {
+            "url": "/Exam/GetQuestionList",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "columns": [
+                { "data": "pkid", "name": "pkid", "orderable": false, "autoWidth": true },
+                 {
+                     "data": "pkid", "orderable": false, "render": function (data, type, full, meta) {                         
+                         var co = parseFloat(full.st);
+                         if (co > 0) {                           
+                             return '<input type="checkbox" checked="checked" style="margin-left:8px;" name="' + full.marks + '" value="' + data + '" id="' + data + '" onclick="CheckboxClick(this)" class="chkselect">';
+                         } else { return '<input type="checkbox" style="margin-left:8px;" name="' + full.marks + '" value="' + data + '" id="' + data + '" onclick="CheckboxClick(this)" class="chkselect">'; }
+                     }
+                 },
+                { "data": "name", "Name": "name", "autoWidth": true },
+                { "data": "marks", "Name": "marks", "autoWidth": true },
+                { "data": "Nmar", "Name": "Nmar", "autoWidth": true },
+                {
+                    "data": "pkid", "orderable": false, "render": function (data, type, full, meta) {
+                        return '<a href="#" name="/Exam/ShowQuestion?id=' + data + '" onclick="EditUserTable(this)" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;View</a>';
+                    }
+                }
+                    
+        ],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+            $("td:first", nRow).html(iDisplayIndex + 1);
+            return nRow;
+        }
+    })
+
+    function CheckboxClick(cname) {
+        debugger;
+        var _Ques_fkid = cname.value;
+        var _Exam_fkid = $("#Exam_fkid").val();
+        var totalmar = $("#TotalMarks").val();
+        var QuesMark = cname.name;
+        var prev = $("#sa").text();
+        var id = cname.id;
+        if (document.getElementById(id).checked) {
+            if (prev == "")
+            { prev = 0; }
+            var amt = parseFloat(parseFloat(prev) + parseFloat(QuesMark))
+            if (amt > parseFloat(totalmar)) {
+                alert("Question Marks Greater Than Total Exam Marks.");
+                $('#' + id + '').attr('checked', false);
+            } else {
+                $.getJSON("/Exam/SaveQuestion?eid=" + _Exam_fkid + '&qid=' + _Ques_fkid, function (data) {
+                    if (data == "succees") { PranavAlert("Success", "Question Added In Exam"); } else { PranavAlert("Failed","Question Added Failed"); }
+                })
+                $("#sa").text(amt);
+            }          
+        } else {
+            if (prev == "")
+            { prev = 0; }
+            var amt = parseFloat(parseFloat(prev) - parseFloat(QuesMark))
+            if (amt > parseFloat(totalmar)) {
+                alert("Question Marks Greater Than Total Exam Marks.");
+                $('#' + id + '').attr('checked', false);
+            } else {
+                $.getJSON("/Exam/DeleteQuestion?eid=" + _Exam_fkid + '&qid=' + _Ques_fkid, function (data) {
+                    if (data == "succees") { PranavAlert("Success","Question Deleted In Exam"); } else {  PranavAlert("Failed","Question Deleted Failed"); }
+                })
+                $("#sa").text(amt);
+            }
+        }
+    }
+  
+</script>
+
+

@@ -12,7 +12,7 @@
                 <div class="panel-body">
                     @using (Html.BeginForm("Adduser", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
-
+                       
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary()
 
