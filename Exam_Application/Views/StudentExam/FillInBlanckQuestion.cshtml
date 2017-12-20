@@ -70,7 +70,7 @@
         $("#Studentid").val($("#StudHiddenid").val());
         $("#StudentGiveAnswer").change(function () {
             debugger;
-            if ($("#StudentGiveAnswer").val() != "") {
+            if ($("#StudentGiveAnswer").val() == "") {
                 if ($("#StudentGiveAnswer").val().toLowerCase() == $("#BlanckSpace").val().toLowerCase()) {
                     $("#CorrecrtWrong").val(1);
                 }
