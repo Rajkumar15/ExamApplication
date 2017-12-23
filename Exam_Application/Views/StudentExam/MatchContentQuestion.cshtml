@@ -34,7 +34,9 @@
                                 @Html.HiddenFor(x => x.QuesMarks)
                                 @Html.HiddenFor(x => x.StudentGiveAnswerMatch)
                                 @Html.HiddenFor(x => x.QNo)
-                                @Html.HiddenFor(x => x.QuestypeName)                            
+                                @Html.HiddenFor(x => x.QuestypeName)  
+                                @Html.HiddenFor(x => x.BlanckSpace)
+                                                          
                             </label>
                         </div>
                         <div class="col-sm-12">
@@ -100,6 +102,16 @@
     $(document).ready(function () {
         $("#Examid").val($("#ExamHiddenid").val());
         $("#Studentid").val($("#StudHiddenid").val());
+        if ($("#pkid").val() != "")
+        {
+            $("#StudentGiveAnswerMatch").val($("#BlanckSpace").val())
+            var array = $('#BlanckSpace').val().split(",");
+            $.each(array, function (i) {
+                var beta = "";
+                beta = "<option value='" + array[i] + "'>Item</option>"
+                $("#select-to").append(beta);
+            });
+        }
         $('#btn-add').click(function () {
             debugger;
             var selected1 = $('#select-from1 option:selected');

@@ -780,24 +780,28 @@ namespace Exam_Application.Controllers
                     }
 
 
-                    var data = _Attemptexam.GetAll().Where(x => x.Examid == Examid && x.QueId == QuestionId && x.Studentid == Studentid).FirstOrDefault();
+                    var data = _Attemptexam.GetAll().Where(x => x.Examid == Examid && x.QueId == QuestionId && x.Studentid == Studentid).Select(x=>x.StudentGiveAnswerMatch).ToList();
                     if (data != null)
                     {
-                        tbl_AttemptExamAnswerSheetMatchSepss abc = new tbl_AttemptExamAnswerSheetMatchSepss();
-                        tbl_AttemptExamAnswerSheet model = _Attemptexam.Get(data.pkid);
-                        abc.QueId = model.QueId;
-                        abc.pkid = model.pkid;
-                        abc.Question = model.Question;
-                        abc.QuestypeName = model.QuestypeName;
-                        abc.QNo = model.QNo;
-                        abc.QuesMarks = model.QuesMarks;
-                        abc.CorrecrtWrong = model.CorrecrtWrong;
-                        abc.Examid = model.Examid;
-                        abc.Studentid = model.Studentid;
-
-                        abc.GainMarks = (decimal)model.GainMarks;
-                        abc.MatchAnswer = model.MatchAnswer;
-                        return PartialView(abc);
+                        string combindedString = string.Join(",", data.ToArray());
+                        tbl_AttemptExamAnswerSheetMatchSepss Question = new tbl_AttemptExamAnswerSheetMatchSepss();
+                        tbl_QuestionMaster Q = _question.Get(QuestionId);
+                        if (Q.Status == 1)
+                        {
+                            Question.pkid = 1;
+                            Question.QueId = QuestionId;
+                            Question.Question = Q.Question;
+                            Question.QuestypeName = _subtype.Get(Q.subjecttype_fkid).Questiontype;
+                            Question.QuesMarks = Q.Marks;
+                            Question.QNo = QuestionNo;
+                            Question.BlanckSpace = combindedString;
+                            if (Q.subjecttype_fkid == 5)
+                            {
+                                List<tbl_MatchContentQuestionMaster> ANS = _Matc.GetAll().Where(x => x.Ques_fkid == Q.pkid).ToList();
+                                Question.MATContent = ANS;
+                            }
+                        }
+                        return PartialView(Question);
                     }
                     else
                     {
@@ -880,12 +884,19 @@ namespace Exam_Application.Controllers
                 }
                 else
                 {
+                    var qeta = _Attemptexam.GetAll().Where(x => x.Examid == model.Examid && x.QueId == model.QueId && x.Studentid == model.Studentid && x.QNo == model.QNo).ToList();
+                    foreach (var deta in qeta)
+                    {
+                        tbl_AttemptExamAnswerSheet ad = _Attemptexam.Get(deta.pkid);
+                        _Attemptexam.Remove(ad, true);
+                    }
+
                     List<int> StudAnswer = model.StudentGiveAnswerMatch.Split(',').Select(int.Parse).ToList();
                     List<tbl_MatchContentQuestionMaster> ANS = _Matc.GetAll().Where(x => x.Ques_fkid == model.QueId).ToList();
                     int n = 0;
                     foreach (var item in StudAnswer)
                     {
-                        tbl_AttemptExamAnswerSheet abc = _Attemptexam.Get(model.pkid);
+                        tbl_AttemptExamAnswerSheet abc = new tbl_AttemptExamAnswerSheet();
                         abc.QueId = model.QueId;
                         abc.Question = model.Question;
                         abc.QuestypeName = model.QuestypeName;
@@ -899,7 +910,7 @@ namespace Exam_Application.Controllers
                         if (abc.StudentGiveAnswerMatch == abc.MatchAnswer)
                         {
                             abc.CorrecrtWrong = 1;
-                            abc.GainMarks = (model.QuesMarks / (ANS.Count() + 1));
+                            abc.GainMarks = (model.QuesMarks / ANS.Count());
                         }
                         else
                         {
@@ -908,7 +919,7 @@ namespace Exam_Application.Controllers
                         }
                         n++;
                         abc.Addeddate = DateTime.Now;
-                        // _Attemptexam.Update(abc);                       
+                        _Attemptexam.Add(abc, true);        
                     }
                 }
                 return RedirectToAction("StudentDashboard", "StudentExam", new { Examid = model.Examid, Exception = exception });
