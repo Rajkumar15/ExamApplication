@@ -360,7 +360,7 @@ namespace Exam_Application.Controllers
                                 MA.OppositeColoumn = item.OppositeColoumn;
                                 MA.AnsweColoumn = item.AnsweColoumn;
                                 MA.LastDatetime = DateTime.Now;
-                                _Matc.Add(MA);
+                                _Matc.Update(MA);
                             }
                         }
                     }
@@ -375,14 +375,14 @@ namespace Exam_Application.Controllers
                                 MA.FirstColoumn = item.FirstColoumn;
                                 MA.AnsweColoumn = item.AnsweColoumn;
                                 MA.LastDatetime = DateTime.Now;
-                                _Matc.Add(MA);
+                                _Matc.Update(MA);
                             }
                         }
                     }
                     else if (model.Questtype_fkid == 6)
                     {
-                        tbl_AnswerMaster ANS = new tbl_AnswerMaster();
-                        ANS.Ques_fkid = _question.GetAll().Max(x => x.pkid);
+                        tbl_AnswerMaster ANS = _answer.GetAll().Where(x=>x.Ques_fkid == _id).FirstOrDefault();
+                        ANS.Ques_fkid = _id;
                         ANS.Questtype_fkid = model.Questtype_fkid;
                         var httpRequest = System.Web.HttpContext.Current.Request;
                         if (httpRequest.Files.Count > 0)
@@ -394,6 +394,10 @@ namespace Exam_Application.Controllers
                                 var postedFile = httpRequest.Files[i];
                                 if (i == 0)
                                 {
+                                    if (System.IO.File.Exists(ANS.Answer1))
+                                    {
+                                        System.IO.File.Delete(ANS.Answer1);
+                                    }
                                     DateTime date = DateTime.Now;
                                     string dates = date.Day.ToString() + date.Month.ToString() + date.Year.ToString() + date.Hour.ToString() + date.Minute.ToString() + date.Second.ToString() + date.ToString("tt");
                                     ANS.Answer1 = "/UploadFiles/QuestionImage/" + dates + postedFile.FileName;
@@ -402,6 +406,10 @@ namespace Exam_Application.Controllers
                                 }
                                 else if (i == 1)
                                 {
+                                    if (System.IO.File.Exists(ANS.Answer2))
+                                    {
+                                        System.IO.File.Delete(ANS.Answer2);
+                                    }
                                     DateTime date = DateTime.Now;
                                     string dates = date.Day.ToString() + date.Month.ToString() + date.Year.ToString() + date.Hour.ToString() + date.Minute.ToString() + date.Second.ToString() + date.ToString("tt");
                                     ANS.Answer2 = "/UploadFiles/QuestionImage/" + dates + postedFile.FileName;
@@ -410,6 +418,10 @@ namespace Exam_Application.Controllers
                                 }
                                 else if (i == 2)
                                 {
+                                    if (System.IO.File.Exists(ANS.Answer3))
+                                    {
+                                        System.IO.File.Delete(ANS.Answer3);
+                                    }
                                     DateTime date = DateTime.Now;
                                     string dates = date.Day.ToString() + date.Month.ToString() + date.Year.ToString() + date.Hour.ToString() + date.Minute.ToString() + date.Second.ToString() + date.ToString("tt");
                                     ANS.Answer3 = "/UploadFiles/QuestionImage/" + dates + postedFile.FileName;
@@ -418,6 +430,10 @@ namespace Exam_Application.Controllers
                                 }
                                 else if (i == 3)
                                 {
+                                    if (System.IO.File.Exists(ANS.Answer4))
+                                    {
+                                        System.IO.File.Delete(ANS.Answer4);
+                                    }
                                     DateTime date = DateTime.Now;
                                     string dates = date.Day.ToString() + date.Month.ToString() + date.Year.ToString() + date.Hour.ToString() + date.Minute.ToString() + date.Second.ToString() + date.ToString("tt");
                                     ANS.Answer4 = "/UploadFiles/QuestionImage/" + dates + postedFile.FileName;
@@ -433,7 +449,7 @@ namespace Exam_Application.Controllers
                         ANS.status = 1;
                         ANS.Adddate = DateTime.Now;
                         ANS.lastmodified = DateTime.Now;
-                        _answer.Add(ANS);
+                        _answer.Update(ANS);
                         exception = "Save Successfully";
                     }
                     else

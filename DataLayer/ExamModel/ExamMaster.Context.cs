@@ -26,6 +26,7 @@ namespace DataLayer.ExamModel
         }
     
         public virtual DbSet<tbl_AnswerMaster> tbl_AnswerMaster { get; set; }
+        public virtual DbSet<tbl_AttemptExamAnswerSheet> tbl_AttemptExamAnswerSheet { get; set; }
         public virtual DbSet<tbl_CourseMaster> tbl_CourseMaster { get; set; }
         public virtual DbSet<tbl_DivisionMaster> tbl_DivisionMaster { get; set; }
         public virtual DbSet<tbl_Exam_Master> tbl_Exam_Master { get; set; }

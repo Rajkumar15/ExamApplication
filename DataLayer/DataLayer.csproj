@@ -68,6 +68,9 @@
     <Compile Include="ExamModel\tbl_AnswerMaster.cs">
       <DependentUpon>ExamMaster.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExamModel\tbl_AttemptExamAnswerSheet.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExamModel\tbl_CourseMaster.cs">
       <DependentUpon>ExamMaster.tt</DependentUpon>
     </Compile>

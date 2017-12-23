@@ -1,4 +1,4 @@
-﻿@model Exam_Application.Models.DAL.ObjectiveQuestions
+﻿@model Exam_Application.Models.DAL.tbl_AttemptExamAnswerSheetss
 @{
     Layout = null;
 }
@@ -6,7 +6,7 @@
 @using (Html.BeginForm("FillInBlanckQuestion", "StudentExam", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     <div class="panel panel-default">
-        <div class="panel-heading"><strong>Question No. @Model.Queno&nbsp;&nbsp;[ @Model.QuesMarks Marks]&nbsp;&nbsp;@Model.QuestypeName</strong></div>
+        <div class="panel-heading"><strong>Question No. @Model.QNo&nbsp;&nbsp;[ @Model.QuesMarks Marks]&nbsp;&nbsp;@Model.QuestypeName</strong></div>
         <div class="table-responsive">
             <table class="table table-striped table">
                 <thead>
@@ -24,16 +24,20 @@
                         <td>
                             <div class="radio">
                                 <label>
+                                    @Html.HiddenFor(x => x.pkid)
                                     @Html.HiddenFor(x => x.CorrecrtWrong)
                                     @Html.HiddenFor(x => x.Examid)
                                     @Html.HiddenFor(x => x.Studentid)
-                                    @Html.HiddenFor(x => x.QueId)
-                                    @Html.HiddenFor(x => x.BlanckSpace)
-                                    @Html.HiddenFor(x => x.StudentGiveAnswer)
+                                    @Html.HiddenFor(x => x.QueId)                             
                                     @Html.HiddenFor(x => x.GainMarks)
                                     @Html.HiddenFor(x => x.QuesMarks)
 
-                                    @Html.TextBoxFor(x => x.StudentGiveAnswer, new { @class = "form-control", @placeholder = "Enter Answer" })
+                                    @Html.HiddenFor(x => x.QNo)
+                                    @Html.HiddenFor(x => x.QuestypeName)
+                                    @Html.HiddenFor(x => x.Question)
+                                    @Html.HiddenFor(x => x.BlanckSpace)
+
+                                    @Html.TextBoxFor(x => x.StudentGiveAnswerfillblank, new { @class = "form-control", @placeholder = "Enter Answer" })
                                 </label>
                             </div>
                         </td>
@@ -44,19 +48,16 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-2">
-                    <a href="http://eduexpression.com/envato/Exams/start/2/1" class="btn btn-default btn-sm btn-block">← Prev</a>
-                </div>
-                <div class="col-md-2">
-                    <a href="http://eduexpression.com/envato/Exams/start/2#" onclick="callUserAnswerSave();" class="btn btn-success btn-sm btn-block"><span class="glyphicon glyphicon-check"></span>&nbsp;Save</a>
+                    <a href="#" onclick="Pre()" class="btn btn-default btn-sm btn-block">← Prev</a>
                 </div>
                 <div class="col-md-3">
-                    <a href="http://eduexpression.com/envato/Exams/start/2#" onclick="callUserAnswerSaveNext();" class="btn btn-success btn-sm btn-block"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Save &amp; Next</a>
+                    <a href="#" onclick="ResetAnswer()" class="btn btn-danger btn-sm btn-block"><span class="glyphicon glyphicon-ban-circle"></span>&nbsp;Reset Answer </a>
                 </div>
                 <div class="col-md-3">
-                    <a href="http://eduexpression.com/envato/Exams/resetAnswer/2/1" class="btn btn-danger btn-sm btn-block"><span class="glyphicon glyphicon-ban-circle"></span>&nbsp;Reset Answer </a>
+                    <input type="submit" class="btn btn-success btn-sm btn-block" value="Save & Next">
                 </div>
                 <div class="col-md-2">
-                    <a href="http://eduexpression.com/envato/Exams/start/2/2" class="btn btn-default btn-sm btn-block">Next →</a>
+                    <a href="#" onclick="Next()" class="btn btn-default btn-sm btn-block">Next →</a>
                 </div>
             </div>
         </div>
@@ -68,19 +69,6 @@
         debugger;
         $("#Examid").val($("#ExamHiddenid").val());
         $("#Studentid").val($("#StudHiddenid").val());
-        $("#StudentGiveAnswer").change(function () {
-            debugger;
-            if ($("#StudentGiveAnswer").val() == "") {
-                if ($("#StudentGiveAnswer").val().toLowerCase() == $("#BlanckSpace").val().toLowerCase()) {
-                    $("#CorrecrtWrong").val(1);
-                }
-                else { $("#CorrecrtWrong").val(0); }
-
-                if ($("#CorrecrtWrong").val() == 1) {
-                    $("#GainMarks").val($("#QuesMarks").val());
-                }
-                else { $("#GainMarks").val(0); }
-            }
-        })
+       
     })
 </script>

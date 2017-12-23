@@ -70,7 +70,7 @@ namespace Exam_Application.Models.DAL
         public Nullable<decimal> NegativeMarks { get; set; }
         public Nullable<int> SelectLevel { get; set; }
         public Nullable<int> Division_fkid { get; set; }
-        
+
         public Nullable<int> Ques_fkid { get; set; }
         public Nullable<int> Questtype_fkid { get; set; }
         public Nullable<int> QuestSubType_fkid { get; set; }
@@ -101,7 +101,7 @@ namespace Exam_Application.Models.DAL
         public Nullable<int> stud_fkid { get; set; }
         public Nullable<int> subtype_fkid { get; set; }
         public Nullable<System.DateTime> addate { get; set; }
-    } 
+    }
 
     public class tbl_Subject_masterss
     {
@@ -310,6 +310,7 @@ namespace Exam_Application.Models.DAL
         public Nullable<int> Division_fkid { get; set; }
 
         public Nullable<int> Ques_fkid { get; set; }
+        public Nullable<int> Qnono { get; set; }
         public Nullable<int> Questtype_fkid { get; set; }
         public Nullable<int> QuestSubType_fkid { get; set; }
         [AllowHtml]
@@ -344,8 +345,9 @@ namespace Exam_Application.Models.DAL
         public Nullable<System.DateTime> ExamStartTime { get; set; }
     }
 
-    public partial class ObjectiveQuestions 
+    public partial class ObjectiveQuestions
     {
+        public int pkid { get; set; }
         public Nullable<int> Examid { get; set; }
         public string ExamDuration { get; set; }
         public Nullable<int> Studentid { get; set; }
@@ -395,5 +397,87 @@ namespace Exam_Application.Models.DAL
         public Nullable<int> CorrecrtWrong { get; set; }
         public Nullable<decimal> GainMarks { get; set; }
 
+    }
+
+    public partial class tbl_AttemptExamAnswerSheetss
+    {
+        public int pkid { get; set; }
+        public Nullable<int> Examid { get; set; }
+        public Nullable<int> Studentid { get; set; }
+        public Nullable<int> QueId { get; set; }
+        public string BlanckSpace { get; set; }
+        public Nullable<bool> TrueFalse { get; set; }
+        public Nullable<int> CorrectAnswerDD { get; set; }
+        public Nullable<int> StudentGiveAnswer { get; set; }
+        public string StudentGiveAnswerfillblank { get; set; }
+        public Nullable<bool> StudentGiveAnswerTrueFalse { get; set; }
+        public Nullable<int> MatchAnswer { get; set; }
+        public Nullable<int> StudentGiveAnswerMatch { get; set; }
+        public string FullForm { get; set; }
+        public string StudentZGiveAnswerFullform { get; set; }
+        public decimal GainMarks { get; set; }
+        public Nullable<decimal> QuesMarks { get; set; }
+        public Nullable<System.DateTime> Addeddate { get; set; }
+        public Nullable<int> QuestionStatus { get; set; }
+        public Nullable<int> CorrecrtWrong { get; set; }
+        [AllowHtml]
+        public string Question { get; set; }
+        public string QuestypeName { get; set; }
+        public Nullable<int> QNo { get; set; }
+        [AllowHtml]
+        public string Answer1 { get; set; }
+        [AllowHtml]
+        public string Answer2 { get; set; }
+        [AllowHtml]
+        public string Answer3 { get; set; }
+        [AllowHtml]
+        public string Answer4 { get; set; }
+    }
+
+    public partial class tbl_AttemptExamAnswerSheetMatchSepss
+    {
+        public int pkid { get; set; }
+        public Nullable<int> Examid { get; set; }
+        public Nullable<int> Studentid { get; set; }
+        public Nullable<int> QueId { get; set; }
+        public string BlanckSpace { get; set; }
+        public Nullable<bool> TrueFalse { get; set; }
+        public Nullable<int> CorrectAnswerDD { get; set; }
+        public Nullable<int> StudentGiveAnswer { get; set; }
+        public string StudentGiveAnswerfillblank { get; set; }
+        public Nullable<bool> StudentGiveAnswerTrueFalse { get; set; }
+        public Nullable<int> MatchAnswer { get; set; }
+        public string StudentGiveAnswerMatch { get; set; }
+        public string FullForm { get; set; }
+        public string StudentZGiveAnswerFullform { get; set; }
+        public decimal GainMarks { get; set; }
+        public Nullable<decimal> QuesMarks { get; set; }
+        public Nullable<System.DateTime> Addeddate { get; set; }
+        public Nullable<int> QuestionStatus { get; set; }
+        public Nullable<int> CorrecrtWrong { get; set; }
+        [AllowHtml]
+        public string Question { get; set; }
+        public string QuestypeName { get; set; }
+        public Nullable<int> QNo { get; set; }
+        [AllowHtml]
+        public string Answer1 { get; set; }
+        [AllowHtml]
+        public string Answer2 { get; set; }
+        [AllowHtml]
+        public string Answer3 { get; set; }
+        [AllowHtml]
+        public string Answer4 { get; set; }
+
+        public List<tbl_MatchContentQuestionMaster> MATContent { get; set; }
+        public List<tbl_MatchContentQuestionMaster> FULLF { get; set; }
+    }
+
+    public partial class tbl_Exam_QuestionsMasterRAJ
+    {
+        public int pkid { get; set; }
+        public Nullable<int> Exam_fkid { get; set; }
+        public Nullable<int> Question_fkid { get; set; }
+        public Nullable<System.DateTime> AddedDate { get; set; }
+        public Nullable<int> type { get; set; }
     }
 }

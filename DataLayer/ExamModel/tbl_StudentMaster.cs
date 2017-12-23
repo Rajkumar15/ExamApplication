@@ -15,6 +15,9 @@ namespace DataLayer.ExamModel
     public partial class tbl_StudentMaster
     {
         public int pkid { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string ConfirmedPassword { get; set; }
         public Nullable<int> Course_fkid { get; set; }
         public Nullable<int> Division_fkid { get; set; }
         public Nullable<int> Force_fkid { get; set; }
@@ -76,8 +79,5 @@ namespace DataLayer.ExamModel
         public string Place { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string ConfirmedPassword { get; set; }
     }
 }

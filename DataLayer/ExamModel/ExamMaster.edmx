@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Exam_MasterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Exam_MasterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbl_AnswerMaster">
           <Key>
             <PropertyRef Name="pkid" />
@@ -24,6 +24,37 @@
           <Property Name="Adddate" Type="datetime" />
           <Property Name="status" Type="int" />
           <Property Name="lastmodified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_AttemptExamAnswerSheet">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Examid" Type="int" />
+          <Property Name="Studentid" Type="int" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="QuestypeName" Type="nvarchar(max)" />
+          <Property Name="QNo" Type="int" />
+          <Property Name="QueId" Type="int" />
+          <Property Name="Answer1" Type="nvarchar(max)" />
+          <Property Name="Answer2" Type="nvarchar(max)" />
+          <Property Name="Answer3" Type="nvarchar(max)" />
+          <Property Name="Answer4" Type="nvarchar(max)" />
+          <Property Name="CorrecrtWrong" Type="int" />
+          <Property Name="BlanckSpace" Type="nvarchar(max)" />
+          <Property Name="TrueFalse" Type="bit" />
+          <Property Name="CorrectAnswerDD" Type="int" />
+          <Property Name="StudentGiveAnswer" Type="int" />
+          <Property Name="StudentGiveAnswerfillblank" Type="nvarchar(max)" />
+          <Property Name="StudentGiveAnswerTrueFalse" Type="bit" />
+          <Property Name="MatchAnswer" Type="int" />
+          <Property Name="StudentGiveAnswerMatch" Type="int" />
+          <Property Name="FullForm" Type="nvarchar(max)" />
+          <Property Name="StudentZGiveAnswerFullform" Type="nvarchar(max)" />
+          <Property Name="GainMarks" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="QuesMarks" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Addeddate" Type="datetime" />
+          <Property Name="QuestionStatus" Type="int" />
         </EntityType>
         <EntityType Name="tbl_CourseMaster">
           <Key>
@@ -132,6 +163,17 @@
           <Property Name="Questiontype" Type="nvarchar(max)" />
           <Property Name="adddate" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Exam_Master.dbo.tbl_RightAnswerSheet' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="tbl_RightAnswerSheet">
+          <Property Name="pkid" Type="int" />
+          <Property Name="Quest_fkid" Type="int" />
+          <Property Name="ObjAnswer" Type="int" />
+          <Property Name="TrueFalse" Type="bit" />
+          <Property Name="fillBlanck" Type="nvarchar(max)" />
+          <Property Name="subAnswer" Type="nvarchar(max)" />
+          <Property Name="Adddate" Type="datetime" />
+        </EntityType>-->
         <EntityType Name="tbl_Student_AnswerSheet">
           <Key>
             <PropertyRef Name="pkid" />
@@ -304,6 +346,7 @@
         </EntityType>
         <EntityContainer Name="Exam_MasterModelStoreContainer">
           <EntitySet Name="tbl_AnswerMaster" EntityType="Self.tbl_AnswerMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_AttemptExamAnswerSheet" EntityType="Self.tbl_AttemptExamAnswerSheet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_CourseMaster" EntityType="Self.tbl_CourseMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_DivisionMaster" EntityType="Self.tbl_DivisionMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Exam_Master" EntityType="Self.tbl_Exam_Master" Schema="dbo" store:Type="Tables" />
@@ -322,7 +365,8 @@
           <EntitySet Name="tbl_Subject_master" EntityType="Self.tbl_Subject_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_User_Profile" EntityType="Self.tbl_User_Profile" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Exam_MasterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -345,6 +389,37 @@
           <Property Name="Adddate" Type="DateTime" Precision="3" />
           <Property Name="status" Type="Int32" />
           <Property Name="lastmodified" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_AttemptExamAnswerSheet">
+          <Key>
+            <PropertyRef Name="pkid" />
+          </Key>
+          <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Examid" Type="Int32" />
+          <Property Name="Studentid" Type="Int32" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuestypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QNo" Type="Int32" />
+          <Property Name="QueId" Type="Int32" />
+          <Property Name="Answer1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CorrecrtWrong" Type="Int32" />
+          <Property Name="BlanckSpace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TrueFalse" Type="Boolean" />
+          <Property Name="CorrectAnswerDD" Type="Int32" />
+          <Property Name="StudentGiveAnswer" Type="Int32" />
+          <Property Name="StudentGiveAnswerfillblank" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StudentGiveAnswerTrueFalse" Type="Boolean" />
+          <Property Name="MatchAnswer" Type="Int32" />
+          <Property Name="StudentGiveAnswerMatch" Type="Int32" />
+          <Property Name="FullForm" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StudentZGiveAnswerFullform" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GainMarks" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="QuesMarks" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Addeddate" Type="DateTime" Precision="3" />
+          <Property Name="QuestionStatus" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_CourseMaster">
           <Key>
@@ -527,6 +602,9 @@
             <PropertyRef Name="pkid" />
           </Key>
           <Property Name="pkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmedPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Course_fkid" Type="Int32" />
           <Property Name="Division_fkid" Type="Int32" />
           <Property Name="Force_fkid" Type="Int32" />
@@ -588,9 +666,6 @@
           <Property Name="Place" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
           <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ConfirmedPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tbl_Subject_master">
           <Key>
@@ -625,6 +700,7 @@
         </EntityType>
         <EntityContainer Name="Exam_MasterEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tbl_AnswerMaster" EntityType="Self.tbl_AnswerMaster" />
+          <EntitySet Name="tbl_AttemptExamAnswerSheet" EntityType="Self.tbl_AttemptExamAnswerSheet" />
           <EntitySet Name="tbl_CourseMaster" EntityType="Self.tbl_CourseMaster" />
           <EntitySet Name="tbl_DivisionMaster" EntityType="Self.tbl_DivisionMaster" />
           <EntitySet Name="tbl_Exam_Master" EntityType="Self.tbl_Exam_Master" />
@@ -667,6 +743,38 @@
                 <ScalarProperty Name="Adddate" ColumnName="Adddate" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="lastmodified" ColumnName="lastmodified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AttemptExamAnswerSheet">
+            <EntityTypeMapping TypeName="Exam_MasterModel.tbl_AttemptExamAnswerSheet">
+              <MappingFragment StoreEntitySet="tbl_AttemptExamAnswerSheet">
+                <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="Examid" ColumnName="Examid" />
+                <ScalarProperty Name="Studentid" ColumnName="Studentid" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="QuestypeName" ColumnName="QuestypeName" />
+                <ScalarProperty Name="QNo" ColumnName="QNo" />
+                <ScalarProperty Name="QueId" ColumnName="QueId" />
+                <ScalarProperty Name="Answer1" ColumnName="Answer1" />
+                <ScalarProperty Name="Answer2" ColumnName="Answer2" />
+                <ScalarProperty Name="Answer3" ColumnName="Answer3" />
+                <ScalarProperty Name="Answer4" ColumnName="Answer4" />
+                <ScalarProperty Name="CorrecrtWrong" ColumnName="CorrecrtWrong" />
+                <ScalarProperty Name="BlanckSpace" ColumnName="BlanckSpace" />
+                <ScalarProperty Name="TrueFalse" ColumnName="TrueFalse" />
+                <ScalarProperty Name="CorrectAnswerDD" ColumnName="CorrectAnswerDD" />
+                <ScalarProperty Name="StudentGiveAnswer" ColumnName="StudentGiveAnswer" />
+                <ScalarProperty Name="StudentGiveAnswerfillblank" ColumnName="StudentGiveAnswerfillblank" />
+                <ScalarProperty Name="StudentGiveAnswerTrueFalse" ColumnName="StudentGiveAnswerTrueFalse" />
+                <ScalarProperty Name="MatchAnswer" ColumnName="MatchAnswer" />
+                <ScalarProperty Name="StudentGiveAnswerMatch" ColumnName="StudentGiveAnswerMatch" />
+                <ScalarProperty Name="FullForm" ColumnName="FullForm" />
+                <ScalarProperty Name="StudentZGiveAnswerFullform" ColumnName="StudentZGiveAnswerFullform" />
+                <ScalarProperty Name="GainMarks" ColumnName="GainMarks" />
+                <ScalarProperty Name="QuesMarks" ColumnName="QuesMarks" />
+                <ScalarProperty Name="Addeddate" ColumnName="Addeddate" />
+                <ScalarProperty Name="QuestionStatus" ColumnName="QuestionStatus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -863,10 +971,10 @@
           <EntitySetMapping Name="tbl_StudentMaster">
             <EntityTypeMapping TypeName="Exam_MasterModel.tbl_StudentMaster">
               <MappingFragment StoreEntitySet="tbl_StudentMaster">
-                <ScalarProperty Name="ConfirmedPassword" ColumnName="ConfirmedPassword" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="pkid" ColumnName="pkid" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ConfirmedPassword" ColumnName="ConfirmedPassword" />
                 <ScalarProperty Name="Course_fkid" ColumnName="Course_fkid" />
                 <ScalarProperty Name="Division_fkid" ColumnName="Division_fkid" />
                 <ScalarProperty Name="Force_fkid" ColumnName="Force_fkid" />

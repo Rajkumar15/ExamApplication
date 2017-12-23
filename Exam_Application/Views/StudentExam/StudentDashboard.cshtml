@@ -135,6 +135,8 @@
                                                         <div class="panel-heading"><strong>Exam Questions</strong></div>
                                                         @Html.Hidden("ExamHiddenid", @Model.Examid)
                                                         @Html.Hidden("StudHiddenid",@Model.Studentid )
+                                                        @Html.HiddenFor(x=>x.Ques_fkid)
+                                                        @Html.HiddenFor(x=>x.Qnono)
                                                         <div class="panel-body">
                                                             <p>
                                                                 <small>
@@ -169,7 +171,7 @@
                                                 int QNO = 1;
                                                 foreach (var item in Model.QueIndexer.Where(x => x.Quest_type == 1).ToList())
                                                 {
-                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="ChangeQuestion(this)" id="@item.Questionid" class="btn btn-info btn-block">@QNO</a></div>
+                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="ChangeQuestion(this)" id="@item.Questionid" class="Raj btn btn-info btn-block @item.QueNo">@item.QueNo</a></div>
                                                     QNO = QNO + 1;
                                                 }
                                                                         }
@@ -188,7 +190,7 @@
                                                                         @{
                                                 foreach (var item in Model.QueIndexer.Where(x => x.Quest_type == 2).ToList())
                                                 {
-                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="TruefalseChangeQuestion(this)" id="@item.Questionid" class="btn btn-info btn-block">@QNO</a></div>
+                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="TruefalseChangeQuestion(this)" id="@item.Questionid" class="Raj btn btn-info btn-block @item.QueNo">@item.QueNo</a></div>
                                                     QNO = QNO + 1;
                                                 }
                                                                         }
@@ -205,9 +207,9 @@
                                                                 <div class="panel-body">
                                                                     <div class="row">
                                                                         @{
-                                                foreach (var item in Model.QueIndexer.Where(x => x.Quest_type == 3).ToList())
+                                                foreach (var item in Model.QueIndexer.Where(x=>x.Quest_type == 3).ToList())
                                                 {
-                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="BlanckSpaceChangeQuestion(this)" id="@item.Questionid" class="btn btn-info btn-block">@QNO</a></div>
+                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="BlanckSpaceChangeQuestion(this)" id="@item.Questionid" class="Raj btn btn-info btn-block @item.QueNo">@item.QueNo</a></div>
                                                     QNO = QNO + 1;
                                                 }
                                                                         }
@@ -227,7 +229,7 @@
                                                                         @{
                                                 foreach (var item in Model.QueIndexer.Where(x => x.Quest_type == 5).ToList())
                                                 {
-                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="MatchContentChangeQuestion(this)" id="@item.Questionid" class="btn btn-info btn-block">@QNO</a></div>
+                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="MatchContentChangeQuestion(this)" id="@item.Questionid" class="Raj btn btn-info btn-block @item.QueNo">@item.QueNo</a></div>
                                                     QNO = QNO + 1;
                                                 }
                                                                         }
@@ -246,7 +248,7 @@
                                                                         @{
                                                 foreach (var item in Model.QueIndexer.Where(x => x.Quest_type == 6).ToList())
                                                 {
-                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="IdentifysignChangeQuestion(this)" id="@item.Questionid" class="btn btn-info btn-block">@QNO</a></div>
+                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="IdentifysignChangeQuestion(this)" id="@item.Questionid" class="Raj btn btn-info btn-block @item.QueNo">@item.QueNo</a></div>
                                                     QNO = QNO + 1;
                                                 }
                                                                         }
@@ -266,7 +268,7 @@
                                                                         @{
                                                 foreach (var item in Model.QueIndexer.Where(x => x.Quest_type == 7).ToList())
                                                 {
-                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="FullformChangeQuestion(this)" id="@item.Questionid" class="btn btn-info btn-block">@QNO</a></div>
+                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="FullformChangeQuestion(this)" id="@item.Questionid" class="Raj btn btn-info btn-block @item.QueNo">@item.QueNo</a></div>
                                                     QNO = QNO + 1;
                                                 }
                                                                         }
@@ -351,4 +353,19 @@
 </body>
 <script src="~/AdminFiles/RajCustom/MainExam.js"></script>
 </html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        var ques_id = $("#Ques_fkid").val();
+        var Qno = $("#Qnono").val();
+        $.ajax({
+            type: "GET",
+            url: '/StudentExam/ObjectiveQuestion',
+            data: { QuestionId: ques_id, QuestionNo: Qno },
+            success: function (data, textStatus, jqXHR) {
+                $('#Partiall').html(data);
+            }
+        });
+    })
+</script>
 
