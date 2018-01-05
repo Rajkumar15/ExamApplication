@@ -15,16 +15,20 @@
 //    });
 //})
 function ChangeQuestion(cname) {
-    debugger;
     var ques_id = cname.id;
     var Qno = $("#" + ques_id + "").text();
     $.ajax({
         type: "GET",
         url: '/StudentExam/ObjectiveQuestion',
         data: { QuestionId: ques_id, QuestionNo: Qno },
-        success: function (data, textStatus, jqXHR) {
-            $('#Partiall').html(data);
+        success: function (data, textStatus, jqXHR) {       
+            $('#Partiall').html(data);          
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alert('Session Expired');
+            window.location.href = "/StudentExam/StudentLogin";
         }
+
     });
 
 }
@@ -36,8 +40,12 @@ function TruefalseChangeQuestion(cname) {
         type: "GET",
         url: '/StudentExam/TrueFalseQuestion',
         data: { QuestionId: ques_id, QuestionNo: Qno },
-        success: function (data, textStatus, jqXHR) {
-            $('#Partiall').html(data);
+        success: function (data, textStatus, jqXHR) {           
+            $('#Partiall').html(data);         
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alert('Session Expired');
+            window.location.href = "/StudentExam/StudentLogin";
         }
     });
 }
@@ -63,7 +71,11 @@ function MatchContentChangeQuestion(cname) {
         url: '/StudentExam/MatchContentQuestion',
         data: { QuestionId: ques_id, QuestionNo: Qno },
         success: function (data, textStatus, jqXHR) {
-            $('#Partiall').html(data);
+            $('#Partiall').html(data);        
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alert('Session Expired');
+            window.location.href = "/StudentExam/StudentLogin";
         }
     });
 }
@@ -77,6 +89,10 @@ function IdentifysignChangeQuestion(cname) {
         data: { QuestionId: ques_id, QuestionNo: Qno },
         success: function (data, textStatus, jqXHR) {
             $('#Partiall').html(data);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alert('Session Expired');
+            window.location.href = "/StudentExam/StudentLogin";
         }
     });
 }
@@ -90,6 +106,10 @@ function FullformChangeQuestion(cname) {
         data: { QuestionId: ques_id, QuestionNo: Qno },
         success: function (data, textStatus, jqXHR) {
             $('#Partiall').html(data);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alert('Session Expired');
+            window.location.href = "/StudentExam/StudentLogin";
         }
     });
 }
@@ -99,9 +119,8 @@ function ResetAnswer() {
     $("#GainMarks").val('');
     $('input[type=radio]').prop('checked', false);
 }
-function Pre() {   
-    if (parseFloat($("#QNo").val()) > 1)
-    {
+function Pre() {
+    if (parseFloat($("#QNo").val()) > 1) {
         var Qno = (parseFloat($("#QNo").val()) - 1);
         var ques_id = $("." + Qno + "").attr("id");
         $.ajax({
@@ -110,6 +129,10 @@ function Pre() {
             data: { QuestionId: ques_id, QuestionNo: Qno },
             success: function (data, textStatus, jqXHR) {
                 $('#Partiall').html(data);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Session Expired');
+                window.location.href = "/StudentExam/StudentLogin";
             }
         });
     }
@@ -124,7 +147,33 @@ function Next() {
             data: { QuestionId: ques_id, QuestionNo: Qno },
             success: function (data, textStatus, jqXHR) {
                 $('#Partiall').html(data);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Session Expired');
+                window.location.href = "/StudentExam/StudentLogin";
             }
         });
+    }
+}
+function ResetAnswerFullForm()
+{
+    $(".STA").val('');
+}
+function ResetAnswerMatchcontent()
+{
+    $("#select-to").html('');
+    $("#select-to").attr("readonly", false)
+    $("#btn-remove").show();
+    $("#btn-add").show();
+    $(".ssss").hide();
+}
+function FinalExamSubmit() {
+    if (confirm("After Submit Exam Your Exam Will Closed & Submitted.."))
+    {
+        var e = $("#Examid").val();
+        var s = $("#Studentid").val();
+        $.getJSON("/StudentExam/SubmitExam?eid=" + e + "&sid=" + s, function (data) {          
+            if (data == "s") { window.location.href = "/StudentExam/AfterSubmitForm";}
+        })
     }
 }

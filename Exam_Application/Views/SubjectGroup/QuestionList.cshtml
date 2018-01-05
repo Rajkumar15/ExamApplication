@@ -35,8 +35,7 @@
                         <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                             <thead>
                                 <tr>
-                                    <th>S.No</th>
-                                    <th><input type="checkbox" name="selectAll" value="deleteall" id="selectAll"></th>                               
+                                    <th>S.No</th>                                                        
                                     <th>Question</th>
                                     <th>Course</th>                                  
                                     <th>Division</th>                                  
@@ -66,6 +65,7 @@
         "serverSide": true, // for process server side
         "filter": true, // this is for disable filter (search box)
         "orderMulti": false, // for disable multiple column at once
+        "bSort": false,
 
         "ajax": {
             "url": "/SubjectGroup/QuestionListLogic",
@@ -73,18 +73,13 @@
             "datatype": "json"
         },
         "columns": [
-                { "data": "pkid", "name": "pkid", "orderable": false, "autoWidth": true },
-                 {
-                     "data": "pkid", "orderable": false, "render": function (data, type, full, meta) {
-                         return '<input type="checkbox" style="margin-left:8px;" value="'+data+'" name="DeleteCheckbox1" id="DeleteCheckbox1" class="chkselect">';
-                     }
-                 },
+                { "data": "pkid", "name": "pkid", "orderable": false, "autoWidth": true },                
                 { "data": "name", "Name": "name", "autoWidth": true },
                 { "data": "subject", "Name": "subject", "autoWidth": true },
                   { "data": "div", "Name": "div", "autoWidth": true },
                 {
                     "data": "pkid", "orderable": false, "render": function (data, type, full, meta) {
-                        return '<a href="/SubjectGroup/AddQuestion?id=' + data + '" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>                            <a href="#" name="/SubjectGroup/DeleteQuestion?id=' + data + '" onclick="DeleteRow(this)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>';
+                        return '<a href="/SubjectGroup/AddQuestion?id=' + data + '"><i class="fa fa-pencil-square-o fa-1x" title="Edit" aria-hidden="true"></i></a>     &nbsp; &nbsp;         <a href="#" name="/SubjectGroup/DeleteQuestion?id=' + data + '" onclick="DeleteRow(this)"><i class="fa fa-trash-o fa-1x" title="Delete" aria-hidden="true"></i></a>';
                     }
                 }
         ],

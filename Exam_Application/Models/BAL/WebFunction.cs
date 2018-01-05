@@ -44,6 +44,13 @@ namespace Exam_Application.Models.BAL
                             var filename = HttpContext.Current.Server.MapPath("/UploadFiles/StudentData/" + dates + filepost.FileName);
                             filepost.SaveAs(path);
                         }
+                        if (numb == 3)
+                        {
+                            returnpath = "/UploadFiles/UploadCertificates/" + dates + filepost.FileName;
+                            path = Path.Combine(HttpContext.Current.Server.MapPath("/UploadFiles/UploadCertificates/"), dates + filepost.FileName);
+                            var filename = HttpContext.Current.Server.MapPath("/UploadFiles/UploadCertificates/" + dates + filepost.FileName);
+                            filepost.SaveAs(path);
+                        }
                         return returnpath;
                     }
                     else

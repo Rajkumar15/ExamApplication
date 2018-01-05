@@ -13,6 +13,7 @@ namespace Exam_Application.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
+                Session["Menu"] = 1.ToString();
                 return View();
             }
              return RedirectToAction("FirstPage", "Admin_Task");

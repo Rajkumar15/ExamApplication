@@ -34,13 +34,17 @@ namespace DataLayer.ExamModel
         public virtual DbSet<tbl_ForceMaster> tbl_ForceMaster { get; set; }
         public virtual DbSet<tbl_GroupMaster> tbl_GroupMaster { get; set; }
         public virtual DbSet<tbl_MatchContentQuestionMaster> tbl_MatchContentQuestionMaster { get; set; }
+        public virtual DbSet<tbl_PIOC_Arrival_DataMaster> tbl_PIOC_Arrival_DataMaster { get; set; }
         public virtual DbSet<tbl_QuestionMaster> tbl_QuestionMaster { get; set; }
         public virtual DbSet<tbl_QuestionType_Master> tbl_QuestionType_Master { get; set; }
+        public virtual DbSet<tbl_REF_Arrival_DataMaster> tbl_REF_Arrival_DataMaster { get; set; }
+        public virtual DbSet<tbl_Session_Master> tbl_Session_Master { get; set; }
         public virtual DbSet<tbl_Student_AnswerSheet> tbl_Student_AnswerSheet { get; set; }
         public virtual DbSet<tbl_Student_Language_Master> tbl_Student_Language_Master { get; set; }
         public virtual DbSet<tbl_Student_NCC_CourseMaster> tbl_Student_NCC_CourseMaster { get; set; }
         public virtual DbSet<tbl_Student_NCCCertificateMaster> tbl_Student_NCCCertificateMaster { get; set; }
         public virtual DbSet<tbl_Student_Qualification_Master> tbl_Student_Qualification_Master { get; set; }
+        public virtual DbSet<tbl_StudentExamResult> tbl_StudentExamResult { get; set; }
         public virtual DbSet<tbl_StudentMaster> tbl_StudentMaster { get; set; }
         public virtual DbSet<tbl_Subject_master> tbl_Subject_master { get; set; }
         public virtual DbSet<tbl_User_Profile> tbl_User_Profile { get; set; }

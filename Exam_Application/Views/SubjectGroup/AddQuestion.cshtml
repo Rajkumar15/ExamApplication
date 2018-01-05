@@ -20,6 +20,16 @@
         margin-bottom: 1%;
         font-weight: normal !important;
     }
+
+    .radio-inline {
+        padding-top: 0px !important;
+        margin-top: -3px !important;
+    }
+
+    .Rtype {
+        padding-left: 0 !important;
+        padding-right: 10px;
+    }
 </style>
 <script src="~/scripts/tinymce/tinymce.min.js"></script>
 <script src="~/AdminFiles/JS/RajAddQuestion.js"></script>
@@ -68,14 +78,14 @@
                                             @*<div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id1" value="1"><label for="qtype_id1" class="radio-inline">Objective Questions</label></div>*@
                                             <div class="radio-inline">
                                                 <input type="radio" name="data[Question][qtype_id]" id="qtype_id1" value="1">
-                                                <label for="qtype_id1" class="radio-inline">Objective Questions</label>
+                                                <label for="qtype_id1" class="radio-inline Rtype">Objective Questions</label>
                                             </div>
-                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id2" value="2"><label for="qtype_id2" class="radio-inline">True / False</label></div>
-                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id3" value="3"><label for="qtype_id3" class="radio-inline">Fill in the blanks</label></div>
-                                            <div class="radio-inline" style="display:none;"><input type="radio" name="data[Question][qtype_id]" id="qtype_id4" value="4"><label for="qtype_id4" class="radio-inline">Subjective</label></div>
-                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id5" value="5"><label for="qtype_id4" class="radio-inline">Match Content</label></div>
-                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id6" value="6"><label for="qtype_id4" class="radio-inline">Identify Sign</label></div>
-                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id7" value="7"><label for="qtype_id7" class="radio-inline">Full Form</label></div>
+                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id2" value="2"><label for="qtype_id2" class="radio-inline Rtype">True / False</label></div>
+                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id3" value="3"><label for="qtype_id3" class="radio-inline Rtype">Fill in the blanks</label></div>
+                                            <div class="radio-inline" style="display:none;"><input type="radio" name="data[Question][qtype_id]" id="qtype_id4" value="4"><label for="qtype_id4" class="radio-inline Rtype">Subjective</label></div>
+                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id5" value="5"><label for="qtype_id4" class="radio-inline Rtype">Match Content</label></div>
+                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id6" value="6"><label for="qtype_id4" class="radio-inline Rtype">Identify Sign</label></div>
+                                            <div class="radio-inline"><input type="radio" name="data[Question][qtype_id]" id="qtype_id7" value="7"><label for="qtype_id7" class="radio-inline Rtype">Full Form</label></div>
                                         </div>
                                     </div>
                                 </div>
@@ -156,45 +166,62 @@
                                 <div class="col-sm-12"><label><p style="color:#EF4A43">(NOTE:- Fill Complete Row Data Otherwise it will not Save.)</p></label></div>
                                 <div class="col-sm-4">
                                     Item Column
-                                    @Html.HiddenFor(x => x.MATContent[0].pkid)  @Html.TextBoxFor(x => x.MATContent[0].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
-                                    @Html.HiddenFor(x => x.MATContent[1].pkid) @Html.TextBoxFor(x => x.MATContent[1].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
-                                    @Html.HiddenFor(x => x.MATContent[2].pkid) @Html.TextBoxFor(x => x.MATContent[2].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
-                                    @Html.HiddenFor(x => x.MATContent[3].pkid) @Html.TextBoxFor(x => x.MATContent[3].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
-                                    @Html.HiddenFor(x => x.MATContent[4].pkid) @Html.TextBoxFor(x => x.MATContent[4].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
-                                    @Html.HiddenFor(x => x.MATContent[5].pkid) @Html.TextBoxFor(x => x.MATContent[5].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
-                                    @Html.HiddenFor(x => x.MATContent[6].pkid) @Html.TextBoxFor(x => x.MATContent[6].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
-                                    @Html.HiddenFor(x => x.MATContent[7].pkid) @Html.TextBoxFor(x => x.MATContent[7].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
-                                    @Html.HiddenFor(x => x.MATContent[8].pkid) @Html.TextBoxFor(x => x.MATContent[8].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
-                                    @Html.HiddenFor(x => x.MATContent[9].pkid) @Html.TextBoxFor(x => x.MATContent[9].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                    @try
+                                    {
+
+                                        @Html.HiddenFor(x => x.MATContent[0].pkid)  @Html.TextBoxFor(x => x.MATContent[0].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                        @Html.HiddenFor(x => x.MATContent[1].pkid) @Html.TextBoxFor(x => x.MATContent[1].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                        @Html.HiddenFor(x => x.MATContent[2].pkid) @Html.TextBoxFor(x => x.MATContent[2].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                        @Html.HiddenFor(x => x.MATContent[3].pkid) @Html.TextBoxFor(x => x.MATContent[3].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                        @Html.HiddenFor(x => x.MATContent[4].pkid) @Html.TextBoxFor(x => x.MATContent[4].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                        @Html.HiddenFor(x => x.MATContent[5].pkid) @Html.TextBoxFor(x => x.MATContent[5].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                        @Html.HiddenFor(x => x.MATContent[6].pkid) @Html.TextBoxFor(x => x.MATContent[6].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                        @Html.HiddenFor(x => x.MATContent[7].pkid) @Html.TextBoxFor(x => x.MATContent[7].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                        @Html.HiddenFor(x => x.MATContent[8].pkid) @Html.TextBoxFor(x => x.MATContent[8].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+                                        @Html.HiddenFor(x => x.MATContent[9].pkid) @Html.TextBoxFor(x => x.MATContent[9].FirstColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Item Name" })
+
+                                    }
+                                    catch { }
+
 
                                 </div>
                                 <div class="col-sm-4">
                                     Option Column
-                                    @Html.TextBoxFor(x => x.MATContent[0].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
-                                    @Html.TextBoxFor(x => x.MATContent[1].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
-                                    @Html.TextBoxFor(x => x.MATContent[2].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
-                                    @Html.TextBoxFor(x => x.MATContent[3].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
-                                    @Html.TextBoxFor(x => x.MATContent[4].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
-                                    @Html.TextBoxFor(x => x.MATContent[5].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
-                                    @Html.TextBoxFor(x => x.MATContent[6].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
-                                    @Html.TextBoxFor(x => x.MATContent[7].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
-                                    @Html.TextBoxFor(x => x.MATContent[8].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
-                                    @Html.TextBoxFor(x => x.MATContent[9].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                    @try
+                                    {
 
+                                        @Html.TextBoxFor(x => x.MATContent[0].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                        @Html.TextBoxFor(x => x.MATContent[1].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                        @Html.TextBoxFor(x => x.MATContent[2].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                        @Html.TextBoxFor(x => x.MATContent[3].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                        @Html.TextBoxFor(x => x.MATContent[4].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                        @Html.TextBoxFor(x => x.MATContent[5].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                        @Html.TextBoxFor(x => x.MATContent[6].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                        @Html.TextBoxFor(x => x.MATContent[7].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                        @Html.TextBoxFor(x => x.MATContent[8].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
+                                        @Html.TextBoxFor(x => x.MATContent[9].OppositeColoumn, new { @class = "form-control Matchfield", @placeholder = "Enter Option Name" })
 
+                                    }
+                                    catch { }
                                 </div>
                                 <div class="col-sm-4">
                                     Result Column
-                                    @Html.TextBoxFor(x => x.MATContent[0].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength="2" })
-                                    @Html.TextBoxFor(x => x.MATContent[1].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
-                                    @Html.TextBoxFor(x => x.MATContent[2].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
-                                    @Html.TextBoxFor(x => x.MATContent[3].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
-                                    @Html.TextBoxFor(x => x.MATContent[4].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
-                                    @Html.TextBoxFor(x => x.MATContent[5].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
-                                    @Html.TextBoxFor(x => x.MATContent[6].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
-                                    @Html.TextBoxFor(x => x.MATContent[7].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
-                                    @Html.TextBoxFor(x => x.MATContent[8].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
-                                    @Html.TextBoxFor(x => x.MATContent[9].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                    @try
+                                    {
+
+                                        @Html.TextBoxFor(x => x.MATContent[0].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                        @Html.TextBoxFor(x => x.MATContent[1].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                        @Html.TextBoxFor(x => x.MATContent[2].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                        @Html.TextBoxFor(x => x.MATContent[3].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                        @Html.TextBoxFor(x => x.MATContent[4].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                        @Html.TextBoxFor(x => x.MATContent[5].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                        @Html.TextBoxFor(x => x.MATContent[6].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                        @Html.TextBoxFor(x => x.MATContent[7].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                        @Html.TextBoxFor(x => x.MATContent[8].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+                                        @Html.TextBoxFor(x => x.MATContent[9].AnsweColoumn, new { @class = "form-control Matchfield Rajnumber", @placeholder = "Enter Answer Number in 2 Digits", @maxlength = "2" })
+
+                                    }
+                                    catch { }
                                 </div>
                             </div>
 
@@ -202,31 +229,43 @@
                                 <div class="col-sm-12"><label><p style="color:#EF4A43">(NOTE:- Fill Complete Row Data Otherwise it will not Save.)</p></label></div>
                                 <div class="col-sm-4">
                                     Short Form
-                                    @Html.HiddenFor(x => x.FULLF[0].pkid) @Html.TextBoxFor(x => x.FULLF[0].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
-                                    @Html.HiddenFor(x => x.FULLF[1].pkid) @Html.TextBoxFor(x => x.FULLF[1].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
-                                    @Html.HiddenFor(x => x.FULLF[2].pkid) @Html.TextBoxFor(x => x.FULLF[2].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
-                                    @Html.HiddenFor(x => x.FULLF[3].pkid) @Html.TextBoxFor(x => x.FULLF[3].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
-                                    @Html.HiddenFor(x => x.FULLF[4].pkid) @Html.TextBoxFor(x => x.FULLF[4].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
-                                    @Html.HiddenFor(x => x.FULLF[5].pkid) @Html.TextBoxFor(x => x.FULLF[5].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
-                                    @Html.HiddenFor(x => x.FULLF[6].pkid) @Html.TextBoxFor(x => x.FULLF[6].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
-                                    @Html.HiddenFor(x => x.FULLF[7].pkid) @Html.TextBoxFor(x => x.FULLF[7].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
-                                    @Html.HiddenFor(x => x.FULLF[8].pkid) @Html.TextBoxFor(x => x.FULLF[8].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
-                                    @Html.HiddenFor(x => x.FULLF[9].pkid) @Html.TextBoxFor(x => x.FULLF[9].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
 
+                                    @try
+                                    {
+
+                                        @Html.HiddenFor(x => x.FULLF[0].pkid) @Html.TextBoxFor(x => x.FULLF[0].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                        @Html.HiddenFor(x => x.FULLF[1].pkid) @Html.TextBoxFor(x => x.FULLF[1].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                        @Html.HiddenFor(x => x.FULLF[2].pkid) @Html.TextBoxFor(x => x.FULLF[2].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                        @Html.HiddenFor(x => x.FULLF[3].pkid) @Html.TextBoxFor(x => x.FULLF[3].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                        @Html.HiddenFor(x => x.FULLF[4].pkid) @Html.TextBoxFor(x => x.FULLF[4].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                        @Html.HiddenFor(x => x.FULLF[5].pkid) @Html.TextBoxFor(x => x.FULLF[5].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                        @Html.HiddenFor(x => x.FULLF[6].pkid) @Html.TextBoxFor(x => x.FULLF[6].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                        @Html.HiddenFor(x => x.FULLF[7].pkid) @Html.TextBoxFor(x => x.FULLF[7].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                        @Html.HiddenFor(x => x.FULLF[8].pkid) @Html.TextBoxFor(x => x.FULLF[8].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+                                        @Html.HiddenFor(x => x.FULLF[9].pkid) @Html.TextBoxFor(x => x.FULLF[9].FirstColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Short Form" })
+
+                                    }
+                                    catch { }
                                 </div>
                                 <div class="col-sm-4">
 
                                     Full Form
-                                    @Html.TextBoxFor(x => x.FULLF[0].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
-                                    @Html.TextBoxFor(x => x.FULLF[1].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
-                                    @Html.TextBoxFor(x => x.FULLF[2].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
-                                    @Html.TextBoxFor(x => x.FULLF[3].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
-                                    @Html.TextBoxFor(x => x.FULLF[4].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
-                                    @Html.TextBoxFor(x => x.FULLF[5].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
-                                    @Html.TextBoxFor(x => x.FULLF[6].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
-                                    @Html.TextBoxFor(x => x.FULLF[7].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
-                                    @Html.TextBoxFor(x => x.FULLF[8].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
-                                    @Html.TextBoxFor(x => x.FULLF[9].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form"})
+                                    @try
+                                    {
+
+                                        @Html.TextBoxFor(x => x.FULLF[0].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form" })
+                                        @Html.TextBoxFor(x => x.FULLF[1].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form" })
+                                        @Html.TextBoxFor(x => x.FULLF[2].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form" })
+                                        @Html.TextBoxFor(x => x.FULLF[3].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form" })
+                                        @Html.TextBoxFor(x => x.FULLF[4].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form" })
+                                        @Html.TextBoxFor(x => x.FULLF[5].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form" })
+                                        @Html.TextBoxFor(x => x.FULLF[6].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form" })
+                                        @Html.TextBoxFor(x => x.FULLF[7].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form" })
+                                        @Html.TextBoxFor(x => x.FULLF[8].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form" })
+                                        @Html.TextBoxFor(x => x.FULLF[9].AnsweColoumn, new { @class = "form-control fullfo", @placeholder = "Enter Full Form" })
+
+                                    }
+                                    catch { }
                                 </div>
                             </div>
 
@@ -277,8 +316,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="QuestionNegativeMarks">Negative Marks</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
-                                            @Html.TextBoxFor(x => x.NegativeMarks, new { @class = "form-control Rajdecimal", @placeholder = "Negative Marks" })
+                                            <label for="QuestionNegativeMarks">Other Marks</label>@*<input name="data[Question][negative_marks]" class="form-control validate[required,custom[number]]" placeholder="Negative Marks" step="any" type="number" id="QuestionNegativeMarks">*@
+                                            @Html.TextBoxFor(x => x.NegativeMarks, new { @class = "form-control Rajdecimal", @readonly = "readonly", @placeholder = "Other Marks" })
                                         </div>
                                     </div>
 

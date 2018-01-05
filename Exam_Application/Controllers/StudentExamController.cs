@@ -35,13 +35,14 @@ namespace Exam_Application.Controllers
         public readonly IRepository<tbl_Exam_QuestionsMaster> _EQUESTION;
         public readonly IRepository<tbl_Student_AnswerSheet> _WQANSWER;
         public readonly IRepository<tbl_AttemptExamAnswerSheet> _Attemptexam;
+        public readonly IRepository<tbl_StudentExamResult> _examresult;
 
         public StudentExamController(IRepository<tbl_User_Profile> user, IRepository<tbl_GroupMaster> group, IRepository<tbl_CourseMaster> course,
             IRepository<tbl_DivisionMaster> division, IRepository<tbl_QuestionType_Master> subtype, IRepository<tbl_StudentMaster> student, IRepository<tbl_QuestionMaster> question,
             IRepository<tbl_AnswerMaster> answer, IRepository<tbl_MatchContentQuestionMaster> Matc, IRepository<tbl_ForceMaster> force,
             IRepository<tbl_Student_NCC_CourseMaster> ncccourse, IRepository<tbl_Student_NCCCertificateMaster> ncccer, IRepository<tbl_Student_Qualification_Master> nccQua,
             IRepository<tbl_Student_Language_Master> nccLang, IRepository<tbl_Exam_Master> Exam, IRepository<tbl_Exam_QuestionsMaster> EQUESTION, IRepository<tbl_Student_AnswerSheet> QANSWER,
-            IRepository<tbl_AttemptExamAnswerSheet> Attemptexam)
+            IRepository<tbl_AttemptExamAnswerSheet> Attemptexam, IRepository<tbl_StudentExamResult> examresult)
         {
             _user = user;
             _group = group;
@@ -61,6 +62,7 @@ namespace Exam_Application.Controllers
             _Exam = Exam;
             _EQUESTION = EQUESTION;
             _WQANSWER = QANSWER;
+            _examresult = examresult;
         }
 
 
@@ -101,6 +103,34 @@ namespace Exam_Application.Controllers
             }
         }
 
+        public ActionResult SetCookiesforTiming(int eid)
+        {
+            try
+            {
+                tbl_Exam_Master abc = _Exam.Get(eid);
+                HttpCookie cookie = new HttpCookie("exam");
+                HttpCookie cookieS = new HttpCookie("Startt");
+                HttpCookie TIMER = new HttpCookie("timer");
+                cookie.Values["ExamDuration"] = abc.ExamDuration;
+                cookie.Expires = DateTime.Now.AddDays(1);
+                cookieS.Values["StartTime"] = DateTime.Now.ToString();
+                if (abc.ExamDuration != null)
+                {
+                    var timr = abc.ExamDuration.Split('.');
+                    DateTime expirytime = DateTime.Now.Add(new TimeSpan(Convert.ToInt32(timr[0]), Convert.ToInt32(timr[1]), 1));
+                    TIMER.Values["timer"] = expirytime.ToString();
+                    Response.Cookies.Add(TIMER);
+                }
+                cookieS.Expires = DateTime.Now.AddDays(1);
+                Response.Cookies.Add(cookie);
+                Response.Cookies.Add(cookieS);
+                return Json("s", JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return RedirectToAction("StudentLogin", "StudentExam", new { Exception = "Session Expired." });
+            }
+        }
 
         [HttpGet]
         public ActionResult ForgetStudentLogin(string Exception)
@@ -191,33 +221,70 @@ namespace Exam_Application.Controllers
         [HttpGet]
         public ActionResult ReadInstruction(int id, string Exception)
         {
-            tbl_Exam_Master data = _Exam.Get(id);
-            tbl_Exam_Masterss abc = new tbl_Exam_Masterss();
-            abc.pkid = id;
-            abc.Instruction = data.Instruction;
-            ViewBag.Exception = Exception;
-            return View(abc);
+            try
+            {
+
+                HttpCookie cookie = Request.Cookies["search"];
+                string userName = cookie.Values[0];
+                int studid = _student.GetAll().Where(x => x.UserName == userName).FirstOrDefault().pkid;
+
+                var datafds = _examresult.GetAll().Where(x => x.Student_fkid == studid && x.Exam_fkid == id).ToList();
+                if (datafds.Count() == 0)
+                {
+                    tbl_Exam_Master data = _Exam.Get(id);
+                    tbl_Exam_Masterss abc = new tbl_Exam_Masterss();
+                    abc.pkid = id;
+                    abc.Instruction = data.Instruction;
+                    ViewBag.Exception = Exception;
+                    return View(abc);
+                }
+                else
+                {
+                    return RedirectToAction("AttemptExam", "StudentExam", new { Exception = "You Have Already Submitted These Exam." });
+                }
+            }
+            catch
+            {
+                return RedirectToAction("StudentLogin", "StudentExam", new { Exception = "Session Expired." });
+            }
         }
 
         [HttpGet]
-        public ActionResult StudentDashboard(int Examid, string Exception)
+        public ActionResult StudentDashboard(int Examid, string Exception, string firs)
         {
             string exception = "";
+            if (firs == "1")
+            {
+                ViewBag.fi = "sds";
+            }
             ViewBag.Exception = Exception;
             int NO = 1;
             try
             {
                 HttpCookie cookie = Request.Cookies["search"];
+                HttpCookie cookieRaj = Request.Cookies["exam"];
+                HttpCookie cookieRajTime = Request.Cookies["Startt"];
+                HttpCookie TIMER = Request.Cookies["timer"];
                 if ((cookie != null) && (cookie.Value != ""))
                 {
                     MainExamModel Exammodel = new MainExamModel();
                     List<QuestionIndexer> QuesList = new List<QuestionIndexer>();
+                    TimeSpan t = Convert.ToDateTime(TIMER.Values[0]) - DateTime.Now;
+                    int hour = t.Hours; int min = t.Minutes; int Sec = t.Seconds;
+                    Exammodel.ExamDuration = hour + "," + min + "," + Sec;
                     tbl_Exam_Master Exam = _Exam.Get(Examid);
                     Exammodel.Examid = Examid;
                     TempData["Eid"] = Examid;
                     string userName = cookie.Values[0];
+                    ViewBag.duration = cookieRaj.Values[0];
+                    Exammodel.ExamStartDatetime = Convert.ToDateTime(cookieRajTime.Values[0]);
                     Exammodel.Studentid = _student.GetAll().Where(x => x.UserName == userName).FirstOrDefault().pkid;
                     TempData["Sid"] = Exammodel.Studentid;
+                    TimeSpan p = DateTime.Now - DateTime.Now;
+                    if (p > t)
+                    {
+                        return RedirectToAction("SubmitExamServer", "StudentExam", new { eid = Examid, sid = Exammodel.Studentid });
+                    }
                     //  List<tbl_Exam_QuestionsMaster> ExamQuestion = _EQUESTION.GetAll().Where(x => x.Exam_fkid == Examid).ToList();
                     List<tbl_Exam_QuestionsMasterRAJ> ExamQuestion = (from a in _EQUESTION.GetAll().Where(x => x.Exam_fkid == Examid)
                                                                       select new tbl_Exam_QuestionsMasterRAJ
@@ -236,8 +303,8 @@ namespace Exam_Application.Controllers
                             QUQU.QueNo = NO;
                             QUQU.Questionid = Q.pkid;
                             QUQU.Quest_type = Convert.ToInt32(Q.subjecttype_fkid);
-                            QUQU.ExamDuration = Exam.ExamDuration;
-                            QUQU.ExamStartTime = DateTime.Now;
+                            // QUQU.ExamDuration = Exam.ExamDuration;
+                            //  QUQU.ExamStartTime = DateTime.Now;
                             QuesList.Add(QUQU);
                         }
                         NO++;
@@ -251,8 +318,17 @@ namespace Exam_Application.Controllers
                         Qno = Qno + 1;
                     }
                     catch { }
-                    Exammodel.Ques_fkid = QuesList.Where(x => x.QueNo == Qno).FirstOrDefault().Questionid;
-                    Exammodel.Qnono = Qno;
+                    if (QuesList.Count() < Qno)
+                    {
+                        Qno = Qno - 1;
+                        Exammodel.Ques_fkid = QuesList.Where(x => x.QueNo == Qno).FirstOrDefault().Questionid;
+                        Exammodel.Qnono = Qno;
+                    }
+                    else
+                    {
+                        Exammodel.Ques_fkid = QuesList.Where(x => x.QueNo == Qno).FirstOrDefault().Questionid;
+                        Exammodel.Qnono = Qno;
+                    }
                     return View(Exammodel);
                 }
                 else
@@ -278,9 +354,17 @@ namespace Exam_Application.Controllers
 
                 HttpCookie currentUserCookie = Request.Cookies["search"];
                 Response.Cookies.Remove("search");
+                HttpCookie currentUserCookiee = Request.Cookies["exam"];
+                Response.Cookies.Remove("exam");
+                HttpCookie currentUserCookieT = Request.Cookies["Startt"];
+                Response.Cookies.Remove("Startt");
                 currentUserCookie.Expires = DateTime.Now.AddDays(-10);
+                currentUserCookiee.Expires = DateTime.Now.AddDays(-10);
+                currentUserCookieT.Expires = DateTime.Now.AddDays(-10);
                 currentUserCookie.Value = null;
-                Response.SetCookie(currentUserCookie);
+                currentUserCookiee.Value = null;
+                currentUserCookieT.Value = null;
+                Response.SetCookie(currentUserCookie); Response.SetCookie(currentUserCookiee); Response.SetCookie(currentUserCookieT);
                 return View("StudentLogin");
             }
             catch
@@ -423,8 +507,8 @@ namespace Exam_Application.Controllers
                     abc.QNo = model.QNo;
                     abc.QuesMarks = model.QuesMarks;
                     abc.CorrecrtWrong = model.CorrecrtWrong;
-                    abc.Examid = model.Examid;
-                    abc.Studentid = model.Studentid;
+                    //abc.Examid = model.Examid;
+                    //abc.Studentid = model.Studentid;
                     abc.CorrectAnswerDD = model.CorrectAnswerDD;
                     abc.StudentGiveAnswer = model.StudentGiveAnswer;
                     abc.GainMarks = model.GainMarks;
@@ -569,8 +653,8 @@ namespace Exam_Application.Controllers
                     abc.QNo = model.QNo;
                     abc.QuesMarks = model.QuesMarks;
                     abc.CorrecrtWrong = model.CorrecrtWrong;
-                    abc.Examid = model.Examid;
-                    abc.Studentid = model.Studentid;
+                    //abc.Examid = model.Examid;
+                    //abc.Studentid = model.Studentid;
                     abc.StudentGiveAnswerTrueFalse = model.StudentGiveAnswerTrueFalse;
                     abc.GainMarks = model.GainMarks;
                     abc.TrueFalse = model.TrueFalse;
@@ -718,8 +802,8 @@ namespace Exam_Application.Controllers
                     abc.QuestypeName = model.QuestypeName;
                     abc.QNo = model.QNo;
                     abc.QuesMarks = model.QuesMarks;
-                    abc.Examid = model.Examid;
-                    abc.Studentid = model.Studentid;
+                    //abc.Examid = model.Examid;
+                    //abc.Studentid = model.Studentid;
                     abc.StudentGiveAnswerfillblank = model.StudentGiveAnswerfillblank;
                     abc.BlanckSpace = model.BlanckSpace;
                     if (model.BlanckSpace.Trim().ToLower() == model.StudentGiveAnswerfillblank.Trim().ToLower())
@@ -780,8 +864,8 @@ namespace Exam_Application.Controllers
                     }
 
 
-                    var data = _Attemptexam.GetAll().Where(x => x.Examid == Examid && x.QueId == QuestionId && x.Studentid == Studentid).Select(x=>x.StudentGiveAnswerMatch).ToList();
-                    if (data != null)
+                    var data = _Attemptexam.GetAll().Where(x => x.Examid == Examid && x.QueId == QuestionId && x.Studentid == Studentid).Select(x => x.StudentGiveAnswerMatch).ToList();
+                    if (data.Count() != 0)
                     {
                         string combindedString = string.Join(",", data.ToArray());
                         tbl_AttemptExamAnswerSheetMatchSepss Question = new tbl_AttemptExamAnswerSheetMatchSepss();
@@ -880,7 +964,7 @@ namespace Exam_Application.Controllers
                         n++;
                         abc.Addeddate = DateTime.Now;
                         _Attemptexam.Add(abc, true);
-                    }                   
+                    }
                 }
                 else
                 {
@@ -902,8 +986,8 @@ namespace Exam_Application.Controllers
                         abc.QuestypeName = model.QuestypeName;
                         abc.QNo = model.QNo;
                         abc.QuesMarks = model.QuesMarks;
-                        abc.Examid = model.Examid;
-                        abc.Studentid = model.Studentid;
+                        //abc.Examid = model.Examid;
+                        //abc.Studentid = model.Studentid;
                         abc.StudentGiveAnswerMatch = item;
                         abc.MatchAnswer = Convert.ToInt32(ANS.ElementAt(n).AnsweColoumn);
 
@@ -919,7 +1003,7 @@ namespace Exam_Application.Controllers
                         }
                         n++;
                         abc.Addeddate = DateTime.Now;
-                        _Attemptexam.Add(abc, true);        
+                        _Attemptexam.Add(abc, true);
                     }
                 }
                 return RedirectToAction("StudentDashboard", "StudentExam", new { Examid = model.Examid, Exception = exception });
@@ -1017,8 +1101,8 @@ namespace Exam_Application.Controllers
                 else
                 {
                     exception = "Session Expired.";
-                    return PartialView();
                 }
+                return PartialView();
             }
             catch (Exception e)
             {
@@ -1068,8 +1152,8 @@ namespace Exam_Application.Controllers
                     abc.QNo = model.QNo;
                     abc.QuesMarks = model.QuesMarks;
                     abc.CorrecrtWrong = model.CorrecrtWrong;
-                    abc.Examid = model.Examid;
-                    abc.Studentid = model.Studentid;
+                    //abc.Examid = model.Examid;
+                    //abc.Studentid = model.Studentid;
                     abc.CorrectAnswerDD = model.CorrectAnswerDD;
                     abc.StudentGiveAnswer = model.StudentGiveAnswer;
                     abc.GainMarks = model.GainMarks;
@@ -1125,27 +1209,64 @@ namespace Exam_Application.Controllers
                         return RedirectToAction("IdentifySignQuestion", "StudentExam", new { QuestionId = QuestionId, QuestionNo = QuestionNo });
                     }
 
-
-                    MatchContentQuestions Question = new MatchContentQuestions();
-                    tbl_QuestionMaster Q = _question.Get(QuestionId);
-                    if (Q.Status == 1)
+                    var data = _Attemptexam.GetAll().Where(x => x.Examid == Examid && x.QueId == QuestionId && x.Studentid == Studentid).Select(x => x.StudentZGiveAnswerFullform).ToList();
+                    if (data.Count != 0)
                     {
-                        Question.Question = Q.Question;
-                        Question.QuestypeName = _subtype.Get(Q.subjecttype_fkid).Questiontype;
-                        Question.QuesMarks = Q.Marks;
-                        Question.Queno = QuestionNo;
-                        if (Q.subjecttype_fkid == 7)
+                        tbl_AttemptExamAnswerSheetMatchSepss Question = new tbl_AttemptExamAnswerSheetMatchSepss();
+                        tbl_QuestionMaster Q = _question.Get(QuestionId);
+                        if (Q.Status == 1)
                         {
-                            List<tbl_MatchContentQuestionMaster> ANS = _Matc.GetAll().Where(x => x.Ques_fkid == Q.pkid).ToList();
-                            Question.Match = ANS;
+                            Question.pkid = 1;
+                            Question.QueId = QuestionId;
+                            Question.Question = Q.Question;
+                            Question.QuestypeName = _subtype.Get(Q.subjecttype_fkid).Questiontype;
+                            Question.QuesMarks = Q.Marks;
+                            Question.QNo = QuestionNo;
+                            if (Q.subjecttype_fkid == 7)
+                            {
+                                List<tbl_MatchContentQuestionMaster> ANS = _Matc.GetAll().Where(x => x.Ques_fkid == Q.pkid).ToList();
+                                Question.MATContent = ANS;
+                                List<StudentGiveAnswerfull> LI = new List<StudentGiveAnswerfull>();
+                                int check = 0;
+                                foreach (var item in ANS)
+                                {
+                                    StudentGiveAnswerfull veta = new StudentGiveAnswerfull();
+                                    try
+                                    {
+                                        veta.Ans = data[check];
+                                    }
+                                    catch { veta.Ans = ""; }
+                                    LI.Add(veta);
+                                    check++;
+                                }
+                                Question.FULLF = LI;
+                            }
                         }
+                        return PartialView(Question);
                     }
-                    return PartialView(Question);
+                    else
+                    {
+                        tbl_AttemptExamAnswerSheetMatchSepss Question = new tbl_AttemptExamAnswerSheetMatchSepss();
+                        tbl_QuestionMaster Q = _question.Get(QuestionId);
+                        if (Q.Status == 1)
+                        {
+                            Question.QueId = QuestionId;
+                            Question.Question = Q.Question;
+                            Question.QuestypeName = _subtype.Get(Q.subjecttype_fkid).Questiontype;
+                            Question.QuesMarks = Q.Marks;
+                            Question.QNo = QuestionNo;
+                            if (Q.subjecttype_fkid == 7)
+                            {
+                                List<tbl_MatchContentQuestionMaster> ANS = _Matc.GetAll().Where(x => x.Ques_fkid == Q.pkid).ToList();
+                                Question.MATContent = ANS;
+                            }
+                        }
+                        return PartialView(Question);
+                    }
                 }
                 else
                 {
                     exception = "Session Expired.";
-
                 }
                 return PartialView();
             }
@@ -1156,6 +1277,239 @@ namespace Exam_Application.Controllers
                 return PartialView();
             }
 
+        }
+
+        [HttpPost]
+        public ActionResult FullFormQuestion(tbl_AttemptExamAnswerSheetMatchSepss model)
+        {
+            string exception = "";
+            try
+            {
+                TempData["Qid"] = model.QueId;
+                TempData["Qno"] = model.QNo;
+
+
+                if (model.pkid == 0)
+                {
+                    int n = 0;
+                    foreach (var item in model.FULLF)
+                    {
+                        tbl_AttemptExamAnswerSheet abc = new tbl_AttemptExamAnswerSheet();
+                        abc.QueId = model.QueId;
+                        abc.Question = model.Question;
+                        abc.QuestypeName = model.QuestypeName;
+                        abc.QNo = model.QNo;
+                        abc.QuesMarks = model.QuesMarks;
+                        abc.Examid = model.Examid;
+                        abc.Studentid = model.Studentid;
+                        abc.StudentZGiveAnswerFullform = item.Ans;
+                        abc.FullForm = model.MATContent.ElementAt(n).AnsweColoumn;
+
+                        if (abc.StudentZGiveAnswerFullform.Trim().ToLower() == abc.FullForm.Trim().ToLower())
+                        {
+                            abc.CorrecrtWrong = 1;
+                            abc.GainMarks = (model.QuesMarks / model.FULLF.Count());
+                        }
+                        else
+                        {
+                            abc.CorrecrtWrong = 0;
+                            abc.GainMarks = 0;
+                        }
+                        n++;
+                        abc.Addeddate = DateTime.Now;
+                        _Attemptexam.Add(abc, true);
+                    }
+                }
+                else
+                {
+                    var qeta = _Attemptexam.GetAll().Where(x => x.Examid == model.Examid && x.QueId == model.QueId && x.Studentid == model.Studentid && x.QNo == model.QNo).ToList();
+                    foreach (var deta in qeta)
+                    {
+                        tbl_AttemptExamAnswerSheet ad = _Attemptexam.Get(deta.pkid);
+                        _Attemptexam.Remove(ad, true);
+                    }
+
+                    int n = 0;
+                    foreach (var item in model.FULLF)
+                    {
+                        tbl_AttemptExamAnswerSheet abc = new tbl_AttemptExamAnswerSheet();
+                        abc.QueId = model.QueId;
+                        abc.Question = model.Question;
+                        abc.QuestypeName = model.QuestypeName;
+                        abc.QNo = model.QNo;
+                        abc.QuesMarks = model.QuesMarks;
+                        abc.Examid = model.Examid;
+                        abc.Studentid = model.Studentid;
+                        abc.StudentZGiveAnswerFullform = item.Ans;
+                        abc.FullForm = model.MATContent.ElementAt(n).AnsweColoumn;
+
+                        if (abc.StudentZGiveAnswerFullform.Trim().ToLower() == abc.FullForm.Trim().ToLower())
+                        {
+                            abc.CorrecrtWrong = 1;
+                            abc.GainMarks = (model.QuesMarks / model.FULLF.Count());
+                        }
+                        else
+                        {
+                            abc.CorrecrtWrong = 0;
+                            abc.GainMarks = 0;
+                        }
+                        n++;
+                        abc.Addeddate = DateTime.Now;
+                        _Attemptexam.Add(abc, true);
+                    }
+                }
+                return RedirectToAction("StudentDashboard", "StudentExam", new { Examid = model.Examid, Exception = exception });
+            }
+            catch (Exception e)
+            {
+                Commonfunction.LogError(e, Server.MapPath("~/Log.txt"));
+                exception = e.Message;
+                return RedirectToAction("StudentDashboard", "StudentExam", new { Examid = model.Examid, Exception = exception });
+
+            }
+        }
+
+        public ActionResult SubmitExam(int eid, int sid)
+        {
+            try
+            {
+                if (eid != 0 && sid != 0)
+                {
+                    var data = _examresult.GetAll().Where(x => x.Exam_fkid == eid && x.Student_fkid == sid).ToList();
+                    tbl_Exam_Master exam = _Exam.Get(eid);
+                    if (data.Count() == 0)
+                    {
+                        tbl_StudentExamResult abc = new tbl_StudentExamResult();
+
+                        abc.Student_fkid = sid;
+                        abc.Exam_fkid = eid;
+                        abc.TotalMarks = exam.Total_Marks;
+                        abc.TotalGainMarks = _Attemptexam.GetAll().Where(x => x.Studentid == abc.Student_fkid && x.Examid == abc.Exam_fkid).Sum(x => x.GainMarks);
+                        abc.AttemptExamDate = DateTime.Now;
+                        if (abc.TotalGainMarks >= exam.PassingMarks)
+                        {
+                            abc.Result = "Pass";
+                        }
+                        else { abc.Result = "Failed"; }
+                        abc.FinalStatus = true;
+                        _examresult.Add(abc);
+                        return Json("s", JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        var model = data.FirstOrDefault();
+                        tbl_StudentExamResult abc = _examresult.Get(model.pkid);
+
+                        abc.Student_fkid = model.Student_fkid;
+                        abc.Exam_fkid = model.Exam_fkid;
+                        abc.TotalMarks = exam.Total_Marks;
+                        abc.TotalGainMarks = _Attemptexam.GetAll().Where(x => x.Studentid == abc.Student_fkid && x.Examid == abc.Exam_fkid).Sum(x => x.GainMarks);
+                        abc.AttemptExamDate = DateTime.Now;
+                        if (abc.TotalGainMarks >= exam.PassingMarks)
+                        {
+                            abc.Result = "Pass";
+                        }
+                        else { abc.Result = "Failed"; }
+                        abc.FinalStatus = true;
+                        _examresult.Update(abc);
+                        return Json("s", JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                { return Json("P", JsonRequestBehavior.AllowGet); }
+            }
+            catch
+            {
+                return Json("P", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult SubmitExamServer(int eid, int sid)
+        {
+            try
+            {
+                if (eid != 0 && sid != 0)
+                {
+                    var data = _examresult.GetAll().Where(x => x.Exam_fkid == eid && x.Student_fkid == sid).ToList();
+                    tbl_Exam_Master exam = _Exam.Get(eid);
+                    if (data.Count() == 0)
+                    {
+                        tbl_StudentExamResult abc = new tbl_StudentExamResult();
+
+                        abc.Student_fkid = sid;
+                        abc.Exam_fkid = eid;
+                        abc.TotalMarks = exam.Total_Marks;
+                        abc.TotalGainMarks = _Attemptexam.GetAll().Where(x => x.Studentid == abc.Student_fkid && x.Examid == abc.Exam_fkid).Sum(x => x.GainMarks);
+                        abc.AttemptExamDate = DateTime.Now;
+                        if (abc.TotalGainMarks >= exam.PassingMarks)
+                        {
+                            abc.Result = "Pass";
+                        }
+                        else { abc.Result = "Failed"; }
+                        abc.FinalStatus = true;
+                        _examresult.Add(abc);
+                        return RedirectToAction("AfterSubmitForm", "StudentExam");
+                    }
+                    else
+                    {
+                        var model = data.FirstOrDefault();
+                        tbl_StudentExamResult abc = _examresult.Get(model.pkid);
+
+                        abc.Student_fkid = model.Student_fkid;
+                        abc.Exam_fkid = model.Exam_fkid;
+                        abc.TotalMarks = exam.Total_Marks;
+                        abc.TotalGainMarks = _Attemptexam.GetAll().Where(x => x.Studentid == abc.Student_fkid && x.Examid == abc.Exam_fkid).Sum(x => x.GainMarks);
+                        abc.AttemptExamDate = DateTime.Now;
+                        if (abc.TotalGainMarks >= exam.PassingMarks)
+                        {
+                            abc.Result = "Pass";
+                        }
+                        else { abc.Result = "Failed"; }
+                        abc.FinalStatus = true;
+                        _examresult.Update(abc);
+                        return RedirectToAction("AfterSubmitForm", "StudentExam");
+                    }
+                }
+                else
+                { return RedirectToAction("AfterSubmitForm", "StudentExam"); }
+            }
+            catch
+            {
+                return RedirectToAction("AfterSubmitForm", "StudentExam");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult AfterSubmitForm()
+        {
+            try
+            {
+                HttpCookie currentUserCookie = Request.Cookies["search"];
+                HttpCookie ExamCoo = Request.Cookies["exam"];
+                HttpCookie StartTimeCo = Request.Cookies["Startt"];
+                HttpCookie TimerCo = Request.Cookies["timer"];
+                Response.Cookies.Remove("search");
+                Response.Cookies.Remove("exam");
+                Response.Cookies.Remove("Startt");
+                Response.Cookies.Remove("timer");
+                currentUserCookie.Expires = DateTime.Now.AddDays(-10);
+                ExamCoo.Expires = DateTime.Now.AddDays(-10);
+                StartTimeCo.Expires = DateTime.Now.AddDays(-10);
+                TimerCo.Expires = DateTime.Now.AddDays(-10);
+                currentUserCookie.Value = null;
+                ExamCoo.Value = null;
+                StartTimeCo.Value = null;
+                TimerCo.Value = null;
+                Response.SetCookie(currentUserCookie);
+                Response.SetCookie(ExamCoo);
+                Response.SetCookie(StartTimeCo);
+                Response.SetCookie(TimerCo);
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

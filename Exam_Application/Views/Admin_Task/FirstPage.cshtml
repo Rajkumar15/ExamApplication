@@ -23,6 +23,9 @@
         .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
             border-top: 0px solid #ddd;
         }
+        .hi {
+            
+        }
     </style>
 </head>
 <body cz-shortcut-listen="true">
@@ -37,7 +40,7 @@
                                 <tbody>
                                     <tr>
                                         <td colspan="2" align="center">
-                                            <img src="~/AdminFiles/Images/logo.png" alt="Itech Galaxy" class="img-responsive">
+                                            <img src="~/AdminFiles/Images/Logos/RajLogoBig.jpg" alt="Itech Galaxy" style="margin-bottom:-9%;" class="img-responsive">
                                         </td>
                                     </tr>
                                     <tr>
@@ -49,15 +52,15 @@
                                     </tr>
                                     <tr>
                                         <td align="center"><span class="text-muted"><h4><strong><a href="/Account/AdminLogin">Go to Admin/Teacher Interface</a></strong></h4></span></td>
-                                        <td align="center"><span class="text-muted"><h4><strong><a href="/StudentExam/StudentLogin">Go to Front End/Student Interface</a></strong></h4></span></td>
+                                        <td align="center"><span class="text-muted"><h4><strong><a href="#" onclick="StudLog()">Go to Front End/Student Interface</a></strong></h4></span></td>
                                     </tr>
                                     <tr>
-                                        <td align="center"><span class="text-danger"><strong>User : admin</strong></span></td>
-                                        <td align="center"><span class="text-danger"><strong>User : student@student.com</strong></span></td>
+                                        <td align="center"><span class="text-danger hi"><strong>User : admin@admin.com</strong></span></td>
+                                        <td align="center"><span class="text-danger hi"><strong>User : ItechTesting@gmail.com</strong></span></td>
                                     </tr>
                                     <tr>
-                                        <td align="center"><span class="text-danger"><strong>Password : admin</strong></span></td>
-                                        <td align="center"><span class="text-danger"><strong>Password : demo123</strong></span></td>
+                                        <td align="center"><span class="text-danger hi"><strong>Password : 123456</strong></span></td>
+                                        <td align="center"><span class="text-danger hi"><strong>Password : 123456</strong></span></td>
                                     </tr>
 
 
@@ -65,8 +68,8 @@
                                 </tbody>
                             </table>
                             <br> <br>
-                            <h2 align="center"> Looking for More Features ? Try <font color="red"><a href="#" style="color:red;">Itech</a> </font> </h2>
-                            <p align="center"><b> Pro Version Benefits :</b> Frequent Updates, Faster Dedicated Support, More Features andWhite Label </p>
+                            <h2 align="center" class="hi"> Looking for Any Help ? Contact <font color="red"><a href="#" style="color:red;">OTA Kamptee.</a> </font> </h2>
+                            <p align="center" class="hi"><b> Pro Version Benefits :</b> These is Final Version of OTA Examinations. </p>
                         </div>
                     </div>
                 </div>
@@ -77,7 +80,7 @@
         <div class="panel panel-success">
             <div class="panel-footer">
                 <div class="row">
-                    <div class="col-md-12 text-center">Visit our website <a href="http://www.itechgalaxy.com" target="_blank">http://www.itechgalaxy.com</a> for documentation and support</div>
+                    <div class="col-md-12 text-center">All Rights Reserved By <b>Army OTA Kamptee Camp.</b></div>
                 </div>
             </div>
         </div>
@@ -85,3 +88,11 @@
 
 </body>
 </html>
+<script type="text/javascript">
+    function StudLog()
+    {
+        var url = "/StudentExam/StudentLogin";
+        var windowname = "exam";
+        window.open(url, windowname, "resizable=no, toolbar=no, scrollbars=no, menubar=no, status=no, directories=no, width=1000, height=1000, left=0, top=0");
+    }
+</script>

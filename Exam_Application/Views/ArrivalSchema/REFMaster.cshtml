@@ -1,0 +1,161 @@
+﻿@model Exam_Application.Models.DAL.tbl_REF_Arrival_DataMasterss
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="page-content">
+    <div class="container mrg">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="widget">
+                            <h4 class="widget-title">
+                                Add <span>REF Student Detail</span>
+                                <a href="/ArrivalSchema/ArrivalDataList" class="btn btn-success" style="float:right;"><span class="glyphicon glyphicon-list-alt" style="color: #fff;"></span>&nbsp;View REF List</a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        @using (Html.BeginForm("REFMaster", "ArrivalSchema", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                        {
+                            @Html.HiddenFor(x => x.pkid)
+                            @Html.HiddenFor(x => x.SignOfIndivisual)
+                            @Html.HiddenFor(x => x.MedicalCertificate)
+                            @Html.HiddenFor(x => x.Copyofpreviouscertific)
+                            @Html.HiddenFor(x => x.RiskCertificate)
+                            @Html.HiddenFor(x => x.AddedDate)
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Course Name</small></label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(x => x.Course_fkid, (IEnumerable<SelectListItem>)@ViewBag.CourseList, "Select Course", new { @class = "form-control selectRaj", @required = "required" })
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>Division Name</small></label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(x => x.Division_fkid, (IEnumerable<SelectListItem>)@ViewBag.DivisionList, "Select Division", new { @class = "form-control selectRaj", @required = "required" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Force Name</small></label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(x => x.Force_fkid, (IEnumerable<SelectListItem>)@ViewBag.ForceList, "Select Force", new { @class = "form-control selectRaj", @required = "required" })
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>Student Name</small></label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(x => x.Student_fkid, (IEnumerable<SelectListItem>)@ViewBag.StudentList, "Select Student", new { @class = "form-control selectRaj", @required = "required" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Select Session</small></label>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(x => x.Session_fkid, (IEnumerable<SelectListItem>)@ViewBag.SessionList, "Select Session", new { @class = "form-control selectRaj", @required = "required" })
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>Chest No</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.ChestNo, new { @class = "form-control", @placeholder = "Enter Chest No" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>NCC No</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.NCCNo, new { @class = "form-control", @placeholder = "Enter NCC No" })
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>Rank</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.Rank, new { @class = "form-control", @placeholder = "Enter Rank" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>NCC Unit</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.NCCunit, new { @class = "form-control", @placeholder = "Enter NCC Unit" })
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>G.P HQ</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.GPHQ, new { @class = "form-control", @placeholder = "Enter HQ" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>DTE</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.DTE, new { @class = "form-control", @placeholder = "Enter DTE" })
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>Move Order</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.MoveOrder, new { @class = "form-control", @placeholder = "Enter Move Order" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Nominal Roll</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.NominalRoll, new { @class = "form-control", @placeholder = "Enter Nominal Roll" })
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>Identity Bond</small></label>
+                                <div class="col-sm-4">
+                                    @Html.TextBoxFor(x => x.IdentemnityBond, new { @class = "form-control", @placeholder = "Enter Identity Bond" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Medical Certificate</small></label>
+                                <div class="col-sm-4">
+                                    <input type="file" name="MED" class="form-control" multiple="multiple" />
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>Risk Certificate</small></label>
+                                <div class="col-sm-4">
+                                    <input type="file" name="RIS" class="form-control" multiple="multiple" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Pre Service Certificate</small></label>
+                                <div class="col-sm-4">
+                                    <input type="file" name="SERCER" class="form-control" multiple="multiple" />
+                                </div>
+                                <label for="group_name" class="col-sm-2 control-label"><small>Upload Signature</small></label>
+                                <div class="col-sm-4">
+                                    <input type="file" name="SIG" class="form-control" multiple="multiple" />
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label"><small>Pre Service Detail</small></label>
+                                <div class="col-sm-10">
+                                    @Html.TextAreaFor(x => x.DetailsService, new { @class = "form-control", @placeholder = "Enter Identity Bond" })
+                                </div>
+                            </div>
+
+                            <div class="form-group text-left">
+                                <div class="col-sm-offset-3 col-sm-10">
+                                    <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Save</button>
+                                    <button type="button" class="btn btn-danger" onclick="window.location=&#39;ExamMaster&#39;"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="~/AdminFiles/RajCustom/datepicker.css" rel="stylesheet" />
+<link href="~/AdminFiles/RajCustom/select2.min.css" rel="stylesheet" />
+<script src="~/AdminFiles/RajCustom/datepicker.js"></script>
+<script src="~/AdminFiles/RajCustom/select2.full.min.js"></script>
+<script src="~/AdminFiles/RajCustom/common.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#StartDate').datepicker(); $('#EndDate').datepicker();
+        $('.selectRaj').select2();
+    })
+</script>

@@ -1,0 +1,123 @@
+﻿@model Exam_Application.Models.DAL.tbl_Exam_QuestionsMasterss
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .firstdiv {
+        margin-bottom: 8px;
+    }
+
+    .Seconddiv {
+        margin: 6px 6px 6px 6px;
+    }
+
+    .dataTables_paginate {
+        margin-bottom: 3%;
+    }
+
+    .spa {
+        color: green;
+        float: right;
+    }
+</style>
+<div id="page-content">
+    <div class="container mrg">
+        <div class="row firstdiv">
+            <div class="col-md-12" style="display:none;">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="widget">
+                            <h4 class="widget-title">
+                                <span>
+                                    Student Exam Result
+                                    <a href="#" onclick="GetExel()" style="float: right; color: green;"><i class="fa fa-file-excel-o fa-2x" title="Download in Excel" aria-hidden="true"></i></a>
+                                    @Html.DropDownListFor(m => m.Exam_fkid, (IEnumerable<SelectListItem>)@ViewBag.ExamList, "Select Exam", new { @class = "form-control", @style = "margin-top: 1%;width: 18% !important;" })
+                                </span>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="table-responsive Seconddiv">
+                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Exam Name</th>
+                                    <th>Student Name</th>
+                                    <th>Total Marks</th>
+                                    <th>Student Score Marks</th>
+                                    <th>Result</th>
+                                    <th>Exam Date</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        if ('@ViewBag.Exception' != "") {
+            PranavAlert("Success", "@ViewBag.Exception");
+        }
+        if ('@ViewBag.eid' != "") {
+            $("#Exam_fkid").val(@ViewBag.eid);
+        }
+        $("#Exam_fkid").change(function () {
+            var eeid = $("#Exam_fkid").val();
+            window.location.href = "/Exam/ResultMaster?eid=" + eeid;
+        })
+    })
+
+    $('.js-basic-example').DataTable({
+        "processing": true, // for show progress bar
+        "serverSide": true, // for process server side
+        "filter": true, // this is for disable filter (search box)
+        "orderMulti": false, // for disable multiple column at once
+        "bSort": false,
+        "bDestroy": true,
+
+        "ajax": {
+            "url": "/Exam/GetAllStudentResult?eeid="+@ViewBag.eid,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "columns": [
+                { "data": "pkid", "name": "pkid", "orderable": false, "autoWidth": true },
+                { "data": "ename", "Name": "ename", "autoWidth": true },
+                { "data": "sname", "Name": "sname", "autoWidth": true },
+                { "data": "emark", "Name": "emark", "autoWidth": true },
+                 { "data": "smark", "Name": "smark", "autoWidth": true },
+                  { "data": "Result", "Name": "Result", "autoWidth": true },
+                   {
+                       "data": "examdt", "Name": "examdt", "render": function (data, type, full, meta) {
+                           return '' + JsDate(data) + ''
+                       }
+                   }
+        ],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+            $("td:first", nRow).html(iDisplayIndex + 1);
+            return nRow;
+        }
+    })
+    function GetExel()
+    {
+        window.location.href = "/Exam/GetResultExcel?id="+@ViewBag.eid;
+    }
+    function JsDate(cname) {
+        var dateString = cname.substr(6);
+        var currentTime = new Date(parseInt(dateString));
+        var month = currentTime.getMonth() + 1;
+        var day = currentTime.getDate();
+        var year = currentTime.getFullYear();
+        var date = day + "/" + month + "/" + year;
+        return date;
+    }
+</script>

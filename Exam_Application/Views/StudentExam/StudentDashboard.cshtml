@@ -17,87 +17,101 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
 
-    <link href="~/AdminFiles/CSS/jquery.countdown.css" rel="stylesheet" />
-    <script src="~/AdminFiles/JS/jquery.countdown.min.js"></script>
- 
+    <style type="text/css">
+        #timer {
+            margin-left: 43%;
+            font-size: 20px;
+        }
+
+        hr {
+            margin-top: 0px !important;
+        }
+
+        .RajQuest {
+            text-align: center;
+            margin: 0;
+            padding: 8px 0px 8px 0px;
+            border-bottom: 1px solid black;
+        }
+
+        .RAJPANNEL {
+            border-radius: 0px !important;
+            border-color: black;
+        }
+
+        .RAJColor {
+            background-color: #fff;
+            border-color: black;
+            color: black;
+        }
+        .Raj {
+            padding: 3px !important;
+        }
+
+        .contentdata {
+            overflow: auto;
+            position: relative;
+            width: 100%;
+            height: 300px;
+            min-height: 200px;
+        }      
+    </style> 
 </head>
 <body cz-shortcut-listen="true">
 
     <div id="sb-site" style="min-height: 1137px;">
         <div id="wrap">
             <div class="main-inner-content">
-                <header id="header" class="section cover header-bg" data-bg="#">
-                    <div class="header-fixed affix">
-                        <div class="logo-header">
-                            <div class="container" style="display:none">
-                                <div class="logo-container pull-left clearfix">
-                                    <div class="logo">
-                                        <h1 class="site-title"></h1><h1>Edu Expressio Demo Site</h1>
-
-                                        <p class="site-desc">Edu Expressio Demo Site</p>
-                                    </div>
-                                </div>
-                                <div class="menu-container pull-right">
-                                    <div class="site-menu">
-                                        <div class="site-menu-inner clearfix">
-                                            <div class="site-menu-container pull-left">
-                                                <nav class="hidden-xs hidden-sm">
-                                                    <ul class="sf-menu clearfix list-unstyled sf-js-enabled sf-arrows">
-                                                        <li class="current-menu-item"><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;Exam</a></li>
-                                                    </ul>
-                                                </nav>
-                                            </div>
+                <header id="header" class="section cover header-bg" data-bg="/envato//img//design200/slider.png" style="background-image: url(&quot;/envato//img//design200/slider.png&quot;);">
+                    @*<div class="header-fixed affix">
+                            <div class="logo-header">
+                                <div class="container">
+                                    <div class="logo-container pull-left clearfix HeaderRaj">
+                                        <div class="col-sm-2">
+                                            <h3><strong><i><p><img src="~/AdminFiles/Images/Logos/RajLogoBig.jpg" alt="Exam Center" width="90" class="img-responsive"></p></i></strong></h3>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <img src="~/AdminFiles/Images/Logos/WhiteNameplate.jpg" style="width: 100%;margin-left: -15%;margin-top: 5.1%;" />
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="visible-xs visible-sm mobile-menu-action pull-right sb-toggle-right navbar-right"><i class="fa fa-bars"></i></div>
-                        </div>
-                    </div>
-                    <div class="logo-header">
-                        <div class="container">
-                            <div class="logo-container clearfix">
-                                <div class="logo pull-left">
-                                    <h1 class="site-title"></h1><h1>Edu Expressio Demo Site</h1>
-
-                                    <p class="site-desc">Edu Expressio Demo Site</p>
-                                </div>
-                                <div class="social-info pull-right hidden-xs hidden-sm">
-                                    <div class="col-md-4 text-center">
-                                        <div class="btn-group user-login">
-                                            <div class="btn dropdown-toggle" style="background: none;border: 0px;box-shadow: none;" data-toggle="dropdown">
-                                                <span class="glyphicon glyphicon-user btn btn-success btn-sm"></span>&nbsp;Welcome ! @try
-                                                {@Request.Cookies["search"].Values["Stud"]}
-                                                catch { } &nbsp;<span class="caret"></span>
-                                            </div>
-                                            <div class="dropdown-menu" role="menu">
-                                                <div class="col-md-12">
-                                                    <div class="table-responsive">
-                                                        <table class="table" style="margin-bottom:0px">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td colspan="2"><a href="#" class="btn btn-primary btn-xs btn-block"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;My Profile</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><a href="#" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-cog"></span>&nbsp;Change Password</a>											</td>
-                                                                    <td><a href="/StudentExam/StudentLogout" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-off"></span>&nbsp;Signout</a>											</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                    <div class="menu-container pull-right">
+                                        <div class="site-menu">
+                                            <div class="site-menu-inner clearfix">
+                                                <div class="site-menu-container pull-left">
+                                                    <nav class="hidden-xs hidden-sm">
+                                                        <ul class="sf-menu clearfix list-unstyled sf-js-enabled sf-arrows">
+                                                            <li class="current-menu-item"><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a></li>
+                                                            <li
+                                                            <li ="" class=""><a href="#"><span class="glyphicon glyphicon-lock"></span>&nbsp;Sign In</a></li>
+                                                        </ul>
+                                                    </nav>
                                                 </div>
                                             </div>
                                         </div>
-                                        <strong><small></small></strong>
                                     </div>
                                 </div>
+                                <div class="visible-xs visible-sm mobile-menu-action pull-right sb-toggle-right navbar-right"><i class="fa fa-bars"></i></div>
+                            </div>
+                        </div>*@
+                    <div class="logo-header">
+                        <div class="container">
+                            <div class="logo-container clearfix" style="margin-bottom: -3%;">
+                                <div class="col-sm-8 logo pull-left HeaderRaj">
+                                    <div class="col-sm-2" style="width:78px !important">
+                                        <h3><strong><i><p><img src="~/AdminFiles/Images/Logos/RajLogoBig.jpg" alt="Exam Center" width="90" class="img-responsive"></p></i></strong></h3>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <img src="~/AdminFiles/Images/Logos/WhiteNameplate.jpg" style="width: 100%;margin-left: -8%;margin-top: 2.1%;" />
+                                    </div>
 
-                                <div class="social-info pull-right hidden-xs hidden-sm" style="display:none;">
-                                    <ul class="social textcolor list-unstyled">
-                                        <li class="phone active"><a href="#"><i class="fa fa-phone"></i><span>0000-0000</span></a></li>
-                                        <li class="mail"><a href="#"><i class="fa fa-envelope"></i><span>info@eduexpression.com</span></a></li>
-                                        <li class="facebook"><a href="http://facebook.com/" target="_blank"><i class="fa fa-facebook"></i><span>follow on facebook</span></a></li>
-                                    </ul>
+                                </div>
+
+                                <div class="col-sm-4 social-info pull-right hidden-xs hidden-sm" style="font-weight:bold;">
+                                    <div class="col-sm-2" style="margin-left:25%;">
+                                        <img src="/AdminFiles/Images/graduated.png" style="width:45px;" class="responsive">
+                                    </div>
+                                    &nbsp;&nbsp;Welcome ! Student Logged &nbsp;<br />
+                                    <div class="col-sm-3" style="width:29% !important">Time Left:</div><div class="col-sm-1" style="margin-left: -6%;"><div id="timer"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -105,73 +119,74 @@
                     </div>
                     <div class="site-menu">
                         <div class="container">
-                            <div class="site-menu-inner clearfix">
-                                <div class="site-menu-container pull-left">
-                                    <nav class="hidden-xs hidden-sm">
-                                        <ul class="sf-menu clearfix list-unstyled sf-js-enabled sf-arrows">
-                                            <li class="current-menu-item"><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;Exam</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
+                            <hr />
+                            @*<div class="site-menu-inner clearfix">
+                                    <div class="site-menu-container pull-left">
+                                        <nav class="hidden-xs hidden-sm">
+                                            <ul class="sf-menu clearfix list-unstyled sf-js-enabled sf-arrows">
+                                                <li class=""><a href="/StudentExam/StudentLogout"><span class="glyphicon glyphicon-lock"></span>&nbsp;Sign Out</a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>*@
                         </div>
                     </div>
 
                 </header>
                 <div id="page-content">
-                    <div class="container mrg">
+                    <div class="container">
                         <div class="row">
 
                             <div class="col-md-9">
 
                                 <div id="page-content">
-                                    <div class="container mrg">
+                                    <div class="container">
                                         <div class="row">
                                             @using (Html.BeginForm("StudentDashboard", "StudentExam", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                                             {
 
-                                                <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>	<div class="col-md-9" style="margin-bottom: 18%;">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading"><strong>Exam Questions</strong></div>
-                                                        @Html.Hidden("ExamHiddenid", @Model.Examid)
-                                                        @Html.Hidden("StudHiddenid",@Model.Studentid )
-                                                        @Html.HiddenFor(x=>x.Ques_fkid)
-                                                        @Html.HiddenFor(x=>x.Qnono)
-                                                        <div class="panel-body">
-                                                            <p>
-                                                                <small>
-                                                                    You have started the exam on @Model.ExamStartDatetime.
-                                                                    Time duration for this exam is @Model.ExamDuration .
-                                                                    Your exam will be submitted automatically after Time Over.
-                                                                </small>
-                                                            </p>
-                                                            <div id="Partiall" class="panel panel-default">
+                                                <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
+                                                <div class="col-md-9">
+                                                    @*<div class="panel panel-default">
+                                                        <div class="panel-heading"><strong>Exam Questions</strong></div>*@
+                                                    @Html.Hidden("ExamHiddenid", @Model.Examid)
+                                                    @Html.Hidden("StudHiddenid", @Model.Studentid)
+                                                    @Html.HiddenFor(x => x.Ques_fkid)
+                                                    @Html.HiddenFor(x => x.Qnono)
+                                                    @Html.Hidden("totalQ", @Model.QueIndexer.Count())
+                                                    @Html.HiddenFor(x => x.ExamStartDatetime)
+                                                    @Html.HiddenFor(x => x.ExamDuration)
+                                                    @*<div class="panel-body">
+                                                        <p>
+                                                            <small>
+                                                                You have started the exam on <b>@Model.ExamStartDatetime.</b>
+                                                                Time duration for this exam is <b>@ViewBag.duration (HH:MM)</b>
+                                                                Your exam will be submitted automatically after Time Over.
+                                                            </small>
+                                                        </p>*@
+                                                    <div id="Partiall" class="panel panel-default">
 
-
-                                                            </div>
-                                                        </div>
                                                     </div>
+                                                    @*</div>
+                                                        </div>*@
                                                 </div>
                                                 <input type="hidden" name="saveNext" value="" id="ExamSave">
 
                                                 <div class="col-md-3">
-                                                    <div id="timer"><div id="maincount" class="hasCountdown"><span class="countdown_row countdown_show3"><span class="countdown_section"><span class="countdown_amount">2</span><br>Hours</span><span class="countdown_section"><span class="countdown_amount">59</span><br>Minutes</span><span class="countdown_section"><span class="countdown_amount">4</span><br>Seconds</span></span></div></div>
-                                                </div>
-                                                <div class="col-md-3">
                                                     <div class="panel-group" id="accordion">
 
-                                                        <div class="panel panel-primary">
-                                                            <div class="panel-heading">
-                                                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#Biology">Objective</a></h4>
+                                                        <div class="panel panel-primary RAJPANNEL">
+                                                            <div style="">
+                                                                <h4 class="RajQuest">Questions (@Model.QueIndexer.Count())</h4>
                                                             </div>
-                                                            <div id="Biology" class="panel-collapse collapse in">
+                                                            <div id="Biology" class="panel-collapse collapse in contentdata">
                                                                 <div class="panel-body">
-                                                                    <div class="row">
+                                                                    <div class="row" style="margin-left:-5px !important;">
                                                                         @{
                                                 int QNO = 1;
-                                                foreach (var item in Model.QueIndexer.Where(x => x.Quest_type == 1).ToList())
+                                                foreach (var item in Model.QueIndexer.ToList())
                                                 {
-                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="ChangeQuestion(this)" id="@item.Questionid" class="Raj btn btn-info btn-block @item.QueNo">@item.QueNo</a></div>
+                                                    <div class="col-sm-3" style="padding:2px 2px 2px 2px;width:30px !important;margin-right: 5px;margin-bottom: 7px;"><a href="#" onclick="ChangeQuestion(this)" id="@item.Questionid" class="Raj RAJColor btn btn-info btn-block @item.QueNo">@item.QueNo</a></div>
                                                     QNO = QNO + 1;
                                                 }
                                                                         }
@@ -180,127 +195,26 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="panel panel-primary">
-                                                            <div class="panel-heading">
-                                                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#Chemistry">True False</a></h4>
-                                                            </div>
-                                                            <div id="Chemistry" class="panel-collapse collapse ">
-                                                                <div class="panel-body">
-                                                                    <div class="row">
-                                                                        @{
-                                                foreach (var item in Model.QueIndexer.Where(x => x.Quest_type == 2).ToList())
-                                                {
-                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="TruefalseChangeQuestion(this)" id="@item.Questionid" class="Raj btn btn-info btn-block @item.QueNo">@item.QueNo</a></div>
-                                                    QNO = QNO + 1;
-                                                }
-                                                                        }
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="col-md-6 mrg-1" style="margin: 10px 36px 0px -29px;"><i class="fa fa-square" style="background-color:#87B713;color: #87B713;border: 1px solid black;" aria-hidden="true"></i>&nbsp;Answered</div>
+                                                            <div class="col-md-5 mrg-1" style="margin: 10px 0px 0px 0px;"><i class="fa fa-square" style="background-color:#B2510D;color: #B2510D;border: 1px solid black;" aria-hidden="true"></i>&nbsp;Visited</div>
                                                         </div>
 
-                                                        <div class="panel panel-primary">
-                                                            <div class="panel-heading">
-                                                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#Maths">Fill in Blanck</a></h4>
-                                                            </div>
-                                                            <div id="Maths" class="panel-collapse collapse ">
-                                                                <div class="panel-body">
-                                                                    <div class="row">
-                                                                        @{
-                                                foreach (var item in Model.QueIndexer.Where(x=>x.Quest_type == 3).ToList())
-                                                {
-                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="BlanckSpaceChangeQuestion(this)" id="@item.Questionid" class="Raj btn btn-info btn-block @item.QueNo">@item.QueNo</a></div>
-                                                    QNO = QNO + 1;
-                                                }
-                                                                        }
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="col-md-6 mrg-1" style="margin: 10px 36px 0px -29px;"><i class="fa fa-square" style="background-color:#fff;color: #fff;border: 1px solid black;" aria-hidden="true"></i>&nbsp;Not Visited</div>
+                                                            <div class="col-md-5 mrg-1" style="margin: 10px 0px 0px 0px;"><i class="fa fa-square" style="background-color:bisque;color: bisque;border: 1px solid black;" aria-hidden="true"></i>&nbsp;Current</div>
                                                         </div>
-
-                                                        <div class="panel panel-primary">
-                                                            <div class="panel-heading">
-                                                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#Physics">Match Content</a></h4>
-                                                            </div>
-                                                            <div id="Physics" class="panel-collapse collapse ">
-                                                                <div class="panel-body">
-                                                                    <div class="row">
-                                                                        @{
-                                                foreach (var item in Model.QueIndexer.Where(x => x.Quest_type == 5).ToList())
-                                                {
-                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="MatchContentChangeQuestion(this)" id="@item.Questionid" class="Raj btn btn-info btn-block @item.QueNo">@item.QueNo</a></div>
-                                                    QNO = QNO + 1;
-                                                }
-                                                                        }
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                      
+                                                        <div class="col-sm-12">
+                                                            <div class="col-md-6 mrg-1" style="margin: 10px 36px 0px -29px;"><i class="fa fa-square" style="background-color:#8F7CCD;color: #8F7CCD;border: 1px solid black;" aria-hidden="true"></i>&nbsp;Marked</div>                                                            
                                                         </div>
-
-                                                        <div class="panel panel-primary">
-                                                            <div class="panel-heading">
-                                                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#Trafik">Identify Sign</a></h4>
-                                                            </div>
-                                                            <div id="Trafik" class="panel-collapse collapse ">
-                                                                <div class="panel-body">
-                                                                    <div class="row">
-                                                                        @{
-                                                foreach (var item in Model.QueIndexer.Where(x => x.Quest_type == 6).ToList())
-                                                {
-                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="IdentifysignChangeQuestion(this)" id="@item.Questionid" class="Raj btn btn-info btn-block @item.QueNo">@item.QueNo</a></div>
-                                                    QNO = QNO + 1;
-                                                }
-                                                                        }
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="panel panel-primary">
-                                                            <div class="panel-heading">
-                                                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#TrafikRAJ">Full Form</a></h4>
-                                                            </div>
-                                                            <div id="TrafikRAJ" class="panel-collapse collapse ">
-                                                                <div class="panel-body">
-                                                                    <div class="row">
-                                                                        @{
-                                                foreach (var item in Model.QueIndexer.Where(x => x.Quest_type == 7).ToList())
-                                                {
-                                                    <div class="col-md-3 mrg-1"><a href="#" onclick="FullformChangeQuestion(this)" id="@item.Questionid" class="Raj btn btn-info btn-block @item.QueNo">@item.QueNo</a></div>
-                                                    QNO = QNO + 1;
-                                                }
-                                                                        }
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <form action="http://eduexpression.com/envato/Exams/finish/2" name="post_5a2e811a54ade609588054" id="post_5a2e811a54ade609588054" style="display:none;" method="post"><input type="hidden" name="_method" value="POST"></form><a href="http://eduexpression.com/envato/Exams/start/2#" class="btn btn-danger btn-sm btn-block" onclick="if (confirm(&quot;After submitting the exam, your exam will closed? Press OK to submit the exam or Cancel to return&quot;)) { document.post_5a2e811a54ade609588054.submit(); } event.returnValue = false; return false;"><span class="glyphicon glyphicon-lock"></span>&nbsp;Finish Exam </a>
-                                                </div>
-                                                <div class="col-md-3 mrg-1">
-                                                    <div class="panel panel-primary">
-                                                        <div class="panel-heading">
-                                                            <h4 class="panel-title">Legend</h4>
-                                                        </div>
-                                                        <div class="panel-body">
-                                                            <div class="row">
-                                                                <div class="col-md-6 mrg-1"><span class="btn btn-info btn-small">Current Ques</span></div>
-                                                                <div class="col-md-5 mrg-1"><span class="btn btn-default btn-small">Not Visited&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6 mrg-1"><span class="btn btn-success btn-small">Answered&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-                                                                <div class="col-md-5 mrg-1"><span class="btn btn-warning btn-small">Not Answered</span></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                <div class="col-md-3" style="margin-top:1%;">
+                                                    <a href="#" class="btn btn-danger btn-sm btn-block" onclick="FinalExamSubmit()" style="padding:10px;"><span class="glyphicon glyphicon-lock"></span>&nbsp;Finish Exam </a>
                                                 </div>
                                             }
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -310,21 +224,22 @@
                     </div>
                 </div>
             </div>
-        </div><footer id="footer">
+        </div>
+        @*<footer id="footer">
             <div class="footer-widget">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="widget">
                                 <h5 class="widget-title">
-                                    Copyright © 2017<span> Edu Expressio Demo Site</span>
+                                    All Rights Reserved By<span> OTA Kamptee</span>
                                 </h5>
                             </div>
                         </div>
                         <div class="col-md-6 text-right">
                             <div class="widget">
                                 <h5 class="widget-title">
-                                    Time <span>13-12-2017 05:07:04 PM</span>
+                                    Time <span>@DateTime.Now</span>
                                 </h5>
                             </div>
                         </div>
@@ -336,13 +251,13 @@
                     <div class="footer-credits-inner">
                         <div class="row">
                             <div class="col-md-6">
-                                <span>Powered by <a href="#" target="_blank">Eduexpression.com</a></span>
+                                <span>Powered by <a href="#" target="_blank">OTA Kamptee.</a></span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer>*@
     </div>
 
     <div class="sb-slidebar sb-right">
@@ -350,9 +265,10 @@
             <li class="current-menu-item"><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;Exam</a></li>
         </ul>
     </div><a class="back-to-top" style="display: block;"><i class="fa fa-angle-up"></i></a>
+    <div id="ArticlesHolder"></div>
 </body>
-<script src="~/AdminFiles/RajCustom/MainExam.js"></script>
 </html>
+<script src="~/AdminFiles/RajCustom/MainExam.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         debugger;
@@ -362,10 +278,69 @@
             type: "GET",
             url: '/StudentExam/ObjectiveQuestion',
             data: { QuestionId: ques_id, QuestionNo: Qno },
-            success: function (data, textStatus, jqXHR) {
+            success: function (data, textStatus, jqXHR) {                
                 $('#Partiall').html(data);
+                $(".Inta").mCustomScrollbar();
             }
         });
+        if ('@ViewBag.fi' != '') {
+            $(".Raj").each(function () {
+                $("#ArticlesHolder").data('' + $(this).attr('id') + '', $(this).css('background-color'))
+            })
+            $.cookie("basket-data", JSON.stringify($("#ArticlesHolder").data()));
+        }
+        setInterval(function () {
+            if ($("#timer").html() == "00:00:00") {
+                var e = $("#Examid").val();
+                var s = $("#Studentid").val();
+                $.getJSON("/StudentExam/SubmitExam?eid=" + e + "&sid=" + s, function (data) {
+                    if (data == "s") { window.location.href = "/StudentExam/AfterSubmitForm"; }
+                })
+            }
+        }, 3000);
+
+        $(document).bind("contextmenu", function (e) {
+            return false;
+        });
+        document.onkeypress = function (event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {
+                return false;
+            }
+        }
+        document.onmousedown = function (event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {
+                return false;
+            }
+        }
+        document.onkeydown = function (event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {
+                return false;
+            }
+        }
+
     })
 </script>
+<script>
+    $(function () {
+        var totaltime = ($("#ExamDuration").val()).split(',');
+        $('#timer').countdowntimer({
+            hours: totaltime[0],
+            minutes: totaltime[1],
+            seconds: totaltime[2],
+            size: "lg"
+        })
+        $("#timer").removeAttr('class');
+        $(window).load(function () {
 
+            $.mCustomScrollbar.defaults.scrollButtons.enable = true; //enable scrolling buttons by default
+            $.mCustomScrollbar.defaults.axis = "yx"; //enable 2 axis scrollbars by default
+
+            $("#Biology").mCustomScrollbar(); 
+            
+        });
+    });
+
+</script>

@@ -118,6 +118,7 @@ namespace Exam_Application.Controllers
         [AllowAnonymous]
         public ActionResult AdminUserRegister(string Exceptionmsg)
         {
+            Session["Menu"] = 7.ToString();
             ViewBag.Exception = Exceptionmsg;
             return View();
         }
@@ -680,7 +681,7 @@ namespace Exam_Application.Controllers
             this.Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
             this.Response.Cache.SetCacheability(HttpCacheability.NoCache);
             this.Response.Cache.SetNoStore();
-            return RedirectToAction("Login");
+            return RedirectToAction("FirstPage", "Admin_Task");
         }
 
         //

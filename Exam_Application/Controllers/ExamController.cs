@@ -11,6 +11,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using System.Web.UI;
 
 namespace Exam_Application.Controllers
 {
@@ -34,12 +36,15 @@ namespace Exam_Application.Controllers
         public readonly IRepository<tbl_Exam_Master> _Exam;
         public readonly IRepository<tbl_Exam_QuestionsMaster> _EQUESTION;
         public readonly IRepository<tbl_Student_AnswerSheet> _WQANSWER;
+        public readonly IRepository<tbl_AttemptExamAnswerSheet> _Attemptexam;
+        public readonly IRepository<tbl_StudentExamResult> _examresult;
 
         public ExamController(IRepository<tbl_User_Profile> user, IRepository<tbl_GroupMaster> group, IRepository<tbl_CourseMaster> course,
             IRepository<tbl_DivisionMaster> division, IRepository<tbl_QuestionType_Master> subtype, IRepository<tbl_StudentMaster> student, IRepository<tbl_QuestionMaster> question,
             IRepository<tbl_AnswerMaster> answer, IRepository<tbl_MatchContentQuestionMaster> Matc, IRepository<tbl_ForceMaster> force,
             IRepository<tbl_Student_NCC_CourseMaster> ncccourse, IRepository<tbl_Student_NCCCertificateMaster> ncccer, IRepository<tbl_Student_Qualification_Master> nccQua,
-            IRepository<tbl_Student_Language_Master> nccLang, IRepository<tbl_Exam_Master> Exam, IRepository<tbl_Exam_QuestionsMaster> EQUESTION, IRepository<tbl_Student_AnswerSheet> QANSWER)
+            IRepository<tbl_Student_Language_Master> nccLang, IRepository<tbl_Exam_Master> Exam, IRepository<tbl_Exam_QuestionsMaster> EQUESTION, IRepository<tbl_Student_AnswerSheet> QANSWER,
+            IRepository<tbl_AttemptExamAnswerSheet> Attemptexam, IRepository<tbl_StudentExamResult> examresult)
         {
             _user = user;
             _group = group;
@@ -58,12 +63,15 @@ namespace Exam_Application.Controllers
             _Exam = Exam;
             _EQUESTION = EQUESTION;
             _WQANSWER = QANSWER;
+            _Attemptexam = Attemptexam;
+            _examresult = examresult;
         }
 
         [HttpGet]
         public ActionResult ExamMaster(string Exception)
         {
             ViewBag.Exception = Exception;
+            Session["Menu"] = 4.ToString();
             return View();
         }
 
@@ -74,8 +82,8 @@ namespace Exam_Application.Controllers
             var start = Request.Form.GetValues("start").FirstOrDefault();
             var length = Request.Form.GetValues("length").FirstOrDefault();
             //Find Order Column
-            string sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
-            string sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+            //string sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+            //string sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
@@ -95,10 +103,10 @@ namespace Exam_Application.Controllers
                 {
                     v = (from b in v.Where(x => x.fullname.ToLower().Contains(search.ToLower())) select b);
                 }
-                if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
-                {
-                    //v = v.OrderBy(sortColumn, sortColumnDir);
-                }
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+                //{
+                //    //v = v.OrderBy(sortColumn, sortColumnDir);
+                //}
                 recordsTotal = v.Count();
                 var data = v.Skip(skip).Take(pageSize).ToList();
                 return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
@@ -117,6 +125,7 @@ namespace Exam_Application.Controllers
             ViewBag.CourseList = new SelectList(_course.GetAll(), "pkid", "CourseName");
             ViewBag.DivisionList = new SelectList(_division.GetAll(), "pkid", "DivisioName");
             ViewBag.ForceList = new SelectList(_force.GetAll(), "pkid", "ForceName");
+            Session["Menu"] = 4.ToString();
             if (!String.IsNullOrWhiteSpace(id))
             {
                 int _id = Convert.ToInt32(id);
@@ -210,6 +219,13 @@ namespace Exam_Application.Controllers
                 exception = e.Message;
                 return RedirectToAction("ExamMaster", "Exam", new { Exception = exception });
             }
+        }
+
+        [HttpGet]
+        public ActionResult AddAutomaticQuestionExam(string id,string Exception)
+        {
+            ViewBag.data = "Page Development Pending.";
+            return View();
         }
 
         [HttpGet]
@@ -336,6 +352,136 @@ namespace Exam_Application.Controllers
             catch {
                 return PartialView();
             }
+        }
+
+        [HttpGet]
+        public ActionResult ResultMaster(string eid)
+        {
+            Session["Menu"] = 5.ToString();
+            if (eid == null) { ViewBag.eid = 0; }
+            else
+            {
+                ViewBag.eid = eid;
+            }   
+            ViewBag.ExamList = new SelectList(_Exam.GetAll(), "pkid", "Exam_Name");
+            return View();
+        }
+
+        public ActionResult GetAllStudentResult(string eeid)
+        {
+            int eid = 0;
+            if (eeid != null)
+            { eid = Convert.ToInt32(eeid); }
+            var search = Request.Form.GetValues("search[value]")[0];
+            var draw = Request.Form.GetValues("draw").FirstOrDefault();
+            var start = Request.Form.GetValues("start").FirstOrDefault();
+            var length = Request.Form.GetValues("length").FirstOrDefault();
+       
+            //Find Order Column
+            //string sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+            //string sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+            int pageSize = length != null ? Convert.ToInt32(length) : 0;
+            int skip = start != null ? Convert.ToInt32(start) : 0;
+            int recordsTotal = 0;
+
+            //dc.Configuration.LazyLoadingEnabled = false; // if your table is relational, contain foreign key
+            try
+            {
+
+                var v = (from a in _examresult.GetAll()
+                         select new
+                         {
+                             pkid = a.pkid,
+                             examid = a.Exam_fkid,
+                             sname = _student.Get(a.Student_fkid).FullName,
+                             ename = _Exam.Get(a.Exam_fkid).Exam_Name,
+                             emark = a.TotalMarks,
+                             smark=a.TotalGainMarks,
+                             Result = a.Result,
+                             examdt = a.AttemptExamDate
+                         });
+                if (eid > 0)
+                {
+                    v = (from b in v.Where(x => x.examid == eid) select b);
+                }
+                if (!string.IsNullOrEmpty(search) && !string.IsNullOrWhiteSpace(search))
+                {
+                    v = (from b in v.Where(x => x.sname.ToLower().Contains(search.ToLower()) || x.ename.ToLower().Contains(search.ToLower()) || x.Result.ToLower().Contains(search.ToLower()) || x.emark.ToString().Contains(search) || x.smark.ToString().Contains(search)) select b);
+                }
+               
+                recordsTotal = v.Count();
+                var data = v.Skip(skip).Take(pageSize).ToList();
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = "" }, JsonRequestBehavior.AllowGet);
+
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetResultExcel(int id)
+        {
+            try
+            {
+                var v = (from a in _examresult.GetAll()
+                         select new
+                         {
+                             pkid = a.pkid,
+                             examid = a.Exam_fkid,
+                             sname = _student.Get(a.Student_fkid).FullName,
+                             ename = _Exam.Get(a.Exam_fkid).Exam_Name,
+                             emark = a.TotalMarks,
+                             smark = a.TotalGainMarks,
+                             Result = a.Result,
+                             examdt = a.AttemptExamDate
+                         });
+                if (id > 0)
+                {
+                    v = (from b in v.Where(x => x.examid == id) select b);
+                }
+                DataTable _table = new DataTable();
+               
+                _table.TableName = "ResultReport";
+                _table.Columns.Add("S.No.", typeof(string));
+                _table.Columns.Add("Exam Name", typeof(string));
+                _table.Columns.Add("Student Name", typeof(string));
+                _table.Columns.Add("Total Exam Marks", typeof(string));
+                _table.Columns.Add("Student Score Marks", typeof(string));
+                _table.Columns.Add("Result", typeof(string));
+                _table.Columns.Add("Exam Date", typeof(string));
+             
+                long srno = 1;
+                foreach (var item in v.ToList())
+                {
+                    _table.Rows.Add(srno, item.ename, item.sname,
+                        item.emark, item.smark, item.Result, item.examdt.HasValue ? item.examdt.Value.ToString("dd-MM-yyyy") : "");
+                    srno++;
+
+                }
+                GridView gv = new GridView();
+
+                gv.DataSource = _table;
+                gv.DataBind();
+                Response.ClearContent();
+                Response.Buffer = true;
+                Response.AddHeader("content-disposition", "attachment; filename=StudentResult.xls");
+                Response.ContentType = "application/ms-excel";
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+                gv.RenderControl(htw);
+                Response.Output.Write(sw.ToString());
+                Response.Flush();
+                Response.End();
+
+            }
+            catch (Exception e)
+            {
+                ViewBag.Exception = e.Message;
+                Commonfunction.LogError(e, Server.MapPath("~/ErrorLog.txt"));
+            }
+            return View();
         }
     }
 }

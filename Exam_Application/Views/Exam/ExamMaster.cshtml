@@ -20,7 +20,7 @@
         <div class="row firstdiv">
             <div class="col-md-12">
                 <div class="btn-group">
-                    <a href="/Exam/AddExam" name="add" id="add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add New Exam</a>            <a href="#" name="editallfrm" id="editallfrm" onclick="EditTableTopMM('/Exam/AddExam?id=');" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>            <a href="#" name="deleteallfrm" id="deleteallfrm" onclick="    check_perform_delete();" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>
+                    <a href="/Exam/AddExam" name="add" id="add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add New Exam</a>            @*<a href="#" name="editallfrm" id="editallfrm" onclick="EditTableTopMM('/Exam/AddExam?id=');" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>            <a href="#" name="deleteallfrm" id="deleteallfrm" onclick="    check_perform_delete();" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>*@
                 </div>
             </div>
 
@@ -37,8 +37,7 @@
                         <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                             <thead>
                                 <tr>
-                                    <th>S.No</th>
-                                    <th><input type="checkbox" name="selectAll" value="deleteall" id="selectAll"></th>
+                                    <th>S.No</th>                                 
                                     <th>Exam Name</th>
                                     <th>Total Marks</th>
                                     <th>Exam Duration</th>                                
@@ -67,6 +66,7 @@
         "serverSide": true, // for process server side
         "filter": true, // this is for disable filter (search box)
         "orderMulti": false, // for disable multiple column at once
+        "bSort": false,
 
         "ajax": {
             "url": "/Exam/GetExamList",
@@ -74,18 +74,13 @@
             "datatype": "json"
         },
         "columns": [
-                { "data": "pkid", "name": "pkid", "orderable": false, "autoWidth": true },
-                 {
-                     "data": "pkid", "orderable": false, "render": function (data, type, full, meta) {
-                         return '<input type="checkbox" style="margin-left:8px;" value="' + data + '" name="DeleteCheckbox1" id="DeleteCheckbox1" class="chkselect">';
-                     }
-                 },
+                { "data": "pkid", "name": "pkid", "orderable": false, "autoWidth": true },                
                 { "data": "fullname", "Name": "fullname", "autoWidth": true },
                    { "data": "passper", "Name": "passper", "autoWidth": true },
                       { "data": "examduration", "Name": "examduration", "autoWidth": true },
                 {
                     "data": "pkid", "orderable": false, "render": function (data, type, full, meta) {
-                        return '<a href="/Exam/AddExam?id=' + data + '" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>                            <a href="#" onclick="check_perform_sdelete(' + data + ');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</a>';
+                        return '<a href="/Exam/AddExam?id=' + data + '"><i class="fa fa-pencil-square-o fa-1x" title="Edit" aria-hidden="true"></i></a>             &nbsp;&nbsp;              <a href="#" onclick="check_perform_sdelete(' + data + ');"><i class="fa fa-trash-o fa-1x" title="Delete" aria-hidden="true"></i></a>';
                     }
                 }
 

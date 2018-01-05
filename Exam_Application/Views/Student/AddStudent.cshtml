@@ -69,7 +69,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-12"><label><p style="color:#EF4A43">(NOTE:- Enter First Full Name.)</p></label></div>
+                            <div class="col-sm-12"><label><p style="color:#EF4A43">(NOTE:- Enter First Name First.)</p></label></div>
                             <div class="panel panel-default mrg pull-left col-sm-6">
                                 <div class="panel-body">
                                     <div class="form-group">
@@ -535,7 +535,21 @@
                     }
                 })
             }
-            else{ alert("Enter UserName");}
+            else{ }
+        })
+        $("#FullName").focusout(function(){           
+            if($("#FullName").val() != "")
+            {
+                $.post("/Student/CheckFulln?Name="+$("#FullName").val(),function(data){
+                    if(data=="yes")
+                    {
+                        $("#FullName").val('');
+                        alert("Student Name Already Taken Please Enter Unique.");
+                        e.preventDefault();
+                    }
+                })
+            }
+            else{ }
         })
         $(".form-horizontal").submit(function (e) {
            if ($("#Password").val() != $("#ConfirmedPassword").val())

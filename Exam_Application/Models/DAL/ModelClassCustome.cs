@@ -469,9 +469,12 @@ namespace Exam_Application.Models.DAL
         public string Answer4 { get; set; }
 
         public List<tbl_MatchContentQuestionMaster> MATContent { get; set; }
-        public List<tbl_MatchContentQuestionMaster> FULLF { get; set; }
+        public List<StudentGiveAnswerfull> FULLF { get; set; }
     }
-
+    public partial class StudentGiveAnswerfull
+    {
+        public string Ans { get; set; }
+    }
     public partial class tbl_Exam_QuestionsMasterRAJ
     {
         public int pkid { get; set; }
@@ -479,5 +482,72 @@ namespace Exam_Application.Models.DAL
         public Nullable<int> Question_fkid { get; set; }
         public Nullable<System.DateTime> AddedDate { get; set; }
         public Nullable<int> type { get; set; }
+    }
+    public partial class tbl_StudentExamResultss
+    {
+        public int pkid { get; set; }
+        public Nullable<int> Student_fkid { get; set; }
+        public Nullable<int> Exam_fkid { get; set; }
+        public Nullable<decimal> TotalMarks { get; set; }
+        public Nullable<decimal> TotalGainMarks { get; set; }
+        public Nullable<decimal> TotalPercentage { get; set; }
+        public Nullable<decimal> TotalGainPercentage { get; set; }
+        public Nullable<System.DateTime> AttemptExamDate { get; set; }
+        public string Result { get; set; }
+        public Nullable<bool> FinalStatus { get; set; }
+        public Nullable<int> mid { get; set; }
+        public Nullable<System.DateTime> mdate { get; set; }
+    }
+    public partial class tbl_REF_Arrival_DataMasterss
+    {
+        public int pkid { get; set; }
+        public Nullable<int> Session_fkid { get; set; }
+        public Nullable<int> Course_fkid { get; set; }
+        public Nullable<int> Division_fkid { get; set; }
+        public Nullable<int> Force_fkid { get; set; }
+        public Nullable<int> Student_fkid { get; set; }
+        public string ChestNo { get; set; }
+        public string NCCNo { get; set; }
+        public string Rank { get; set; }
+        public string NCCunit { get; set; }
+        public string GPHQ { get; set; }
+        public string DTE { get; set; }
+        public string MoveOrder { get; set; }
+        public string NominalRoll { get; set; }
+        public string IdentemnityBond { get; set; }
+        public string MedicalCertificate { get; set; }
+        public string RiskCertificate { get; set; }
+        public string Copyofpreviouscertific { get; set; }
+        public string DetailsService { get; set; }
+        public string SignOfIndivisual { get; set; }
+        public Nullable<System.DateTime> AddedDate { get; set; }
+        public Nullable<System.DateTime> LastModifiedDate { get; set; }
+    }
+    public partial class tbl_PIOC_Arrival_DataMasterss
+    {
+        public int pkid { get; set; }
+        public Nullable<int> Session_fkid { get; set; }
+        public Nullable<int> Course_fkid { get; set; }
+        public Nullable<int> Division_fkid { get; set; }
+        public Nullable<int> Force_fkid { get; set; }
+        public Nullable<int> Student_fkid { get; set; }
+        public string ChestNo { get; set; }
+        public string ArmyNo { get; set; }
+        public string Rank { get; set; }
+        public string ParentUnit { get; set; }
+        public string Records { get; set; }
+        public string NCCUnit { get; set; }
+        public string DTE { get; set; }
+        public Nullable<System.DateTime> DateOfArrival { get; set; }
+        public Nullable<System.DateTime> DateofDEP { get; set; }
+        public string MoveOrder { get; set; }
+        public string MedicalCertificate { get; set; }
+        public string CharacterCertificate { get; set; }
+        public string IdentityCard { get; set; }
+        public string MobileNo { get; set; }
+        public string IMEIno { get; set; }
+        public string SignofIndividual { get; set; }
+        public Nullable<System.DateTime> AddedDate { get; set; }
+        public Nullable<System.DateTime> LastModifiedDate { get; set; }
     }
 }

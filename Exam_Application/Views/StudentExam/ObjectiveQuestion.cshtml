@@ -2,29 +2,43 @@
 @{
     Layout = null;
 }
-
-@using (Html.BeginForm("ObjectiveQuestion", "StudentExam", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<style type="text/css">
+       .parcontentdata {
+        background-color: #F9F9F9;
+        overflow: auto;
+        position: relative;
+        width: 100%;
+       height: 380px;
+        min-height: 380px;
+    }
+    .Rahupat {
+        background-color:#fff !important;
+    }
+    .RajMark,.RajMark:hover {
+        background-color:#8F7CCD;
+        color:#fff;
+    }
+</style>
+@using (Html.BeginForm("ObjectiveQuestion", "StudentExam", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "myform" }))
 {
     <div class="panel panel-default">
         <div class="panel-heading"><strong>Question No. @Model.QNo&nbsp;&nbsp;[ @Model.QuesMarks Marks]&nbsp;&nbsp;@Model.QuestypeName</strong></div>
-        <div class="table-responsive">
+        <div class="table-responsive parcontentdata Inta">
             <table class="table table-striped table">
                 <thead>
-                    <tr>
+                    <tr class="Rahupat">
                         <td>
                             @Html.Raw(Server.HtmlDecode(@Model.Question))
                         </td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>&nbsp;</td>
-                    </tr>
+
                     <tr>
                         <td>
                             <div class="radio">
                                 <label>
-                                    @Html.HiddenFor(x=>x.pkid)
+                                    @Html.HiddenFor(x => x.pkid)
                                     @Html.HiddenFor(x => x.CorrecrtWrong)
                                     @Html.HiddenFor(x => x.Examid)
                                     @Html.HiddenFor(x => x.Studentid)
@@ -32,9 +46,9 @@
                                     @Html.HiddenFor(x => x.CorrectAnswerDD)
                                     @Html.HiddenFor(x => x.StudentGiveAnswer)
                                     @Html.HiddenFor(x => x.GainMarks)
-                                    @Html.HiddenFor(x=>x.QuesMarks)
+                                    @Html.HiddenFor(x => x.QuesMarks)
 
-                                    @Html.HiddenFor(x=>x.QNo)
+                                    @Html.HiddenFor(x => x.QNo)
                                     @Html.HiddenFor(x => x.QuestypeName)
                                     @Html.HiddenFor(x => x.Question)
                                     @Html.HiddenFor(x => x.Answer1)
@@ -42,25 +56,25 @@
                                     @Html.HiddenFor(x => x.Answer3)
                                     @Html.HiddenFor(x => x.Answer4)
                                     @*<input type="radio" name="data[Exam][option_selected]" id="ExamOptionSelected1" value="1">*@
-                                    @Html.RadioButton("Answer1","1") @Html.Raw(Server.HtmlDecode(@Model.Answer1))
+                                    @Html.RadioButton("Answer1", "1") @Html.Raw(Server.HtmlDecode(@Model.Answer1))
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
                                     @*<input type="radio" name="data[Exam][option_selected]" id="ExamOptionSelected2" value="2">active transport*@
-                                    @Html.RadioButton("Answer1",  "2" )  @Html.Raw(Server.HtmlDecode(@Model.Answer2))
+                                    @Html.RadioButton("Answer1", "2")  @Html.Raw(Server.HtmlDecode(@Model.Answer2))
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
                                     @*<input type="radio" name="data[Exam][option_selected]" id="ExamOptionSelected3" value="3">diffusion*@
-                                    @Html.RadioButton("Answer1",  "3" )  @Html.Raw(Server.HtmlDecode(@Model.Answer3))
+                                    @Html.RadioButton("Answer1", "3")  @Html.Raw(Server.HtmlDecode(@Model.Answer3))
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
                                     @*<input type="radio" name="data[Exam][option_selected]" id="ExamOptionSelected4" value="4">passive transport*@
-                                    @Html.RadioButton("Answer1", "4" )  @Html.Raw(Server.HtmlDecode(@Model.Answer4))
+                                    @Html.RadioButton("Answer1", "4")  @Html.Raw(Server.HtmlDecode(@Model.Answer4))
                                 </label>
                             </div>
                         </td>
@@ -78,13 +92,16 @@
                 </div>              
                 <div class="col-md-3">
                     <input type="submit" class="btn btn-success btn-sm btn-block" value="Save & Next">
-                </div>             
+                </div>   
+                <div class="col-md-2">
+                    <a href="#" onclick="MarkQues()" class="btn btn-default btn-sm btn-block RajMark"> Mark Remember </a>
+                </div>
                 <div class="col-md-2">
                     <a href="#" onclick="Next()" class="btn btn-default btn-sm btn-block">Next →</a>
                 </div>
             </div>
         </div>
-        <p>&nbsp;</p>
+        @*<p>&nbsp;</p>*@
     </div>
 }
 <script type="text/javascript">
@@ -111,7 +128,53 @@
         if ($("#pkid").val() != "")
         {
             $('input[type=radio][value="' + $("#StudentGiveAnswer").val() + '"]').first().attr('checked', 'checked');
+        }     
+        var cookieObj = $.parseJSON($.cookie('basket-data')); //might be done automatically, not sure
+        var wada = 0;
+        if (cookieObj[$("#QueId").val()] == "#8F7CCD") { wada = 1;}
+        cookieObj[$("#QueId").val()] = "bisque";
+        for (var i in cookieObj) {
+            $("#" + i + "").css('background-color', '' + cookieObj[i] + '');
+            if (cookieObj[i] == 'rgb(255, 255, 255)') {
+                $("#" + i + "").css('color', 'black'); $("#" + i + "").css('border-color', 'black');
+            }
+            else { $("#" + i + "").css('color', '#fff'); $("#" + i + "").css('border-color', '#fff'); }            
         }
+        $("#" + $("#QueId").val() + "").css('color', 'black'); $("#" + $("#QueId").val() + "").css('border-color', 'black');
+        debugger;
+        if (parseFloat($("#pkid").val()) > 0) {
+            cookieObj[$("#QueId").val()] = "#87B713";
+        }
+        else if (wada == "1")
+        {
+            cookieObj[$("#QueId").val()] = "#8F7CCD";
+        }
+        else {
+            cookieObj[$("#QueId").val()] = "#B2510D";
+        }        
+        $.cookie('basket-data', JSON.stringify(cookieObj));
+        $('#myform').submit(function (e) {
+            debugger;
+            if ($("#StudentGiveAnswer").val() == "") {
+                alert("Please Select Answer for Save & Next.")
+                e.preventDefault();
+            } else {
+                var RAJSubmit = $.parseJSON($.cookie('basket-data'));
+                RAJSubmit[$("#QueId").val()] = "#87B713";
+                for (var i in RAJSubmit) {
+                    $("#" + i + "").css('background-color', '' + RAJSubmit[i] + '');
+                    $("#" + i + "").css('color', 'black');
+                }
+                $.cookie('basket-data', JSON.stringify(RAJSubmit));
+            }
+        });
     })
-   
+    function MarkQues()
+    {
+        var Visaobj = $.parseJSON($.cookie('basket-data')); //might be done automatically, not sure
+        Visaobj[$("#QueId").val()] = "#8F7CCD";
+        $.cookie('basket-data', JSON.stringify(Visaobj));
+    }
 </script>
+
+

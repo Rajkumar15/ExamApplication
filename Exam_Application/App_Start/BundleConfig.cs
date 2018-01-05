@@ -25,7 +25,10 @@ namespace Exam_Application
                 "~/AdminFiles/RajCustom/common.js",
                 "~/AdminFiles/RajCustom/DataTable/jquery.dataTables.js",
                 "~/AdminFiles/JS/jquery.freeow.js",
-                "~/AdminFiles/JS/ShowMessage.js"));
+                "~/AdminFiles/JS/ShowMessage.js",
+                "~/AdminFiles/SlimScroll/jquery.mCustomScrollbar.concat.min.js",
+                "~/AdminFiles/RajCustom/jquery.countdownTimer.js",
+                "~/AdminFiles/RajCustom/jquery.cookie.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -47,7 +50,9 @@ namespace Exam_Application
                 "~/AdminFiles/CSS/settings.css",
                 "~/AdminFiles/CSS/validationEngine.jquery.css",
                 "~/AdminFiles/RajCustom/DataTable/jquery.dataTables.min.css",
-                "~/Content/style/freeow/freeow.css"));
+                "~/Content/style/freeow/freeow.css",
+                "~/AdminFiles/SlimScroll/jquery.mCustomScrollbar.css",
+                "~/AdminFiles/RajCustom/jquery.countdownTimer.css"));
         }
     }
 }

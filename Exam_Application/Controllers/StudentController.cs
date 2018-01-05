@@ -59,6 +59,7 @@ namespace Exam_Application.Controllers
         public ActionResult StudentMaster(string Exception)
         {
             ViewBag.Exception = Exception;
+            Session["Menu"] = 3.ToString();
             return View();
         }
 
@@ -69,8 +70,8 @@ namespace Exam_Application.Controllers
             var start = Request.Form.GetValues("start").FirstOrDefault();
             var length = Request.Form.GetValues("length").FirstOrDefault();
             //Find Order Column
-            string sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
-            string sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+            //string sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+            //string sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
@@ -89,12 +90,12 @@ namespace Exam_Application.Controllers
                          });
                 if (!string.IsNullOrEmpty(search) && !string.IsNullOrWhiteSpace(search))
                 {
-                    v = (from b in v.Where(x => x.fullname.ToLower().Contains(search.ToLower()) || x.chestno.ToLower().Contains(search.ToLower()) || x.commno.ToLower().Contains(search.ToLower()) || x.Cour.Contains(search)) select b);
+                    v = (from b in v.Where(x => x.fullname.ToLower().Contains(search.ToLower())) select b);
                 }
-                if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
-                {
-                    //v = v.OrderBy(sortColumn, sortColumnDir);
-                }
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+                //{
+                //    //v = v.OrderBy(sortColumn, sortColumnDir);
+                //}
                 recordsTotal = v.Count();
                 var data = v.Skip(skip).Take(pageSize).ToList();
                 return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
@@ -618,6 +619,19 @@ namespace Exam_Application.Controllers
             try
             {
                 int co = _student.GetAll().Where(x => x.UserName.Trim() == Name.Trim()).ToList().Count();
+                if (co > 0)
+                {
+                    return Json("yes", JsonRequestBehavior.AllowGet);
+                }
+                return Json("no", JsonRequestBehavior.AllowGet);
+            }
+            catch { return Json("no", JsonRequestBehavior.AllowGet); }
+        }
+        public ActionResult CheckFulln(string Name)
+        {
+            try
+            {
+                int co = _student.GetAll().Where(x => x.FullName.Trim().ToLower() == Name.Trim().ToLower()).ToList().Count();
                 if (co > 0)
                 {
                     return Json("yes", JsonRequestBehavior.AllowGet);

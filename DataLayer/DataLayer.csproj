@@ -92,10 +92,22 @@
     <Compile Include="ExamModel\tbl_MatchContentQuestionMaster.cs">
       <DependentUpon>ExamMaster.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExamModel\tbl_PIOC_Arrival_DataMaster.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExamModel\tbl_QuestionMaster.cs">
       <DependentUpon>ExamMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="ExamModel\tbl_QuestionType_Master.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExamModel\tbl_REF_Arrival_DataMaster.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExamModel\tbl_Session_Master.cs">
+      <DependentUpon>ExamMaster.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExamModel\tbl_StudentExamResult.cs">
       <DependentUpon>ExamMaster.tt</DependentUpon>
     </Compile>
     <Compile Include="ExamModel\tbl_StudentMaster.cs">

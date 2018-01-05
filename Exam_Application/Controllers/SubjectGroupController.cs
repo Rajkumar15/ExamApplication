@@ -170,10 +170,12 @@ namespace Exam_Application.Controllers
 
                 if (model.subjecttype_fkid == 5)
                 {
+                    abc.Questtype_fkid = model.subjecttype_fkid;
                     abc.MATContent = _Matc.GetAll().Where(x => x.Ques_fkid == model.pkid).ToList();
                 }
                 else if (model.subjecttype_fkid == 7)
                 {
+                    abc.Questtype_fkid = model.subjecttype_fkid;
                     abc.FULLF = _Matc.GetAll().Where(x => x.Ques_fkid == model.pkid).ToList();
                 }
                 else
@@ -485,6 +487,7 @@ namespace Exam_Application.Controllers
         public ActionResult QuestionList(string Exception)
         {
             ViewBag.Exception = Exception;
+            Session["Menu"] = 2.ToString();
             return View();
         }
 
@@ -495,8 +498,8 @@ namespace Exam_Application.Controllers
             var start = Request.Form.GetValues("start").FirstOrDefault();
             var length = Request.Form.GetValues("length").FirstOrDefault();
             //Find Order Column
-            string sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
-            string sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+            //string sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+            //string sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
@@ -516,10 +519,10 @@ namespace Exam_Application.Controllers
                 {
                     v = (from b in v.Where(x => x.name.ToLower().Contains(search.ToLower()) || x.subject.ToLower().Contains(search.ToLower()) || x.div.ToLower().Contains(search.ToLower())) select b);
                 }
-                if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
-                {
-                    //v = v.OrderBy(sortColumn, sortColumnDir);
-                }
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+                //{
+                //    //v = v.OrderBy(sortColumn, sortColumnDir);
+                //}
                 recordsTotal = v.Count();
                 var data = v.Skip(skip).Take(pageSize).ToList();
                 return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);

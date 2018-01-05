@@ -194,6 +194,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin_TaskController.cs" />
+    <Compile Include="Controllers\ArrivalSchemaController.cs" />
     <Compile Include="Controllers\ExamController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -224,8 +225,12 @@
     <Content Include="AdminFiles\CSS\validationEngine.jquery.css" />
     <Content Include="AdminFiles\Images\admin.png" />
     <Content Include="AdminFiles\Images\graduated.png" />
+    <Content Include="AdminFiles\Images\login-icon.jpg" />
     <Content Include="AdminFiles\Images\logo-website.fw.png" />
-    <Content Include="AdminFiles\Images\logo.png" />
+    <Content Include="AdminFiles\Images\Logos\col.jpg" />
+    <Content Include="AdminFiles\Images\Logos\NamePlate.jpg" />
+    <Content Include="AdminFiles\Images\Logos\RajLogoBig.jpg" />
+    <Content Include="AdminFiles\Images\Logos\WhiteNameplate.jpg" />
     <Content Include="AdminFiles\Images\slider.png" />
     <Content Include="AdminFiles\JS\bootstrap-datetimepicker.min.js" />
     <Content Include="AdminFiles\JS\bootstrap.min.js" />
@@ -255,9 +260,30 @@
     <Content Include="AdminFiles\RajCustom\datepicker.js" />
     <Content Include="AdminFiles\RajCustom\images\sort_asc.png" />
     <Content Include="AdminFiles\RajCustom\images\sort_both.png" />
+    <Content Include="AdminFiles\RajCustom\jquery.cookie.js" />
+    <Content Include="AdminFiles\RajCustom\jquery.countdownTimer.css" />
+    <Content Include="AdminFiles\RajCustom\jquery.countdownTimer.js" />
     <Content Include="AdminFiles\RajCustom\MainExam.js" />
+    <Content Include="AdminFiles\RajCustom\select2.full.min.js" />
+    <Content Include="AdminFiles\RajCustom\select2.min.css" />
+    <Content Include="AdminFiles\SlimScroll\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="AdminFiles\SlimScroll\jquery.mCustomScrollbar.css" />
+    <Content Include="AdminFiles\SlimScroll\mCSB_buttons.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\StudentLogin\analytics.js" />
+    <Content Include="Content\StudentLogin\bootstrap.js" />
+    <Content Include="Content\StudentLogin\bootstrap.min.css" />
+    <Content Include="Content\StudentLogin\css.css" />
+    <Content Include="Content\StudentLogin\demo-rtl.js" />
+    <Content Include="Content\StudentLogin\demo-skin-changer.js" />
+    <Content Include="Content\StudentLogin\demo.js" />
+    <Content Include="Content\StudentLogin\font-awesome.css" />
+    <Content Include="Content\StudentLogin\gmXC2gL9CEI5yG32ZFrDP6Fm73k.js" />
+    <Content Include="Content\StudentLogin\jquery.nanoscroller.min.js" />
+    <Content Include="Content\StudentLogin\nanoscroller.css" />
+    <Content Include="Content\StudentLogin\scripts.js" />
+    <Content Include="Content\StudentLogin\theme_styles.css" />
     <Content Include="Content\style\freeow\freeow.css" />
     <Content Include="Content\style\freeow\images\close.png" />
     <Content Include="Content\style\freeow\images\error.png" />
@@ -278,6 +304,12 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\style\freeow\images\osx\Thumbs.db" />
     <Content Include="Content\style\freeow\images\Thumbs.db" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\font\weathericons-regular-webfont.ttf" />
+    <Content Include="Content\font\weathericons-regular-webfont.ttf.crdownload" />
+    <Content Include="Content\font\weathericons-regular-webfont.woff2" />
+    <None Include="Properties\PublishProfiles\Raj.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -502,12 +534,20 @@
     <Content Include="Views\StudentExam\MatchContentQuestion.cshtml" />
     <Content Include="Views\StudentExam\IdentifySignQuestion.cshtml" />
     <Content Include="Views\StudentExam\FullFormQuestion.cshtml" />
+    <Content Include="Views\StudentExam\AfterSubmitForm.cshtml" />
+    <Content Include="Views\Exam\ResultMaster.cshtml" />
+    <Content Include="Views\ArrivalSchema\ArrivalDataList.cshtml" />
+    <Content Include="Views\ArrivalSchema\REFMaster.cshtml" />
+    <Content Include="Views\ArrivalSchema\PIOCMAsterList.cshtml" />
+    <Content Include="Views\ArrivalSchema\PIOCMaster.cshtml" />
+    <Content Include="Views\Exam\AddAutomaticQuestionExam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="UploadFiles\ImportExcel\" />
     <Folder Include="UploadFiles\QuestionImage\" />
     <Folder Include="UploadFiles\StudentData\" />
+    <Folder Include="UploadFiles\UploadCertificates\" />
     <Folder Include="UploadFiles\UserPIC\" />
   </ItemGroup>
   <ItemGroup>

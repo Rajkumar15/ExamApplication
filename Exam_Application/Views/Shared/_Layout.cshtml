@@ -9,35 +9,15 @@
         Exam_Module
     </title>
     <meta name="description" content="Best CakePHP Based online exmaination and performance analysis system">   
-    @*<link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/style.css">
-    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/style(1).css">
-    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/fonts.css">
-    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/plugins.css">
-    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/responsive.css">
-    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/settings.css">
-    <link rel="stylesheet" type="text/css" href="~/AdminFiles/CSS/validationEngine.jquery.css">
-    <link rel="stylesheet" type="text/css" href="~/AdminFiles/RajCustom/DataTable/jquery.dataTables.min.css">*@
+   
     @Styles.Render("~/Content/css")
-    
-    @*<script type="text/javascript" src="~/AdminFiles/JS/jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="~/AdminFiles/JS/html5shiv.js"></script>
-    <script type="text/javascript" src="~/AdminFiles/JS/respond.min.js"></script>
-    <script type="text/javascript" src="~/AdminFiles/JS/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/AdminFiles/JS/jquery.validationEngine-en.js"></script>
-    <script type="text/javascript" src="~/AdminFiles/JS/jquery.validationEngine.js"></script>
-    <script type="text/javascript" src="~/AdminFiles/JS/superfish.js"></script>
-    <script type="text/javascript" src="~/AdminFiles/JS/sidebar.js"></script>
-    <script type="text/javascript" src="~/AdminFiles/JS/functions.js"></script>
-    <script type="text/javascript" src="~/AdminFiles/JS/plugins.min.js"></script>
-    <script type="text/javascript" src="~/AdminFiles/JS/revolution.min.js"></script>
-    <script type="text/javascript" src="~/AdminFiles/JS/custom.min.js"></script>
-    <script type="text/javascript" src="~/AdminFiles/JS/highcharts.js"></script>
-    <script type="text/javascript" src="~/AdminFiles/RajCustom/common.js"></script>
-    <script type="text/javascript" src="~/AdminFiles/RajCustom/DataTable/jquery.dataTables.js"></script>*@
-
   
     @Scripts.Render("~/bundles/jquery")
+    <style type="text/css">
+        .HeaderRaj {
+            width:73% !important;
+        }
+    </style>
 </head>
 <body cz-shortcut-listen="true">
     <div id="sb-site" style="min-height: 1383px;">
@@ -47,18 +27,20 @@
                     <div class="logo-header">
                         <div class="container">
                             <div class="ulogo-container clearfix">
-                                <div class="logo pull-left">
-                                    <h1 class="site-title">
-                                        Welcome to Exam Site Admin Dashboard
-                                    </h1>
-                                    <p class="site-desc">Edu Expressio Demo Site</p>
+                                <div class="logo pull-left HeaderRaj">
+                                   <div class="col-sm-2">
+                                       <h3><strong><i><p><img src="~/AdminFiles/Images/Logos/col.jpg" alt="Exam Center" width="90" class="img-responsive"></p></i></strong></h3>
+                                   </div>
+                                    <div class="col-sm-6">
+                                        <img src="~/AdminFiles/Images/Logos/NamePlate.jpg" style="width: 100%;margin-left: -15%;margin-top: 6.5%;" />
+                                    </div>
                                 </div>
                                 <div class="social-info pull-right hidden-xs hidden-sm">
                                     <div class="col-md-4 mrg text-center">
                                         <div class="btn-group user-login">
                                             <div class="btn dropdown-toggle" style="background: none;border: 0px;box-shadow: none;" data-toggle="dropdown">
                                                 <span class="glyphicon glyphicon-user btn btn-success btn-sm"></span>&nbsp;Welcome ! @try
-                                                                                                                                     {@User.Identity.Name}
+                                                                                                                                     {@User.Identity.Name.Substring(0,13)}
                                                                                                                                      catch { } &nbsp;<span class="caret"></span>
                                             </div>
                                             <div class="dropdown-menu" role="menu">
@@ -92,19 +74,19 @@
                                 <div class="site-menu-container pull-left">
                                     <nav class="hidden-xs hidden-sm">
                                         <ul class="sf-menu clearfix list-unstyled sf-js-enabled sf-arrows">
-                                            <li class="current-menu-item"><a href="http://eduexpression.com/envato/admin"><span class="glyphicon glyphicon-home"></span>&nbsp;Dashboard</a></li>
-                                            <li class=""><a href="/SubjectGroup/QuestionList"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Questions</a></li>
-                                            <li class=""><a href="/SubjectGroup/GroupMaster"><span class="glyphicon glyphicon-tasks"></span>&nbsp;Groups</a></li>
-                                            <li class=""><a href="/Student/StudentMaster"><span class="glyphicon glyphicon-user"></span>&nbsp;Students</a></li>
-                                            <li class=""><a href="/Exam/ExamMaster"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Exams</a></li>
-                                            <li class=""><a href="/Exam/ResultMaster"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;Results</a></li>
-                                            <li class=""><a href="http://eduexpression.com/envato/admin/Configurations"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Configurations</a></li>
-                                            <li class=""><a href="/Account/AdminUserRegister"><span class="glyphicon glyphicon-user"></span>&nbsp;Users</a></li>
-                                            <li class=""><a href="http://eduexpression.com/envato/admin/Contents"><span class="glyphicon glyphicon-cog"></span>&nbsp;Contents</a></li>
-                                            <li class=""><a href="http://eduexpression.com/envato/admin/Helps"><span class="glyphicon glyphicon-warning-sign"></span>&nbsp;Help</a></li>
-                                            <li class="menu-hidden"><a href="http://eduexpression.com/envato/admin/Users/myProfile"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;My Profile</a></li>
-                                            <li class="menu-hidden"><a href="http://eduexpression.com/envato/admin/Users/changePass"><span class="glyphicon glyphicon-cog"></span>&nbsp;Change Password</a></li>
-                                            <li class="menu-hidden"><a href="http://eduexpression.com/envato/admin/Users/logout"><span class="glyphicon glyphicon-off"></span>&nbsp;Signout</a></li>
+                                            <li class="RajMenu 1"><a href="/Home/Index"><span class="glyphicon glyphicon-home"></span>&nbsp;Dashboard</a></li>
+                                            <li class="RajMenu 2"><a href="/SubjectGroup/QuestionList"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Questions</a></li>
+                                            <li style="display:none;"><a href="/SubjectGroup/GroupMaster"><span class="glyphicon glyphicon-tasks"></span>&nbsp;Groups</a></li>
+                                            <li class="RajMenu 3"><a href="/Student/StudentMaster"><span class="glyphicon glyphicon-user"></span>&nbsp;Students</a></li>
+                                            <li class="RajMenu 4"><a href="/Exam/ExamMaster"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Exams</a></li>
+                                            <li class="RajMenu 5"><a href="/Exam/ResultMaster"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;Results</a></li>
+                                            <li class="RajMenu 6"><a href="/ArrivalSchema/ArrivalDataList"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Arrival Schema</a></li>
+                                            <li class="RajMenu 7"><a href="/Account/AdminUserRegister"><span class="glyphicon glyphicon-user"></span>&nbsp;Users</a></li>
+                                            <li class="RajMenu 8"><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;Contents</a></li>
+                                            <li class="RajMenu 9"><a href="#"><span class="glyphicon glyphicon-warning-sign"></span>&nbsp;Help</a></li>
+                                            <li class="menu-hidden"><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;My Profile</a></li>
+                                            <li class="menu-hidden"><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;Change Password</a></li>
+                                            <li class="menu-hidden"><a href="#"><span class="glyphicon glyphicon-off"></span>&nbsp;Signout</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -121,14 +103,14 @@
                             <div class="col-md-6">
                                 <div class="widget">
                                     <h5 class="widget-title">
-                                        Copyright © 2014<span> Edu Expressio Demo Site</span>
+                                        All Rights Reserved By<span> OTA Kamptee</span>
                                     </h5>
                                 </div>
                             </div>
                             <div class="col-md-6 text-right">
                                 <div class="widget">
                                     <h5 class="widget-title">
-                                        Time <span>14-11-2017 04:20:34 PM</span>
+                                        Time <span>@DateTime.Now</span>
                                     </h5>
                                 </div>
                             </div>
@@ -140,7 +122,7 @@
                         <div class="footer-credits-inner">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <span>Powered by <a href="http://www.eduexpression.com/" target="_blank">Eduexpression.com</a></span>
+                                    <span>Powered by <a href="#" target="_blank">OTA Kamptee.</a></span>
                                 </div>
                             </div>
                         </div>
@@ -152,22 +134,26 @@
     </div>
     <div class="sb-slidebar sb-right">
         <div class="sb-menu-trigger"></div><ul class="mobile-menu">
-            <li class="current-menu-item"><a href="http://eduexpression.com/envato/admin"><span class="glyphicon glyphicon-home"></span>&nbsp;Dashboard</a></li>
-            <li><a href="http://eduexpression.com/envato/admin/Subjects"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Subjects</a></li>
-            <li><a href="http://eduexpression.com/envato/admin/Groups"><span class="glyphicon glyphicon-tasks"></span>&nbsp;Groups</a></li>
-            <li><a href="http://eduexpression.com/envato/admin/Students"><span class="glyphicon glyphicon-user"></span>&nbsp;Students</a></li>
-            <li><a href="http://eduexpression.com/envato/admin/Exams"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Exams</a></li>
-            <li><a href="http://eduexpression.com/envato/admin/Results"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;Results</a></li>
-            <li><a href="http://eduexpression.com/envato/admin/Configurations"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Configurations</a></li>
-            <li><a href="http://eduexpression.com/envato/admin/Users"><span class="glyphicon glyphicon-user"></span>&nbsp;Users</a></li>
-            <li><a href="http://eduexpression.com/envato/admin/Contents"><span class="glyphicon glyphicon-cog"></span>&nbsp;Contents</a></li>
-            <li><a href="http://eduexpression.com/envato/admin/Helps"><span class="glyphicon glyphicon-warning-sign"></span>&nbsp;Help</a></li>
-            <li class="menu-hidden"><a href="http://eduexpression.com/envato/admin/Users/myProfile"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;My Profile</a></li>
-            <li class="menu-hidden"><a href="http://eduexpression.com/envato/admin/Users/changePass"><span class="glyphicon glyphicon-cog"></span>&nbsp;Change Password</a></li>
-            <li class="menu-hidden"><a href="http://eduexpression.com/envato/admin/Users/logout"><span class="glyphicon glyphicon-off"></span>&nbsp;Signout</a></li>
+                                               <li class="current-menu-item"><a href="/Home/Index"><span class="glyphicon glyphicon-home"></span>&nbsp;Dashboard</a></li>
+                                               <li class=""><a href="/SubjectGroup/QuestionList"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Questions</a></li>
+                                               <li class=""><a href="/SubjectGroup/GroupMaster"><span class="glyphicon glyphicon-tasks"></span>&nbsp;Groups</a></li>
+                                               <li class=""><a href="/Student/StudentMaster"><span class="glyphicon glyphicon-user"></span>&nbsp;Students</a></li>
+                                               <li class=""><a href="/Exam/ExamMaster"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Exams</a></li>
+                                               <li class=""><a href="/Exam/ResultMaster"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;Results</a></li>
+                                               <li class=""><a href="#"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Configurations</a></li>
+                                               <li class=""><a href="/Account/AdminUserRegister"><span class="glyphicon glyphicon-user"></span>&nbsp;Users</a></li>
+                                               <li class=""><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;Contents</a></li>
+                                               <li class=""><a href="#"><span class="glyphicon glyphicon-warning-sign"></span>&nbsp;Help</a></li>
+                                               <li class="menu-hidden"><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;My Profile</a></li>
+                                               <li class="menu-hidden"><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;Change Password</a></li>
+                                               <li class="menu-hidden"><a href="#"><span class="glyphicon glyphicon-off"></span>&nbsp;Signout</a></li>
         </ul>
     </div><a class="back-to-top" style="display: none;"><i class="fa fa-angle-up"></i></a>
 </body>
 @RenderSection("Scripts", required: false)
 </html>
-
+<script type="text/javascript">
+    $(document).ready(function () {
+            $(".@Session["Menu"].ToString()").addClass('current-menu-item');      
+    })
+</script>
